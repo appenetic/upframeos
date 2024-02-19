@@ -67,6 +67,6 @@ class SpotifyCanvasController < ApplicationController
 
   def handle_no_playback
     flash[:alert] = 'No playback.'
-    redirect_to '/'
+    redirect_to controller: :spotify, action: :new
   end
 end
