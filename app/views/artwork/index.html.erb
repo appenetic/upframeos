@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Artwork</title>
+</head>
+<body style="background-color: <%= @background_color %>;" data-initial-track-uri="<%= @player.currently_playing.uri %>" data-reload-after-ms="<%= @reload_after_ms %>">
+<div id="artwork_canvas">
+<% if @cover_image_url.present? %>
+  <%= image_tag @cover_image_url, alt: "Cover Image" %>
+<% elsif @canvas_url.present? %>
+  <%= video_tag @canvas_url, type: "video/mp4", autoplay: true, loop: true, muted: true, playsinline: true, alt: "Canvas Video" %>
+<% else %>
+  <p>No media available.</p>
+<% end %>
+</div>
+<div class="track-info" style="color: <%= color_for_background(@background_color) %>;">
+  <p id="artist-name"><%= @artist_name %> - <%= @album_name %></p>
+  <p id="track-name"><%= @track_name %></p>
+</div>
+<%= javascript_include_tag 'spotify_canvas' %>
+</body>
+</html>

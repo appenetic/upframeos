@@ -1,0 +1,6 @@
+development:
+  spotify_client_id: d68b6a0121534eaaaf2b30e1063fb451
+  spotify_client_secret: 375dd4240cdd4b92ae61c2c5a2867bee
+  spotify_permission_scope: user-read-email user-library-read user-read-playback-state user-read-recently-played
+  spotify_canvas_access_token_url: https://open.spotify.com/get_access_token?reason=transport&productType=web_player
+  spotify_canvas_url: https://spclient.wg.spotify.com/canvaz-cache/v0/canvases
