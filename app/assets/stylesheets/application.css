@@ -14,6 +14,10 @@
  *= require_self
  */
 
+ body {
+  transition: background-color 0.5s ease;
+  }
+
  #spotify_canvas {
     display: flex;
     justify-content: center; /* Center horizontally */
@@ -43,6 +47,7 @@
     left: 0;
     margin: 20px; /* Adjust outer margin as needed */
     color: #FFF; /* Text color, adjust as needed */
+    transition: opacity 0.5s ease-in-out;
   }
   
   .track-info p {
@@ -83,25 +88,3 @@
     width: 50px;
     height: 50px;
   }
-  
-
-  /* CSS for fade-in and fade-out effects */
-.fade-out {
-    animation: fadeOut 1s;
-    animation-fill-mode: forwards; /* Keeps the element in the final state after the animation completes */
-}
-
-.fade-in {
-    animation: fadeIn 1s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}

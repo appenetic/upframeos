@@ -11,6 +11,7 @@ gem "sprockets-rails"
 gem "rspotify", "~> 2.12"
 gem "google-protobuf"
 gem 'mini_magick', "~> 4.12"
+gem 'rack-cors'
 
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"

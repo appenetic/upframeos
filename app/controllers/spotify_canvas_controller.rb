@@ -16,8 +16,20 @@ class SpotifyCanvasController < ApplicationController
   end
 
   def current_track
-    @player = initialize_player # Assuming this method sets @player with the current user's player
-    render json: { current_track_uri: @player.currently_playing.try(:uri) }
+    @player = initialize_player
+    if @player.present? && @player.currently_playing
+      render json: {
+        artist_name: @player.currently_playing.artists.first.name,
+        album_name: @player.currently_playing.album.name,
+        track_name: @player.currently_playing.name,
+        cover_image_url: @player.currently_playing.album.images.first["url"],
+        canvas_url: SpotifyCanvasService.instance.fetch_canvas_url(@player.currently_playing.uri),
+        background_color: extract_main_color(@player.currently_playing.album.images.first["url"]),
+        reload_after_ms: (@player.currently_playing.duration_ms - @player.progress) + 2000
+      }
+    else
+      render json: { error: "No track currently playing" }, status: :not_found
+    end
   end
 
   private
@@ -38,7 +50,13 @@ class SpotifyCanvasController < ApplicationController
   end
 
   def initialize_player
-    @player = RSpotify::User.new(@user.auth_data).player if @user
+    if @user 
+      user = RSpotify::User.new(@user.auth_data)
+
+      if user.present?
+        @player = user.player
+      end
+    end
   end
 
   def check_playback
