@@ -1,5 +1,4 @@
 require_relative '../services/spotify_canvas_service.rb'
-require 'mini_magick'
 
 class SpotifyCanvasController < ApplicationController
   before_action :set_user
@@ -7,37 +6,22 @@ class SpotifyCanvasController < ApplicationController
   before_action :check_playback
 
   def index
-    canvas_service_config = {
-      canvas_authentication_url: Rails.configuration.upframe_api.spotify_canvas_access_token_url,
-      canvas_url: Rails.configuration.upframe_api.spotify_canvas_url
-    }
-
-    spotify_canvas_service = SpotifyCanvasService.new(canvas_service_config)
-    canvas_url = spotify_canvas_service.fetch_canvas_url(@player.currently_playing.uri)
-
     @artist_name = @player.currently_playing.artists.first.name
     @album_name = @player.currently_playing.album.name
     @track_name = @player.currently_playing.name
     @reload_after_ms = (@player.currently_playing.duration_ms - @player.progress) + 2000
-
-    if canvas_url
-      @canvas_url = canvas_url
-      cover_image_url = @player.currently_playing.album.images.first["url"]
-      @background_color = extract_main_color(cover_image_url)
-    else
-      @cover_image_url = @player.currently_playing.album.images.first["url"]
-      @background_color = extract_main_color(@cover_image_url)
-    end
+    @canvas_url = SpotifyCanvasService.instance.fetch_canvas_url(@player.currently_playing.uri)
+    @cover_image_url = @player.currently_playing.album.images.first["url"]
+    @background_color = extract_main_color(@cover_image_url)
   end
 
   def current_track
     @player = initialize_player # Assuming this method sets @player with the current user's player
     render json: { current_track_uri: @player.currently_playing.try(:uri) }
   end
-  
 
   private
-  
+
   def extract_main_color(image_url)
     image = MiniMagick::Image.open(image_url)
     result = image.run_command("convert", image.path, "-resize", "1x1", "txt:-")
@@ -67,6 +51,6 @@ class SpotifyCanvasController < ApplicationController
 
   def handle_no_playback
     flash[:alert] = 'No playback.'
-    redirect_to controller: :spotify, action: :new
+    redirect_to controller: :artworks, action: :index
   end
 end

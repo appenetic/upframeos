@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_18_153028) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_20_140050) do
+  create_table "artworks", force: :cascade do |t|
+    t.integer "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "spotify_users", force: :cascade do |t|
     t.text "auth_data"
     t.string "mail"

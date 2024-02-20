@@ -1,5 +1,5 @@
+require_relative '../app/services/spotify_canvas_service.rb'
 require_relative "boot"
-
 require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
@@ -27,11 +27,5 @@ module UpFrameApi
     # config.eager_load_paths << Rails.root.join("extras")
 
     # config/application.rb
-
-
-    RSpotify::authenticate(
-      Rails.configuration.upframe_api.spotify_client_id, 
-      Rails.configuration.upframe_api.spotify_client_secret
-    )
   end
 end
