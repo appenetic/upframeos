@@ -12,6 +12,8 @@ gem "rspotify", "~> 2.12"
 gem "google-protobuf"
 gem 'mini_magick', "~> 4.12"
 gem 'rack-cors'
+gem 'rails_admin', '~> 3.0'
+gem 'image_processing', '~> 1.2'
 
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
@@ -61,3 +63,4 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+gem "sassc-rails"

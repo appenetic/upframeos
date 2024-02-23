@@ -1,4 +1,5 @@
 require_relative '../../api/SpotifyCanvasAPI_pb.rb'
+require 'singleton'
 require 'google/protobuf'
 require 'net/http'
 require 'uri'
