@@ -6,8 +6,8 @@
   #content-wrapper {
     position: relative;
     width: 100%;
-    height: 100vh; /* Adjust based on your content's needs */
-    overflow: hidden; /* Optional, to keep everything contained */
+    height: 100vh;
+    overflow: hidden;
   }
 
   .content {
@@ -15,69 +15,61 @@
     width: 100%;
     top: 0;
     left: 0;
-    opacity: 0; /* Start invisible */
-    transform: scale(0.95); /* Start slightly scaled down */
-    filter: blur(5px); /* Start slightly blurred */
-    transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease; /* Smooth transitions for properties */
+    opacity: 0;
+    transition: opacity 0.5s ease; /* Only animate opacity */
   }
 
   .content.visible {
     opacity: 1;
-    transform: scale(1); /* Scale to normal size */
-    filter: blur(0); /* Remove blur */
   }
 </style>
 </head>
 <body>
 <div id="content-wrapper">
-  <!-- Initial content can be loaded here with 'content' class and made visible -->
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
-  let lastContent = ''; // Initialize variable to store the last loaded content
-  let isWaiting = false; // Debounce flag
+  let lastContent = '';
+  let isWaiting = false;
 
-  // Initial content load
   updateContent();
 
-  // Periodic update with debouncing
   setInterval(() => {
     if (!isWaiting) {
       updateContent();
     }
-  }, 20000); // Adjusted to 20 seconds for demonstration
+  }, 5000); // Reduced interval to 5 seconds for more frequent checks
 
   function updateContent() {
-    isWaiting = true; // Set the debounce flag
+    if (isWaiting) return;
+    isWaiting = true;
 
     $.ajax({
       url: '/content',
       success: function(htmlContent) {
         if (htmlContent !== lastContent) {
-          var $newContent = $('<div>', {
-            html: htmlContent,
-            class: 'content'
-          }).appendTo('#content-wrapper');
+          var $newContent = $(`<div class='content'>${htmlContent}</div>`).appendTo('#content-wrapper');
 
-          // Transition in new content
           requestAnimationFrame(() => {
             $newContent.addClass('visible');
-
-            // Remove old content after transition
-            $('.content').not($newContent).one('transitionend', function() {
-              $(this).remove();
-            });
-
-            lastContent = htmlContent; // Update lastContent with the new content
           });
-        }
 
-        // Reset the debounce flag after a delay
+          setTimeout(() => {
+            $('.content').not($newContent).remove();
+          }, 1000);
+
+          lastContent = htmlContent;
+        }
+      },
+      error: function() {
+        console.log('Error fetching new content');
+      },
+      complete: function() {
         setTimeout(() => {
           isWaiting = false;
-        }, 20000); // Wait 5 seconds before allowing another update
+        }, 10000); // Consider dynamically adjusting this based on various factors
       }
     });
   }
