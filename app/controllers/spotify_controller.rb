@@ -10,6 +10,6 @@ class SpotifyController < ApplicationController
       auth_data: spotify_user_hash
     ).save
 
-    redirect_to :spotify_canvas
+    redirect_to root_path, notice: 'Successfully authenticated with Spotify.'
   end
 end

@@ -5,10 +5,6 @@ class CanvasController < ApplicationController
   before_action :initialize_player
   before_action :playback_active?
 
-  def index
-
-  end
-
   def current_track
     @player = initialize_player
     if @player.present? && @player.currently_playing
@@ -40,19 +36,25 @@ class CanvasController < ApplicationController
 
   def spotify_data
     currently_playing = @player.currently_playing
-    {
+    data = {
       artist_name: currently_playing.artists.first.name,
       album_name: currently_playing.album.name,
       track_name: currently_playing.name,
       reload_after_ms: (currently_playing.duration_ms - @player.progress) + 2000,
-      canvas_url: SpotifyCanvasService.instance.fetch_canvas_url(currently_playing.uri),
       cover_image_url: currently_playing.album.images.first["url"],
       background_color: extract_main_color(currently_playing.album.images.first["url"])
     }
+
+    # Only fetch the canvas URL if Settings.canvas_feature is true
+    if Settings.canvas_feature_enabled
+      data[:canvas_url] = SpotifyCanvasService.instance.fetch_canvas_url(currently_playing.uri)
+    end
+
+    data
   end
 
   def artwork_data
-    artwork = Artwork.first #Artwork.order('RANDOM()').first
+    artwork = Artwork.order('RANDOM()').first
     data = {}
   
     if artwork.image.present?
@@ -86,7 +88,7 @@ class CanvasController < ApplicationController
   end
 
   def initialize_player
-    if @user 
+    if @user
       user = RSpotify::User.new(@user.auth_data)
 
       if user.present?

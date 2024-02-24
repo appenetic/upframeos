@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  mount Avo::Engine, at: Avo.configuration.root_path
+
+  root to: 'canvas#index'
+
+  resources :settings
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,4 +15,11 @@ Rails.application.routes.draw do
   get '/', to: 'canvas#index'
   get '/current_track', to: 'spotify_canvas#current_track'
   get '/content', to: 'canvas#content'
+end
+
+if defined? ::Avo
+  Avo::Engine.routes.draw do
+    get "settings", to: "tools#settings", as: :settings
+    put 'settings', to: 'tools#update_settings'
+  end
 end

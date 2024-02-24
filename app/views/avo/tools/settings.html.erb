@@ -1,0 +1,29 @@
+<div class="flex flex-col">
+  <%= render Avo::PanelComponent.new(name: 'Settings', display_breadcrumbs: true) do |c| %>
+    <% c.with_body do %>
+      <div class="flex flex-col justify-between py-6 min-h-24">
+        <div class="px-6">
+          <%= form_with url: settings_path, method: :put, local: true, class: "bg-white pt-6 pb-8 mb-4" do |form| %>
+            <fieldset class="border p-4 rounded-md mb-4">
+              <legend class="font-bold text-lg px-2">General</legend>
+              <div class="field mb-4">
+                <%= form.label :orientation, 'Orientation', scope: :general, class: "block text-gray-700 text-sm font-bold mb-2" %>
+                <%= form.select 'settings[general][orientation]', options_for_select(['portrait', 'landscape'], Settings.orientation), {}, {required: true, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"} %>
+              </div>
+            </fieldset>
+
+            <fieldset class="border p-4 rounded-md">
+              <legend class="font-bold text-lg px-2">Spotify</legend>
+              <div class="field mb-4">
+                <%= form.label :canvas_feature_enabled, 'Canvas Feature Enabled', scope: :spotify, class: "block text-gray-700 text-sm font-bold mb-2" %>
+                <%= form.check_box 'settings[spotify][canvas_feature_enabled]', { checked: Settings.canvas_feature_enabled, class: "leading-tight" }, "true", "false" %>
+              </div>
+            </fieldset>
+            <br/>
+            <%= form.submit 'Save Settings', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
