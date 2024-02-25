@@ -31,7 +31,7 @@ class Settings < RailsSettings::Base
     when 'landscape'
       'normal'
     when 'landscape_inverted'
-      'flipped'
+      'inverted'
     else
       'left'
     end
