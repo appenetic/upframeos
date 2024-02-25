@@ -1,0 +1,77 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+
+ body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0; /* Remove default margins and padding */
+  overflow: hidden; /* Hide scrollbars if the content exceeds the viewport */
+}
+
+
+  .fullscreen-video {
+    position: fixed; /* Fixed position to cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100vw; /* 100% of the viewport width */
+    height: 100vh; /* 100% of the viewport height */
+    object-fit: fill; /* This will stretch the video to fill the container */
+  }
+
+  
+
+  /* Additional styling to ensure the text is at the bottom left */
+.track-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 20px; /* Adjust outer margin as needed */
+    color: #FFF; /* Text color, adjust as needed */
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .track-info p {
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+  }
+  
+  /* If you still want some space but less of it */
+  .track-info p:first-child {
+    margin-bottom: 5px; /* Adjust space between the paragraphs */
+  }
+  
+  body, html {
+    height: 100%; /* Full height */
+    margin: 0; /* Remove default margin */
+  }
+  
+
+  #artist-name {
+    font-weight: bold;
+    font-size: 20pt;
+  }
+  
+  #track-name {
+    font-size: 20pt;
+  }
+
+  .spotify-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+  }

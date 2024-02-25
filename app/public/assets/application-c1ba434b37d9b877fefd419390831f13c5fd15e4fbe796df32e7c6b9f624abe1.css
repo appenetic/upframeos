@@ -1,0 +1,86 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+
+ #spotify_canvas {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Adjust the height as needed */
+    text-align: center; /* Center the text for the <p> tag */
+
+  }
+
+  #spotify_canvas img, #spotify_canvas video {
+    max-width: 100%; /* Ensure the media fits within the div */
+    max-height: 100vh; /* Optional: limit the media's height to the viewport height */
+    object-fit: contain; /* This ensures that the aspect ratio is preserved */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.5), 0 10px 20px rgba(0, 0, 0, 0.2);
+  }  
+  
+  #spotify_canvas video, #spotify_canvas img {
+    max-width: 100%; /* Ensure media doesn't overflow */
+    max-height: 100%; /* Adjust based on your needs */
+  }
+  
+
+  /* Additional styling to ensure the text is at the bottom left */
+.track-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 20px; /* Adjust outer margin as needed */
+    color: #FFF; /* Text color, adjust as needed */
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .track-info p {
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+  }
+  
+  /* If you still want some space but less of it */
+  .track-info p:first-child {
+    margin-bottom: 5px; /* Adjust space between the paragraphs */
+  }
+  
+  body, html {
+    height: 100%; /* Full height */
+    margin: 0; /* Remove default margin */
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space content between top and bottom */
+    font-family: 'Helvetica'; /* Correct the font property */
+  }
+  
+  #artist-name {
+    font-weight: bold;
+    font-size: 20pt;
+  }
+  
+  #track-name {
+    font-size: 20pt;
+  }
+
+  .spotify-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+  }

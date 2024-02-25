@@ -1,0 +1,128 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+
+ body, html {
+  height: 100%;
+  margin: 0;
+}
+
+ #spotify_canvas {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Adjust the height as needed */
+    text-align: center; /* Center the text for the <p> tag */
+  }
+  .fullscreen-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: fill; /* Change this from cover to fill */
+    z-index: 1;
+  }
+
+#spotify_canvas img {
+  width: 90vw; /* 90% of the viewport width */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 90vh; /* 90% of the viewport height */
+  object-fit: contain; /* Ensure the image is fully visible and maintains its aspect ratio */
+}
+
+  /* Additional styling to ensure the text is at the bottom left */
+.track-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: #FFF; /* Text color, adjust as needed */
+    transition: opacity 0.5s ease-in-out;
+    z-index: 2;
+  }
+  
+  .track-info p {
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+  }
+  
+  /* If you still want some space but less of it */
+  .track-info p:first-child {
+    margin-bottom: 5px; /* Adjust space between the paragraphs */
+  }
+  
+  body, html {
+    height: 100%; /* Full height */
+    margin: 0; /* Remove default margin */
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space content between top and bottom */
+    font-family: 'Helvetica'; /* Correct the font property */
+  }
+  
+  #artist-name {
+    font-weight: bold;
+    font-size: 20pt;
+  }
+  
+  #track-name {
+    font-size: 20pt;
+  }
+
+  .spotify-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    z-index: 2;
+  }
+
+  #spotify_canvas_container {
+    position: relative;
+    max-width: 90vw; /* Max width of the container */
+    max-height: 90vh; /* Max height of the container */
+    margin: auto; /* Center the container */
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    flex-direction: column;
+  }
+  
+  .cover-image {
+    max-width: 100%; /* Make the image responsive */
+    max-height: 100%; /* Maintain aspect ratio */
+    object-fit: contain;
+  }
+  
+  .spotify-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    z-index: 2; /* Ensure it's above the image */
+  }
+  
+  .track-info {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #FFF;
+    z-index: 2; /* Ensure it's above the image */
+  }
