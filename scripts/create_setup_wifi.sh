@@ -20,7 +20,7 @@ stop_hotspot() {
 }
 
 # Check if WiFi is connected
-WIFI_CONNECTED=$(iwgetid -r)
+WIFI_CONNECTED=$(sudo iwgetid -r)
 if [ -z "$WIFI_CONNECTED" ]; then
     echo "WiFi is not connected."
     # Check if the hotspot is already running to avoid starting it multiple times
