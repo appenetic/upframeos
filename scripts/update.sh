@@ -1,0 +1,8 @@
+#!/bin/sh
+xset -dpms # disable DPMS (Energy Star) features.
+xset s off # disable screen saver
+xset s noblank # don't blank the video device
+matchbox-window-manager -use_titlebar no &
+xrandr --output HDMI-1 --rotate left &
+unclutter &
+chromium --no-sandbox --ignore-gpu-blacklist --enable-webgl --noerrdialogs --disable-infobars --kiosk  http://localhost:3000/
