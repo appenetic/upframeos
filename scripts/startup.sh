@@ -3,4 +3,4 @@ echo "Starting up..."
 
 git pull
 sh ~/upframeos/scripts/create_setup_wifi.sh &
-xinit ~/upframeos/scripts/start_browser.sh
+#xinit ~/upframeos/scripts/start_browser.sh
