@@ -28,6 +28,7 @@ class Avo::ToolsController < Avo::ApplicationController
       render :settings, status: :unprocessable_entity
     else
       # On success, redirect to the settings page with a success notice
+      update_orientation
       redirect_to settings_path, notice: "Settings were successfully updated."
     end
   end
@@ -36,5 +37,11 @@ class Avo::ToolsController < Avo::ApplicationController
 
   def settings_params
     params.require(:settings).permit(general: [:orientation], spotify: [:canvas_feature_enabled])
+  end
+
+  def update_orientation
+    unix_orientation = Settings.unix_orientation
+    script_path = Rails.root.join('..', 'scripts', 'update_orientation.sh')
+    system("#{script_path} #{unix_orientation}")
   end
 end
