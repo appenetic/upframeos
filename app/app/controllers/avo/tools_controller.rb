@@ -44,4 +44,8 @@ class Avo::ToolsController < Avo::ApplicationController
     script_path = Rails.root.join('..', 'scripts', 'update_orientation.sh')
     system("#{script_path} #{unix_orientation}")
   end
+
+  def update_wifi_config
+    
+  end
 end
