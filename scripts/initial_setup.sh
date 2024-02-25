@@ -7,6 +7,9 @@ installPackages() {
 createUpFrameUser() {
     # Step 1: Create the user 'upframe' with sudo privileges
     useradd -m -s /bin/bash -G sudo -p $(openssl passwd -1 upframe) upframe
+    usermod -a -G tty upframe
+    usermod -a -G video upframe
+    usermod -a -G input upframe
 
     # Step 2: Configure sudoers to allow 'upframe' to use sudo without a password
     # Check if the /etc/sudoers.d directory exists, and use it if it does
@@ -29,7 +32,7 @@ ExecStart=
 ExecStart=-/sbin/agetty --autologin upframe --noclear %I 38400 linux" | sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf > /dev/null
 
 # Step 2: Ensure startup.sh is executed on login by adding it to .bash_profile
-echo "/home/upframe/upframeos/scripts/startup.sh" >> /home/upframe/.bash_profile
+echo "sudo /home/upframe/upframeos/scripts/startup.sh" >> /home/upframe/.bash_profile
 
 # Reload systemd manager configuration
 sudo systemctl daemon-reload
