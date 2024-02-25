@@ -40,6 +40,14 @@ sudo systemctl daemon-reload
 echo "Auto-login setup complete. The user 'upframe' will automatically log in on console."
 }
 
+checkoutUpFrameOSSource() {
+  git clone https://github.com/appenetic/upframeos /home/upframe/
+  chown -R upframe:upframe /home/upframe/upframeos
+}
+
 createUpFrameUser
 installPackages
 configureUpFrameAutoLogin
+checkoutUpFrameOSSource
+
+reboot
