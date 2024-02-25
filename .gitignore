@@ -73,3 +73,10 @@ yarn-debug.log*
 !/storage/.keep
 /public/uploads
 /.idea
+/app/tmp
+/app/storage/test.sqlite3
+/app/storage/development.sqlite3-wal
+/app/storage/development.sqlite3-shm
+/app/storage/development.sqlite3
+/app/log/development.log
+/app/log/avo.log

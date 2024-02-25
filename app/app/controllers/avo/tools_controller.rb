@@ -42,7 +42,14 @@ class Avo::ToolsController < Avo::ApplicationController
   def update_orientation
     unix_orientation = Settings.unix_orientation
     script_path = Rails.root.join('..', 'scripts', 'update_orientation.sh')
-    system("#{script_path} #{unix_orientation}")
+
+    success = system("#{script_path} #{unix_orientation}")
+    if success
+      puts "Script executed successfully."
+    else
+      puts "Script execution failed."
+      # Handle failure
+    end
   end
 
   def update_wifi_config
