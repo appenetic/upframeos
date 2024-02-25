@@ -1,7 +1,7 @@
 #!/bin/bash
 
 installPackages() {
-    sudo apt-get install matchbox chromium unclutter xorg git hostapd dnsmasq
+    sudo apt-get install matchbox chromium unclutter xorg git hostapd dnsmasq isc-dhcp-server
 }
 
 createUpFrameUser() {
