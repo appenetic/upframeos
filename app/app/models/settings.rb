@@ -1,10 +1,19 @@
-# RailsSettings Model
+class Constants
+  def self.wifi_country_codes
+    %w[gb fr de us se]
+  end
+
+  def self.orientations
+    %w[portrait portrait_inverted landscape landscape_inverted]
+  end
+end
+
 class Settings < RailsSettings::Base
   cache_prefix { "v1" }
 
   scope :general do
-    field :orientation, default: "portrait", validates: { presence: true, inclusion: { in: Settings.orientations } }, option_values: Settings.orientations
-    field :wifi_country, default: "de", validates: { presence: true, inclusion: { in: Settings.wifi_country_codes } }, option_values: Settings.wifi_country_codes
+    field :orientation, default: "portrait", validates: { presence: true, inclusion: { in: Constants.orientations } }, option_values: Constants.orientations
+    field :wifi_country, default: "de", validates: { presence: true, inclusion: { in: Constants.wifi_country_codes } }, option_values: Constants.wifi_country_codes
     field :wifi_ssid
     field :wifi_password
   end
@@ -12,16 +21,8 @@ class Settings < RailsSettings::Base
   scope :spotify do
     field :canvas_feature_enabled, type: :boolean, default: true
   end
-
-  def self.orientations
-    %w[portrait portrait_inverted landscape landscape_inverted]
-  end
-
-  def self.wifi_country_codes
-    %w[gb fr de us se]
-  end
   
-  def self.unix_orientation(orientation)
+  def self.unix_orientation
     case orientation
     when 'portrait'
       'left'

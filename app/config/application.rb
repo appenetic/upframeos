@@ -1,5 +1,4 @@
 require_relative '../app/services/spotify_canvas_service.rb'
-require_relative '../app/models/settings.rb'
 require_relative "boot"
 require "rails/all"
 
