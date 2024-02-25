@@ -8,7 +8,13 @@
               <legend class="font-bold text-lg px-2">General</legend>
               <div class="field mb-4">
                 <%= form.label :orientation, 'Orientation', scope: :general, class: "block text-gray-700 text-sm font-bold mb-2" %>
-                <%= form.select 'settings[general][orientation]', options_for_select(['portrait', 'landscape'], Settings.orientation), {}, {required: true, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"} %>
+                <%= form.select 'settings[general][orientation]',
+                                options_for_select(Constants.orientations, Settings.orientation),
+                                { include_blank: false },
+                                {
+                                  class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                }
+                %>
               </div>
             </fieldset>
 
