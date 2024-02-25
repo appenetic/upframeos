@@ -41,7 +41,7 @@ echo "Auto-login setup complete. The user 'upframe' will automatically log in on
 }
 
 checkoutUpFrameOSSource() {
-  git clone https://github.com/appenetic/upframeos /home/upframe/
+  git clone https://github.com/appenetic/upframeos /home/upframe/upframeos
   chown -R upframe:upframe /home/upframe/upframeos
 }
 
