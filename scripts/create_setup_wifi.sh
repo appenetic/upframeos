@@ -1,14 +1,37 @@
 #!/bin/bash
 
-# Define the interface name
-wifi_interface="wlan0"
+# The wireless interface, change wlan0 if different
+WIFI_INTERFACE="wlan0"
 
-# Check if the WiFi is currently connected
-wifi_status=$(nmcli device status | grep "$wifi_interface" | awk '{print $3}')
+# Function to start hotspot
+start_hotspot() {
+    echo "Starting hotspot..."
+    sudo systemctl start hostapd
+    sudo systemctl start dnsmasq
+    echo "Hotspot started."
+}
 
-if [ "$wifi_status" != "connected" ]; then
-    echo "WiFi is not connected. Setting up hotspot..."
-    sudo nmcli device wifi hotspot ssid upframe password upframe ifname "$wifi_interface"
+# Function to stop hotspot
+stop_hotspot() {
+    echo "Stopping hotspot..."
+    sudo systemctl stop hostapd
+    sudo systemctl stop dnsmasq
+    echo "Hotspot stopped."
+}
+
+# Check if WiFi is connected
+WIFI_CONNECTED=$(iwgetid -r)
+if [ -z "$WIFI_CONNECTED" ]; then
+    echo "WiFi is not connected."
+    # Check if the hotspot is already running to avoid starting it multiple times
+    HOSTAPD_STATUS=$(systemctl is-active hostapd)
+    if [ "$HOSTAPD_STATUS" != "active" ]; then
+        start_hotspot
+    else
+        echo "Hotspot is already running."
+    fi
 else
-    echo "WiFi is already connected. No action taken."
+    echo "WiFi is connected to $WIFI_CONNECTED."
+    # Optionally, stop the hotspot if WiFi is connected
+    # stop_hotspot
 fi

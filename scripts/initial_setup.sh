@@ -1,7 +1,7 @@
 #!/bin/bash
 
 installPackages() {
-    sudo apt-get install matchbox chromium unclutter xorg git
+    sudo apt-get install matchbox chromium unclutter xorg git hostapd dnsmasq
 }
 
 createUpFrameUser() {
