@@ -1,7 +1,7 @@
 #!/bin/bash
 
 installPackages() {
-    sudo apt-get install matchbox chromium unclutter xorg git hostapd dnsmasq isc-dhcp-server -y
+    sudo apt-get install matchbox chromium unclutter xorg git hostapd dnsmasq isc-dhcp-server dhcpcd -y
 }
 
 createUpFrameUser() {
@@ -51,6 +51,10 @@ checkoutUpFrameOSSource() {
 
 configureWIFIHotspotFeature() {
   systemctl unmask hostapd
+  sudo systemctl disable hostapd
+  cp ../config/hostap.conf /etc/hostap/hostap.conf
+  echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' >> /etc/default/hostapd
+  echo 'interface wlan0\nstatic ip_address=192.168.1.1/24' >> /etc/dhcpcd.conf
 }
 
 cleanup() {

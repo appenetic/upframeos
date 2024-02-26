@@ -32,6 +32,5 @@ if [ -z "$WIFI_CONNECTED" ]; then
     fi
 else
     echo "WiFi is connected to $WIFI_CONNECTED."
-    # Optionally, stop the hotspot if WiFi is connected
-    # stop_hotspot
+    stop_hotspot
 fi
