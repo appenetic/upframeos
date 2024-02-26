@@ -52,13 +52,14 @@ checkoutUpFrameOSSource() {
 configureWIFIHotspotFeature() {
   systemctl unmask hostapd
   sudo systemctl disable hostapd
-  cp ../config/hostap.conf /etc/hostap/hostap.conf
+  cp ../config/hostapd.conf /etc/hostap/hostapd.conf
   echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' >> /etc/default/hostapd
   echo 'interface wlan0\nstatic ip_address=192.168.1.1/24' >> /etc/dhcpcd.conf
 }
 
 cleanup() {
   touch ~/.hushlogin
+  echo "" > /etc/wpa_supplicant/wpa_supplicant.conf
 }
 
 createUpFrameUser
