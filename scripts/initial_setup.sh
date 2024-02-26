@@ -32,7 +32,7 @@ ExecStart=
 ExecStart=-/sbin/agetty --autologin upframe --noclear %I 38400 linux" | sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf > /dev/null
 
 # Step 2: Ensure startup.sh is executed on login by adding it to .bash_profile
-echo "sudo /home/upframe/upframeos/scripts/startup.sh" >> /home/upframe/.bash_profile
+echo "sh /home/upframe/upframeos/scripts/startup.sh" >> /home/upframe/.bash_profile
 
 # Reload systemd manager configuration
 sudo systemctl daemon-reload
