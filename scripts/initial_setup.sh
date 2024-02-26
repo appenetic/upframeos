@@ -60,6 +60,7 @@ configureWIFIHotspotFeature() {
 cleanup() {
   touch ~/.hushlogin
   echo "" > /etc/wpa_supplicant/wpa_supplicant.conf
+  rm -rf /root/upframeos
 }
 
 createUpFrameUser
