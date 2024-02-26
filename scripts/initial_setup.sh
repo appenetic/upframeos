@@ -48,6 +48,10 @@ checkoutUpFrameOSSource() {
   chown -R upframe:upframe /home/upframe/upframeos
 }
 
+configureWIFIHotspotFeature() {
+  systemctl unmask hostapd
+}
+
 createUpFrameUser
 installPackages
 configureUpFrameAutoLogin
