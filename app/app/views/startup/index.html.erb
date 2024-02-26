@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QR Code Display</title>
+  <meta http-equiv="refresh" content="10"> <!-- Page reloads every 10 seconds -->
+  <style>
+      body, html {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+          background-color: black;
+          color: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-family: 'Arial', sans-serif;
+          text-align: center;
+      }
+      .content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      }
+      #qr-code svg {
+          margin-bottom: 20px; /* Space between QR code and text */
+      }
+      .info-text {
+          font-size: 18px; /* Larger text */
+          margin-bottom: 5px; /* Adjust space between texts */
+      }
+      .small-text {
+          font-size: 16px; /* Slightly smaller text */
+      }
+  </style>
+</head>
+<body>
+
+<div class="content">
+  <div id="qr-code">
+    <%= @qr_svg.html_safe %>
+  </div>
+  <div class="info-text">
+    You are currently not connected to a WIFI-Network
+  </div>
+  <div class="small-text">
+    Scan this QR-Code and configure your WIFI-Network
+  </div>
+</div>
+
+</body>
+</html>
