@@ -22,6 +22,7 @@ createUpFrameUser() {
         echo 'upframe ALL=(ALL) NOPASSWD: ALL' | EDITOR='tee -a' visudo
     fi
 
+    sudo -u upframe touch /home/upframe/.hushlogin
     echo "User 'upframe' has been created and configured for passwordless sudo."
 }
 
@@ -52,9 +53,15 @@ configureWIFIHotspotFeature() {
   systemctl unmask hostapd
 }
 
+cleanup() {
+  touch ~/.hushlogin
+}
+
 createUpFrameUser
 installPackages
 configureUpFrameAutoLogin
 checkoutUpFrameOSSource
+configureWIFIHotspotFeature
+cleanup
 
 reboot
