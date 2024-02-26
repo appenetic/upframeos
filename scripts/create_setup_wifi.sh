@@ -8,6 +8,7 @@ start_hotspot() {
     echo "Starting hotspot..."
     sudo systemctl start hostapd
     sudo systemctl start dnsmasq
+    sudo systemctl start dhcpcd
     echo "Hotspot started."
 }
 
@@ -16,6 +17,7 @@ stop_hotspot() {
     echo "Stopping hotspot..."
     sudo systemctl stop hostapd
     sudo systemctl stop dnsmasq
+    sudo systemctl stop dhcpcd
     echo "Hotspot stopped."
 }
 
