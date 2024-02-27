@@ -53,7 +53,7 @@ configureWIFIHotspotFeature() {
   systemctl unmask hostapd
   sudo systemctl disable hostapd
 
-  SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+  SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
   cp "${SCRIPT_DIR}/../config/hostapd.conf" /etc/hostapd/hostapd.conf
 
   echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' >> /etc/default/hostapd
