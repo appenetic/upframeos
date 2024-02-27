@@ -50,21 +50,6 @@ video {
     align-items: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-.qr-container {
-    animation: fadeIn 2s ease-in forwards;
-    opacity: 0;
-}
-
 .qr-code {
     margin-right: 10px;
     height: 65px;
