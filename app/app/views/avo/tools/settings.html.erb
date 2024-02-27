@@ -18,6 +18,36 @@
               </div>
             </fieldset>
 
+            <fieldset class="border p-4 rounded-md mb-4">
+              <legend class="font-bold text-lg px-2">Wi-Fi</legend>
+
+              <div class="field mb-4">
+                <%= form.label :wifi_country, 'Wi-Fi Country', scope: :general, class: "block text-gray-700 text-sm font-bold mb-2" %>
+                <%= form.select 'settings[general][wifi_country]',
+                                options_for_select(Constants.wifi_country_codes, Settings.wifi_country),
+                                { include_blank: false },
+                                {
+                                  class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                }
+                %>
+              </div>
+
+              <div class="field mb-4">
+                <%= form.label :wifi_ssid, 'Wi-Fi SSID', scope: :general, class: "block text-gray-700 text-sm font-bold mb-2" %>
+                <%= form.text_field 'settings[general][wifi_ssid]',
+                                    value: Settings.wifi_ssid,
+                                    class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                %>
+              </div>
+
+              <div class="field mb-4">
+                <%= form.label :wifi_password, 'Wi-Fi Password', scope: :general, class: "block text-gray-700 text-sm font-bold mb-2" %>
+                <%= form.password_field 'settings[general][wifi_password]',
+                                        value: Settings.wifi_password,
+                                        class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                %>
+              </div>
+            </fieldset>
             <fieldset class="border p-4 rounded-md">
               <legend class="font-bold text-lg px-2">Spotify</legend>
               <div class="field mb-4">

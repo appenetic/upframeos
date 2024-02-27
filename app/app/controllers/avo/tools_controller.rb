@@ -36,7 +36,7 @@ class Avo::ToolsController < Avo::ApplicationController
   private
 
   def settings_params
-    params.require(:settings).permit(general: [:orientation], spotify: [:canvas_feature_enabled])
+    params.require(:settings).permit(general: [:orientation, :wifi_country, :wifi_ssid, :wifi_password], spotify: [:canvas_feature_enabled])
   end
 
   def update_orientation
@@ -48,11 +48,18 @@ class Avo::ToolsController < Avo::ApplicationController
       puts "Script executed successfully."
     else
       puts "Script execution failed."
-      # Handle failure
     end
   end
 
   def update_wifi_config
-    
+    wifi_config = Settings.wpa_supplicant_content
+    script_path = Rails.root.join('..', 'scripts', 'update_wifi_config.sh')
+
+    success = system("sudo #{script_path} '#{wifi_config}'")
+    if success
+      puts "Script executed successfully."
+    else
+      puts "Script execution failed."
+    end
   end
 end
