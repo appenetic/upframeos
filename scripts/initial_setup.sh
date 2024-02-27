@@ -52,7 +52,10 @@ checkoutUpFrameOSSource() {
 configureWIFIHotspotFeature() {
   systemctl unmask hostapd
   sudo systemctl disable hostapd
-  cp ../config/hostapd.conf /etc/hostapd/hostapd.conf
+
+  SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+  cp "${SCRIPT_DIR}/../config/hostapd.conf" /etc/hostapd/hostapd.conf
+
   echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' >> /etc/default/hostapd
   echo 'interface wlan0\nstatic ip_address=192.168.1.1/24' >> /etc/dhcpcd.conf
 }
