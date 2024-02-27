@@ -21,7 +21,8 @@ require 'logger'
 #
 # SpotifyCanvasService.instance.configure(canvas_service_config)
 # canvas_url = SpotifyCanvasService.instance.fetch_canvas_url('spotify:track:123')
-class SpotifyCanvasService < include Singleton
+class SpotifyCanvasService
+  include Singleton
   CONTENT_TYPE = "Content-Type".freeze
   AUTHORIZATION = "Authorization".freeze
   APPLICATION_X_PROTOBUF = "application/x-protobuf".freeze
