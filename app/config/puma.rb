@@ -18,7 +18,7 @@ if ENV["RAILS_ENV"] == "production"
   workers worker_count if worker_count > 1
 end
 
-bind "unix:///home/upframe/upframeos/app/tmp/sockets/puma.sock"
+bind "unix:///home/upframe/upframeos/app/tmp/puma.sock"
 
 # Specifies the `worker_timeout` threshold that Puma will use to wait before
 # terminating a worker in development environments.
