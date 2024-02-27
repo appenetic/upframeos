@@ -60,6 +60,12 @@ configureWIFIHotspotFeature() {
   echo 'interface wlan0\nstatic ip_address=192.168.1.1/24' >> /etc/dhcpcd.conf
 }
 
+installRMV() {
+  sudo -u upframe bash -c '\curl -sSL https://get.rvm.io | bash'
+  sudo -u upframe bash -c 'source "$HOME/.rvm/scripts/rvm"'
+  sudo -u upframe bash -c 'rvm install ruby-3.2.2'
+}
+
 cleanup() {
   touch ~/.hushlogin
   echo "" > /etc/wpa_supplicant/wpa_supplicant.conf
@@ -71,6 +77,7 @@ installPackages
 configureUpFrameAutoLogin
 checkoutUpFrameOSSource
 configureWIFIHotspotFeature
+installRMV
 cleanup
 
 reboot

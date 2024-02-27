@@ -37,4 +37,3 @@ else
   echo "Failed to write wpa_supplicant.conf. Check your permissions or path."
   exit 1
 fi
-
