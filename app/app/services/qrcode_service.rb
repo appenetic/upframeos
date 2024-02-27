@@ -4,9 +4,9 @@ class QRCodeService
     qrcode = RQRCode::QRCode.new(url)
     svg = qrcode.as_svg(
       offset: 0,
-      color: 'ffffff',
+      color: '000000',
       shape_rendering: 'crispEdges',
-      module_size: 6,
+      module_size: 2,
       standalone: true,
       background: '000'
     )

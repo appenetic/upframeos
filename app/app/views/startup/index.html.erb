@@ -1,51 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>QR Code Display</title>
-  <meta http-equiv="refresh" content="10"> <!-- Page reloads every 10 seconds -->
-  <style>
-      body, html {
-          height: 100%;
-          margin: 0;
-          padding: 0;
-          background-color: black;
-          color: white;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-family: 'Arial', sans-serif;
-          text-align: center;
-      }
-      .content {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-      }
-      #qr-code svg {
-          margin-bottom: 20px; /* Space between QR code and text */
-      }
-      .info-text {
-          font-size: 18px; /* Larger text */
-          margin-bottom: 5px; /* Adjust space between texts */
-      }
-      .small-text {
-          font-size: 16px; /* Slightly smaller text */
-      }
-  </style>
+  <title>Canvas</title>
+  <%= stylesheet_link_tag 'startup', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'startup', 'data-turbolinks-track': 'reload' %>
+  <%= csrf_meta_tags %>
 </head>
 <body>
-
-<div class="content">
-  <div id="qr-code">
-    <%= @qr_svg.html_safe %>
-  </div>
-  <div class="info-text">
-    You are currently not connected to a WIFI-Network
-  </div>
-  <div class="small-text">
-    Scan this QR-Code and configure your WIFI-Network
+<div class="video-container">
+  <%= video_tag 'startup_background.mp4', type: "video/mp4", autoplay: true, loop: true, muted: true, playsinline: true, alt: "Canvas Video", id: "background-video" %>
+</div>
+<div id="logo">
+  <%= image_tag 'logo.png', alt: 'Logo' %>
+</div>
+<div class="qr-container">
+  <div class="qr-code"><%= raw @qr_svg %></div>
+  <div class="text-container">
+    <p class="title">DEVICE OFFLINE</p>
+    <p class="message">Scan QR code to setup Wifi connection for your Upframe</p>
   </div>
 </div>
-
 </body>
 </html>

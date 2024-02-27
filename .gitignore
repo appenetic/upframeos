@@ -80,3 +80,4 @@ yarn-debug.log*
 /app/storage/development.sqlite3
 /app/log/development.log
 /app/log/avo.log
+/.DS_Store
