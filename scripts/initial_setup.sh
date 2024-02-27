@@ -62,8 +62,15 @@ configureWIFIHotspotFeature() {
 
 installRMV() {
   sudo -u upframe bash -c '\curl -sSL https://get.rvm.io | bash'
-  sudo -u upframe bash -c 'source "$HOME/.rvm/scripts/rvm"'
-  sudo -u upframe bash -c 'rvm install ruby-3.2.2'
+  sudo -u upframe bash -c 'source "$HOME/.rvm/scripts/rvm" && rvm install ruby-3.2.2'
+}
+
+installBundles() {
+  sudo -u upframe bash -c '
+    source /home/upframe/.rvm/scripts/rvm || { echo "Failed to source RVM"; exit 1; }
+    cd /home/upframe/upframeos/app || { echo "Failed to change directory"; exit 1; }
+    bundle install || { echo "Bundle install failed"; exit 1; }
+  '
 }
 
 cleanup() {
@@ -78,6 +85,7 @@ configureUpFrameAutoLogin
 checkoutUpFrameOSSource
 configureWIFIHotspotFeature
 installRMV
-cleanup
+installBundles
 
+cleanup
 reboot
