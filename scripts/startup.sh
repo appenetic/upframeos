@@ -18,6 +18,7 @@ source /home/upframe/.bash_profile || source /home/upframe/.bashrc
 
 echo $PATH
 
+cd /home/upframe/upframeos/app/
 RAILS_ENV=production bundle exec rake db:create
 RAILS_ENV=production bundle exec rake db:migrate
 RAILS_ENV=production bundle exec rake assets:precompile
