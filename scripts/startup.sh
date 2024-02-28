@@ -13,6 +13,7 @@ else
   echo "RVM not found"
 fi
 
+export PATH="$PATH:$HOME/.rvm/bin"
 source /home/upframe/.bash_profile || source /home/upframe/.bashrc
 
 RAILS_ENV=production bundle exec rake db:create
