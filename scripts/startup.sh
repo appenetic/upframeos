@@ -10,4 +10,4 @@ RAILS_ENV=production bundle exec rake db:migrate
 RAILS_ENV=production bundle exec rake assets:precompile
 nohup RAILS_ENV=production bundle exec rails s > /dev/null 2>&1 &
 
-sudo xinit /home/upframe/upframeos/scripts/start_browser.sh
+#sudo xinit /home/upframe/upframeos/scripts/start_browser.sh
