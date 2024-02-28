@@ -1,7 +1,7 @@
 #!/bin/bash
 
 installPackages() {
-    sudo apt-get install matchbox chromium unclutter xorg git hostapd dnsmasq dhcpcd lighttpd -y
+    sudo apt-get install matchbox chromium unclutter xorg git hostapd dnsmasq dhcpcd lighttpd vim -y
 }
 
 createUpFrameUser() {
@@ -34,6 +34,7 @@ ExecStart=-/sbin/agetty --autologin upframe --noclear %I 38400 linux" | sudo tee
 
 # Step 2: Ensure startup.sh is executed on login by adding it to .bash_profile
 echo "sh /home/upframe/upframeos/scripts/startup.sh" >> /home/upframe/.bash_profile
+chown upframe:upframe /home/upframe/.bash_profile
 
 # Reload systemd manager configuration
 sudo systemctl daemon-reload
