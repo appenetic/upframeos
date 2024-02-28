@@ -11,9 +11,9 @@ echo $PATH
 source /home/upframe/.bash_profile || source /home/upframe/.bashrc
 
 cd /home/upframe/upframeos/app/
-RAILS_ENV=production bundle exec rake db:create || true
-RAILS_ENV=production bundle exec rake db:migrate || true
-RAILS_ENV=production bundle exec rake assets:precompile || true
-nohup RAILS_ENV=production bundle exec rails s > /dev/null 2>&1 &
+RAILS_ENV=production bundle exec rake db:create
+RAILS_ENV=production bundle exec rake db:migrate
+RAILS_ENV=production bundle exec rake assets:precompile
+RAILS_ENV=production bundle exec rails s
 
 #sudo xinit /home/upframe/upframeos/scripts/start_browser.sh
