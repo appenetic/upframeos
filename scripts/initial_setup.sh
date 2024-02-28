@@ -1,7 +1,39 @@
 #!/bin/bash
 
 installPackages() {
-    sudo apt-get install matchbox chromium unclutter xorg git hostapd dnsmasq dhcpcd lighttpd vim -y
+    sudo apt-get update
+    sudo apt-get install -y \
+        autoconf \
+        automake \
+        bison \
+        chromium \
+        dhcpcd \
+        dnsmasq \
+        g++ \
+        gawk \
+        gcc \
+        git \
+        hostapd \
+        libc6-dev \
+        libffi-dev \
+        libgdbm-dev \
+        libgmp-dev \
+        libncurses5-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        libssl-dev \
+        libtool \
+        libyaml-dev \
+        lighttpd \
+        make \
+        matchbox \
+        patch \
+        pkg-config \
+        sqlite3 \
+        unclutter \
+        vim \
+        xorg \
+        zlib1g-dev
 }
 
 createUpFrameUser() {
