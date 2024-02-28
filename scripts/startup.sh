@@ -6,7 +6,7 @@ sleep 1
 cd /home/upframe/upframeos && git -c safe.directory=/home/upframe/upframeos pull || echo "git pull failed, but script continues"
 #sh /home/upframe/upframeos/scripts/create_setup_wifi.sh &
 
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:/home/upframe/.rvm/bin"
 source /home/upframe/.bash_profile || source /home/upframe/.bashrc
 
 cd /home/upframe/upframeos/app/
