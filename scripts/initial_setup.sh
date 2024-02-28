@@ -62,7 +62,7 @@ configureWIFIHotspotFeature() {
 
 installRMV() {
   sudo -u upframe bash -c '\curl -sSL https://get.rvm.io | bash'
-  sudo -u upframe bash -c 'source "$HOME/.rvm/scripts/rvm" --auto-dotfiles && rvm install ruby-3.2.2'
+  sudo -u upframe bash -c 'source "$HOME/.rvm/scripts/rvm" && rvm install ruby-3.2.2'
 }
 
 installBundles() {
