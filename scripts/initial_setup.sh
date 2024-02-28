@@ -74,6 +74,7 @@ ExecStartPost=/bin/sh /home/upframe/upframeos/scripts/startup.sh" | sudo tee /et
 checkoutUpFrameOSSource() {
   git clone https://github.com/appenetic/upframeos /home/upframe/upframeos
   chown -R upframe:upframe /home/upframe/upframeos
+  chmod -R 755 /home/upframe/upframeos
 }
 
 configureWIFIHotspotFeature() {

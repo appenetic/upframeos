@@ -2,7 +2,7 @@
 echo "Starting up..."
 sleep 1
 
-cd /home/upframe/upframeos && git pull || echo "git pull failed, but script continues"
+cd /home/upframe/upframeos && git -c safe.directory=/home/upframe/upframeos pull || echo "git pull failed, but script continues"
 sh /home/upframe/upframeos/scripts/create_setup_wifi.sh &
 
 RAILS_ENV=production bundle exec rake db:create
