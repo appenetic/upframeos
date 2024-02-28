@@ -62,19 +62,13 @@ configureUpFrameAutoLogin() {
     sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
     echo "[Service]
 ExecStart=
-ExecStart=-/sbin/agetty --autologin upframe --noclear %I 38400 linux" | sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf > /dev/null
+ExecStart=-/sbin/agetty --autologin upframe --noclear %I 38400 linux
+ExecStartPost=/bin/sh /home/upframe/upframeos/scripts/startup.sh" | sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf > /dev/null
 
-# Step 2: Ensure startup.sh is executed on login by adding it to .bash_profile
-echo "sh /home/upframe/upframeos/scripts/startup.sh" >> /home/upframe/.bash_profile
-chown upframe:upframe /home/upframe/.bash_profile
+    # Reload systemd manager configuration
+    sudo systemctl daemon-reload
 
-# Reload systemd manager configuration
-sudo systemctl daemon-reload
-
-# Optional: Enable getty@tty1 service to start at boot
-# sudo systemctl enable getty@tty1.service
-
-echo "Auto-login setup complete. The user 'upframe' will automatically log in on console."
+    echo "Auto-login setup complete. The user 'upframe' will automatically log in on console and execute startup.sh."
 }
 
 checkoutUpFrameOSSource() {
