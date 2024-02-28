@@ -1,4 +1,5 @@
 #!/bin/bash
+set -xv
 echo "Starting up..."
 sleep 1
 
