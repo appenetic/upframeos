@@ -100,6 +100,10 @@ installBundles() {
   '
 }
 
+configureLighttpd() {
+  cp "${SCRIPT_DIR}/../config/lighttpd.conf" /etc/lighttpd/lighttpd.conf
+}
+
 cleanup() {
   touch ~/.hushlogin
   echo "" > /etc/wpa_supplicant/wpa_supplicant.conf
@@ -113,6 +117,7 @@ checkoutUpFrameOSSource
 configureWIFIHotspotFeature
 installRMV
 installBundles
+configureLighttpd
 
 cleanup
 reboot
