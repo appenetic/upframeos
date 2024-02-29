@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="video-container">
-  <%= video_tag 'startup_background.mp4', type: "video/mp4", autoplay: true, loop: true, muted: true, playsinline: true, alt: "Canvas Video", id: "background-video" %>
+  <%= video_tag 'startup_background.mp4', type: "video/mp4", autoplay: true, loop: true, muted: true, playsinline: true,  preload: 'auto', alt: "Canvas Video", id: "background-video" %>
 </div>
 <div id="logo">
   <%= image_tag 'logo.png', alt: 'Logo' %>
