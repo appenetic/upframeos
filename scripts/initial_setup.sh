@@ -70,9 +70,28 @@ configureWIFIHotspotFeature() {
 
   SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
   cp "${SCRIPT_DIR}/../config/hostapd.conf" /etc/hostapd/hostapd.conf
+  cp "${SCRIPT_DIR}/../config/dnsmasq.conf" /etc/dnsmasq.conf
 
   echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' >> /etc/default/hostapd
   echo 'interface wlan0\nstatic ip_address=192.168.1.1/24' >> /etc/dhcpcd.conf
+
+  IP_FORWARD=$(sysctl net.ipv4.ip_forward | awk '{print $3}')
+  if [ "$IP_FORWARD" -eq 1 ]; then
+      echo "IP forwarding is already enabled."
+  else
+      echo "Enabling IP forwarding..."
+      # Enable IP forwarding immediately
+      sudo sysctl -w net.ipv4.ip_forward=1
+      # Make the change permanent in /etc/sysctl.conf
+      if grep -q "net.ipv4.ip_forward=1" /etc/sysctl.conf; then
+          echo "IP forwarding setting already exists in /etc/sysctl.conf"
+      else
+          echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf > /dev/null
+          echo "IP forwarding enabled permanently in /etc/sysctl.conf."
+      fi
+  fi
+
+  sudo sysctl -p /etc/sysctl.conf
 }
 
 installRMV() {
