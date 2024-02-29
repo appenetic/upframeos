@@ -15,7 +15,7 @@ cd /home/upframe/upframeos/app/
 #RAILS_ENV=production bundle exec rake db:create
 #RAILS_ENV=production bundle exec rake db:migrate
 #RAILS_ENV=production bundle exec rake assets:precompile
-nohup RAILS_ENV=production bundle exec rails s > /dev/null 2>&1 &
+nohup RAILS_ENV=production bundle exec rails s > rails_server.log 2>&1 &
 
 wait_for_server() {
     echo "Waiting for Rails server to start..."
