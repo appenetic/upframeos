@@ -9,6 +9,7 @@ echo $PATH
 export PATH="$PATH:/home/upframe/.rvm/bin"
 echo $PATH
 source /home/upframe/.bash_profile || source /home/upframe/.bashrc
+source /home/upframe/.rvm/scripts/rvm
 
 cd /home/upframe/upframeos/app/
 RAILS_ENV=production bundle exec rake db:create
