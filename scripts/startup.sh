@@ -28,4 +28,4 @@ wait_for_server() {
 
 wait_for_server
 
-sudo xinit /home/upframe/upframeos/scripts/start_browser.sh
+#sudo xinit /home/upframe/upframeos/scripts/start_browser.sh
