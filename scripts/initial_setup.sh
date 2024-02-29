@@ -63,7 +63,8 @@ configureUpFrameAutoLogin() {
     echo "[Service]
 ExecStart=
 ExecStart=-/sbin/agetty --autologin upframe --noclear %I 38400 linux
-ExecStartPost=/usr/bin/bash /home/upframe/upframeos/scripts/startup.sh" | sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf > /dev/null
+ExecStartPost=/usr/bin/bash /home/upframe/upframeos/scripts/startup.sh
+Restart=no" | sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf > /dev/null
 
     # Reload systemd manager configuration
     sudo systemctl daemon-reload
