@@ -29,6 +29,7 @@ class Avo::ToolsController < Avo::ApplicationController
     else
       # On success, redirect to the settings page with a success notice
       update_orientation
+      update_wifi_config
       redirect_to settings_path, notice: "Settings were successfully updated."
     end
   end

@@ -1,0 +1,12 @@
+[Unit]
+Description=Setup WiFi Hotspot
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /home/upframe/upframeos/scripts/create_setup_wifi.sh
+RemainAfterExit=true
+User=root
+
+[Install]
+WantedBy=multi-user.target
