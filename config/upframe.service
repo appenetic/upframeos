@@ -8,7 +8,8 @@ User=upframe
 Environment="RAILS_ENV=production"
 Environment="PATH=/home/upframe/.rvm/bin:/usr/local/bin:/usr/bin:/bin"
 WorkingDirectory=/home/upframe/upframeos/app
-# Assuming git is configured properly for 'upframe' user to pull without interaction
+
+ExecStartPre=/bin/bash -lc 'rm -rf /home/upframe/upframeos/app/tmp/pids/server.pid'
 ExecStartPre=/bin/bash -lc 'cd /home/upframe/upframeos && git -c safe.directory=/home/upframe/upframeos pull || echo "git pull failed, but script continues"'
 ExecStartPre=/bin/bash -lc 'source /home/upframe/.rvm/scripts/rvm && rvm use ruby-3.2.2@default && bundle install'
 ExecStartPre=/bin/bash -lc 'source /home/upframe/.rvm/scripts/rvm && rvm use ruby-3.2.2@default && bundle exec rake db:create'

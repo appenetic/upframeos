@@ -18,8 +18,6 @@ if ENV["RAILS_ENV"] == "production"
   workers worker_count if worker_count > 1
 end
 
-bind "unix:///home/upframe/upframeos/app/tmp/puma.sock"
-
 # Specifies the `worker_timeout` threshold that Puma will use to wait before
 # terminating a worker in development environments.
 worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
@@ -31,7 +29,9 @@ port ENV.fetch("PORT") { 3000 }
 environment ENV.fetch("RAILS_ENV") { "development" }
 
 # Specifies the `pidfile` that Puma will use.
-pidfile ENV.fetch("PIDFILE") { "/home/upframe/upframeos/app/tmp/server.pid" }
+base_directory = File.expand_path('../../', __FILE__) # Adjust this line as necessary to correctly find your application's root directory
+default_pidfile_path = File.join(base_directory, 'tmp', 'server.pid')
+pidfile ENV.fetch("PIDFILE") { default_pidfile_path }
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
