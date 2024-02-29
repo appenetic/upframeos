@@ -89,19 +89,22 @@ installBundles() {
 }
 
 configureLighttpd() {
+  SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
   cp "${SCRIPT_DIR}/../config/lighttpd.conf" /etc/lighttpd/lighttpd.conf
 }
 
 configureUpFrameService() {
-    cp "${SCRIPT_DIR}/../config/upframe.service" /etc/systemd/system/upframe.service
-    systemctl daemon-reload
-    systemctl enable upframe
+  SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+  cp "${SCRIPT_DIR}/../config/upframe.service" /etc/systemd/system/upframe.service
+  systemctl daemon-reload
+  systemctl enable upframe
 }
 
 configureBrowserAutostartService() {
-      cp "${SCRIPT_DIR}/../config/start_browser.service" /etc/systemd/system/start_browser.service
-      systemctl daemon-reload
-      systemctl enable start_browser
+  SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+  cp "${SCRIPT_DIR}/../config/start_browser.service" /etc/systemd/system/start_browser.service
+  systemctl daemon-reload
+  systemctl enable start_browser
 }
 
 cleanup() {
@@ -118,6 +121,7 @@ installRMV
 installBundles
 configureLighttpd
 configureUpFrameService
+configureBrowserAutostartService
 
 cleanup
 reboot
