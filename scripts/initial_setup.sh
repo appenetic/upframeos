@@ -33,8 +33,7 @@ installPackages() {
         unclutter \
         vim \
         xorg \
-        zlib1g-dev \
-        netcat-traditional
+        zlib1g-dev
 }
 
 createUpFrameUser() {
@@ -57,20 +56,6 @@ createUpFrameUser() {
 
     sudo -u upframe touch /home/upframe/.hushlogin
     echo "User 'upframe' has been created and configured for passwordless sudo."
-}
-
-configureUpFrameAutoLogin() {
-    sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
-    echo "[Service]
-ExecStart=
-ExecStart=-/sbin/agetty --autologin upframe --noclear %I 38400 linux
-ExecStartPost=/usr/bin/bash /home/upframe/upframeos/scripts/startup.sh
-Restart=no" | sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf > /dev/null
-
-    # Reload systemd manager configuration
-    sudo systemctl daemon-reload
-
-    echo "Auto-login setup complete. The user 'upframe' will automatically log in on console and execute startup.sh."
 }
 
 checkoutUpFrameOSSource() {
@@ -107,6 +92,18 @@ configureLighttpd() {
   cp "${SCRIPT_DIR}/../config/lighttpd.conf" /etc/lighttpd/lighttpd.conf
 }
 
+configureUpFrameService() {
+    cp "${SCRIPT_DIR}/../config/upframe.service" /etc/systemd/system/upframe.service
+    systemctl daemon-reload
+    systemctl enable upframe
+}
+
+configureBrowserAutostartService() {
+      cp "${SCRIPT_DIR}/../config/start_browser.service" /etc/systemd/system/start_browser.service
+      systemctl daemon-reload
+      systemctl enable start_browser
+}
+
 cleanup() {
   touch ~/.hushlogin
   echo "" > /etc/wpa_supplicant/wpa_supplicant.conf
@@ -115,12 +112,12 @@ cleanup() {
 
 createUpFrameUser
 installPackages
-configureUpFrameAutoLogin
 checkoutUpFrameOSSource
 configureWIFIHotspotFeature
 installRMV
 installBundles
 configureLighttpd
+configureUpFrameService
 
 cleanup
 reboot

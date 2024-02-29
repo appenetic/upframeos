@@ -1,0 +1,21 @@
+[Unit]
+Description=Upframe Rails Application
+After=network.target
+
+[Service]
+User=upframe
+# Ensure we have the necessary environment variables for git and rvm
+Environment="RAILS_ENV=production"
+Environment="PATH=/home/upframe/.rvm/bin:/usr/local/bin:/usr/bin:/bin"
+# Assuming git is configured properly for 'upframe' user to pull without interaction
+ExecStartPre=/bin/bash -lc 'cd /home/upframe/upframeos && git -c safe.directory=/home/upframe/upframeos pull || echo "git pull failed, but script continues"'
+ExecStartPre=/bin/bash -lc 'source /home/upframe/.rvm/scripts/rvm && rvm use ruby-3.2.2@default && bundle install'
+ExecStartPre=/bin/bash -lc 'source /home/upframe/.rvm/scripts/rvm && rvm use ruby-3.2.2@default && bundle exec rake db:create'
+ExecStartPre=/bin/bash -lc 'source /home/upframe/.rvm/scripts/rvm && rvm use ruby-3.2.2@default && bundle exec rake db:migrate'
+ExecStartPre=/bin/bash -lc 'source /home/upframe/.rvm/scripts/rvm && rvm use ruby-3.2.2@default && bundle exec rake assets:precompile'
+ExecStart=/bin/bash -lc 'source /home/upframe/.rvm/scripts/rvm && rvm use ruby-3.2.2@default && exec bundle exec rails s -p 3000 -e production'
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

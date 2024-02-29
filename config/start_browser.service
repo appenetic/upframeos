@@ -1,0 +1,13 @@
+[Unit]
+Description=Start Browser in Fullscreen
+After=graphical.target
+
+[Service]
+User=upframe
+Environment="DISPLAY=:0"
+ExecStart=sudo xinit /home/upframe/upframeos/scripts/start_browser.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical.target

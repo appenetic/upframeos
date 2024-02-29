@@ -25,7 +25,7 @@ if check_rails_ready; then
 
     # Start window manager and set display properties
     matchbox-window-manager -use_titlebar no &
-    xrandr --output HDMI-1 --rotate $(cat config/orientation.cfg) &
+    xrandr --output HDMI-1 --rotate $(cat /home/upframe/upframeos/config/orientation.cfg) &
     unclutter &
 
     # Start the browser
