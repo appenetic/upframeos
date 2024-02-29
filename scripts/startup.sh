@@ -17,4 +17,15 @@ RAILS_ENV=production bundle exec rake db:migrate
 RAILS_ENV=production bundle exec rake assets:precompile
 nohup RAILS_ENV=production bundle exec rails s > /dev/null 2>&1 &
 
+wait_for_server() {
+    echo "Waiting for Rails server to start..."
+    while ! nc -z localhost 3000; do
+      echo "waiting for application server to become responsive"
+      sleep 1 # wait for 1 second before check again
+    done
+    echo "Rails server started."
+}
+
+wait_for_server
+
 sudo xinit /home/upframe/upframeos/scripts/start_browser.sh
