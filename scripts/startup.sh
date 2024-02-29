@@ -28,8 +28,4 @@ wait_for_server() {
 
 wait_for_server
 
-while true; do
-  sleep 1d # This sleeps for 1 day at a time, but it's effectively forever.
-done
-
-#sudo xinit /home/upframe/upframeos/scripts/start_browser.sh
+sudo xinit /home/upframe/upframeos/scripts/start_browser.sh
