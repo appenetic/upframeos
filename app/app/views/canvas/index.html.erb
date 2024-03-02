@@ -50,9 +50,9 @@ $(document).ready(function() {
       url: '/content',
       success: function(htmlContent) {
         if (htmlContent !== lastContent) {
-          var $newContent = $(`<div class='content'>${htmlContent}</div>`).appendTo('#content-wrapper');
+            let $newContent = $(`<div class='content'>${htmlContent}</div>`).appendTo('#content-wrapper');
 
-          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
             $newContent.addClass('visible');
           });
 

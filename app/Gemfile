@@ -11,7 +11,7 @@ gem "sprockets-rails"
 gem "rspotify", "~> 2.12"
 gem "google-protobuf"
 gem 'mini_magick', "~> 4.12"
-gem 'rack-cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'image_processing', '~> 1.2'
 gem 'rails-settings-cached', '~> 2.9.4'
 gem 'rqrcode', '~> 2.2.0'
