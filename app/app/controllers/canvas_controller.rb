@@ -89,10 +89,11 @@ class CanvasController < ApplicationController
 
   def initialize_player
     if @user
-      user = RSpotify::User.new(@user.auth_data)
-
-      if user.present?
-        @player = user.player
+      begin
+        user = RSpotify::User.new(@user.auth_data)
+        @player = user.player if user.present?
+      rescue => e
+        Rails.logger.error "Failed to initialize Spotify player: #{e.message}"
       end
     end
   end
