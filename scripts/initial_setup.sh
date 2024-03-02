@@ -33,7 +33,8 @@ installPackages() {
         unclutter \
         vim \
         xorg \
-        zlib1g-dev
+        zlib1g-dev \
+        imagemagick
 }
 
 createUpFrameUser() {
