@@ -1,36 +1,32 @@
-# This configuration file will be evaluated by Puma. The top-level methods that
-# are invoked here are part of Puma's configuration DSL. For more information
-# about methods provided by the DSL, see https://puma.io/puma/Puma/DSL.html.
+# This configuration is optimized for running on limited resources, such as a Raspberry Pi.
 
-# Puma can serve each request in a thread from an internal thread pool.
-# The `threads` method setting takes two numbers: a minimum and maximum.
-# Any libraries that use thread pools should be configured to match
-# the maximum value specified for Puma. Default is set to 5 threads for minimum
-# and maximum; this matches the default thread size of Active Record.
 max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
 min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
 threads min_threads_count, max_threads_count
 
-# Specifies that the worker count should equal the number of processors in production.
+# In a resource-constrained environment like a Raspberry Pi, it's better to limit the number of workers.
+# Too many workers can lead to excessive memory usage.
+# We'll set a sensible default that can be overridden with an environment variable.
 if ENV["RAILS_ENV"] == "production"
-  require "concurrent-ruby"
-  worker_count = Integer(ENV.fetch("WEB_CONCURRENCY") { Concurrent.physical_processor_count })
-  workers worker_count if worker_count > 1
+  # Limit the number of workers to a lower number suitable for a Raspberry Pi's resources.
+  # 2 is a sensible default for a Raspberry Pi but consider adjusting based on your specific model and available resources.
+  default_worker_count = 2
+  workers ENV.fetch("WEB_CONCURRENCY") { default_worker_count }
 end
 
-# Specifies the `worker_timeout` threshold that Puma will use to wait before
-# terminating a worker in development environments.
+# Since Raspberry Pi's resources are limited, we keep the worker timeout as is,
+# but you might adjust it based on your application's needs.
 worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+# Use the default port or one specified by the PORT environment variable.
 port ENV.fetch("PORT") { 3000 }
 
-# Specifies the `environment` that Puma will run in.
+# Set the environment based on RAILS_ENV with a default of 'development'.
 environment ENV.fetch("RAILS_ENV") { "development" }
 
-# Specifies the `pidfile` that Puma will use.
-base_directory = File.expand_path('../../', __FILE__) # Adjust this line as necessary to correctly find your application's root directory
-default_pidfile_path = File.join(base_directory, 'tmp', 'server.pid')
+# Define the pidfile location. Adjust the base directory if necessary.
+base_directory = File.expand_path('../../', __FILE__)
+default_pidfile_path = File.join(base_directory, 'tmp', 'pids', 'puma.pid') # Ensure the 'pids' directory exists or adjust as needed.
 pidfile ENV.fetch("PIDFILE") { default_pidfile_path }
 
 # Allow puma to be restarted by `bin/rails restart` command.
