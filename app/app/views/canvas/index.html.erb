@@ -40,7 +40,7 @@ $(document).ready(function() {
     if (!isWaiting) {
       updateContent();
     }
-  }, 5000); // Reduced interval to 5 seconds for more frequent checks
+  }, 2000); // Reduced interval to 5 seconds for more frequent checks
 
   function updateContent() {
     if (isWaiting) return;
@@ -69,7 +69,7 @@ $(document).ready(function() {
       complete: function() {
         setTimeout(() => {
           isWaiting = false;
-        }, 10000); // Consider dynamically adjusting this based on various factors
+        }, 5000); // Consider dynamically adjusting this based on various factors
       }
     });
   }
