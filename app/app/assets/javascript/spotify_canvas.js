@@ -1,72 +1,92 @@
 document.addEventListener('DOMContentLoaded', function() {
-  let lastTrackId = null; // Variable to store the last track ID
+    let lastTrackId = null;
 
-  const updateTrackInfo = () => {
-    fetch('/spotify_canvas/current_track') // Adjust the URL to match your routing setup
-      .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok');
-        return response.json();
-      })
-      .then(data => {
-        const currentTrackId = `${data.artist_name}-${data.track_name}`; // Example ID generation
-
-        // Check if the track has actually changed
-        if (currentTrackId === lastTrackId) {
-          // Track has not changed, no need to update the page
-          return;
+    const fadeElement = (element, fadeIn, callback) => {
+        // Initial setup for fade-out
+        if (!fadeIn) {
+            element.style.opacity = '0';
         }
 
-        // Track has changed, update lastTrackId and proceed with updates
-        lastTrackId = currentTrackId;
+        // Wait for the transition to complete
+        element.addEventListener('transitionend', function handler() {
+            element.removeEventListener('transitionend', handler);
 
-        // Fade out current info and canvas
-        const artistInfo = document.getElementById('artist-info');
+            // Perform the callback function between fade-out and fade-in
+            if (typeof callback === 'function') {
+                callback();
+            }
+
+            // Setup for fade-in
+            if (fadeIn) {
+                element.style.opacity = '1';
+            }
+        }, { once: true });
+
+        // If fading in, immediately start after setting up the listener
+        if (fadeIn) {
+            // Use a slight delay to ensure the listener is active before changing opacity
+            setTimeout(() => element.style.opacity = '1', 10);
+        }
+    };
+
+    const updateContentAndFadeIn = (data) => {
+        // Update the DOM elements with the new data
+        document.getElementById('artist-name').textContent = `${data.artist_name} - ${data.album_name}`;
+        document.getElementById('track-name').textContent = data.track_name;
+
         const spotifyCanvas = document.getElementById('spotify_canvas');
-        artistInfo.style.opacity = '0';
-        spotifyCanvas.style.opacity = '0';
+        spotifyCanvas.innerHTML = ''; // Clear the current content
 
-        // Wait for fade out to complete
-        setTimeout(() => {
-          // Update the DOM elements with the new data
-          document.getElementById('artist-name').textContent = `${data.artist_name} - ${data.album_name}`;
-          document.getElementById('track-name').textContent = data.track_name;
-          
-          // Update Spotify canvas
-          spotifyCanvas.innerHTML = ''; // Clear the current content
-          if (data.canvas_url) {
+        if (data.canvas_url) {
             const video = document.createElement('video');
-            Object.assign(video, {src: data.canvas_url, autoplay: true, loop: true, muted: true, playsinline: true, alt: "Canvas Video"});
+            Object.assign(video, { src: data.canvas_url, autoplay: true, loop: true, muted: true, playsinline: true, alt: "Canvas Video" });
             spotifyCanvas.appendChild(video);
-          } else if (data.cover_image_url) {
+        } else if (data.cover_image_url) {
             const img = document.createElement('img');
             img.src = data.cover_image_url;
             img.alt = "Cover Image";
             spotifyCanvas.appendChild(img);
-          } else {
+        } else {
             spotifyCanvas.textContent = 'No media available.';
-          }
+        }
 
-          // Fade in updated info and canvas
-          artistInfo.style.opacity = '1';
-          spotifyCanvas.style.opacity = '1';
+        // Fade in the updated info and canvas
+        const artistInfo = document.getElementById('artist-info');
+        fadeElement(artistInfo, true);
+        fadeElement(spotifyCanvas, true);
+    };
 
-          // Update background color if available
-          // Inside the setTimeout function, after updating the artist and track info
-          if (data.background_color) {
-            const currentBgColor = document.body.style.backgroundColor;
-            const newBgColor = data.background_color;
-            
-            if (currentBgColor !== newBgColor) {
-              document.body.style.backgroundColor = newBgColor;
-            }
-          }
-        }, 500); // Match the CSS transition time
-      })
-      .catch(error => {
-        console.error('Error fetching current track:', error);
-      });
-  };
+    const updateTrackInfo = () => {
+        fetch('/current_track')
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                const currentTrackId = `${data.artist_name}-${data.track_name}`;
 
-  // Update track info every 5 seconds
-  setInterval(updateTrackInfo, 5000);
+                if (currentTrackId === lastTrackId) {
+                    return; // Track has not changed, no need to update the page
+                }
+                lastTrackId = currentTrackId;
+
+                // Fade out current info and canvas before updating
+                const artistInfo = document.getElementById('artist-info');
+                const spotifyCanvas = document.getElementById('spotify_canvas');
+
+                fadeElement(artistInfo, false, () => updateContentAndFadeIn(data));
+                fadeElement(spotifyCanvas, false);
+
+                // Update background color if available, no fade effect required here
+                if (data.background_color) {
+                    document.body.style.backgroundColor = data.background_color;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching current track:', error);
+            });
+    };
+
+    // Update track info every 5 seconds
+    setInterval(updateTrackInfo, 5000);
 });

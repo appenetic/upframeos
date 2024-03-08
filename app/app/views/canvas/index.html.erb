@@ -2,79 +2,76 @@
 <html>
 <head>
   <title>Canvas</title>
-<style>
-  #content-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-  }
-
-  .content {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: opacity 0.5s ease; /* Only animate opacity */
-  }
-
-  .content.visible {
-    opacity: 1;
-  }
-</style>
 </head>
 <body>
 <div id="content-wrapper">
 </div>
-
+<%= javascript_include_tag 'spotify_canvas' %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-$(document).ready(function() {
-  let lastContent = '';
-  let isWaiting = false;
+    $(document).ready(function() {
+        let lastContent = '';
+        let lastPlayingStatus = null; // Track the last playing status
+        let isWaiting = false;
 
-  updateContent();
+        checkPlayingStatusAndUpdateContent(); // Initial check
 
-  setInterval(() => {
-    if (!isWaiting) {
-      updateContent();
-    }
-  }, 2000); // Reduced interval to 5 seconds for more frequent checks
+        setInterval(() => {
+            if (!isWaiting) {
+                checkPlayingStatusAndUpdateContent();
+            }
+        }, 5000); // Check every 5 seconds for status changes
 
-  function updateContent() {
-    if (isWaiting) return;
-    isWaiting = true;
+        function checkPlayingStatusAndUpdateContent() {
+            if (isWaiting) return;
+            isWaiting = true; // Prevent further requests until this check is complete
 
-    $.ajax({
-      url: '/content',
-      success: function(htmlContent) {
-        if (htmlContent !== lastContent) {
-            let $newContent = $(`<div class='content'>${htmlContent}</div>`).appendTo('#content-wrapper');
-
-            requestAnimationFrame(() => {
-            $newContent.addClass('visible');
-          });
-
-          setTimeout(() => {
-            $('.content').not($newContent).remove();
-          }, 1000);
-
-          lastContent = htmlContent;
+            // First, check the playing status
+            $.ajax({
+                url: '/playing_status',
+                success: function(data) {
+                    if (data.playing !== lastPlayingStatus) {
+                        // Playing status has changed, update lastPlayingStatus and content
+                        lastPlayingStatus = data.playing;
+                        updateContent();
+                    } else {
+                        // Playing status hasn't changed, no need to update content
+                        isWaiting = false; // Ready for the next check
+                    }
+                },
+                error: function() {
+                    console.log('Error fetching playing status');
+                    isWaiting = false; // Ready for the next check
+                }
+            });
         }
-      },
-      error: function() {
-        console.log('Error fetching new content');
-      },
-      complete: function() {
-        setTimeout(() => {
-          isWaiting = false;
-        }, 5000); // Consider dynamically adjusting this based on various factors
-      }
-    });
-  }
-});
-</script>
 
+        function updateContent() {
+            // Now, update the content as the playing status has changed
+            $.ajax({
+                url: '/content',
+                success: function(htmlContent) {
+                    if (htmlContent !== lastContent) {
+                        let $newContent = $(`<div class='content'>${htmlContent}</div>`).hide().appendTo('#content-wrapper').fadeIn(1000);
+
+                        setTimeout(() => {
+                            $('.content').not($newContent).remove();
+                        }, 1000);
+
+                        lastContent = htmlContent;
+                    }
+                },
+                error: function() {
+                    console.log('Error fetching new content');
+                },
+                complete: function() {
+                    setTimeout(() => {
+                        isWaiting = false; // Ready for the next check
+                    }, 5000); // Reset the waiting flag after a delay to allow for re-checks
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

@@ -4,6 +4,7 @@ class CanvasController < ApplicationController
   before_action :set_user
   before_action :initialize_player
   before_action :playback_active?
+  before_action :playback_active?, except: [:playing_status]
 
   def current_track
     @player = initialize_player
@@ -30,6 +31,14 @@ class CanvasController < ApplicationController
     end
 
     render html: html_content.html_safe
+  end
+
+  def playing_status
+    if @player && @player.is_playing
+      render json: { playing: true }
+    else
+      render json: { playing: false }
+    end
   end
 
   private

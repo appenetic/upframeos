@@ -10,10 +10,11 @@
                 <%= video_tag spotify_data[:canvas_url], class: "fullscreen-video", type: "video/mp4", autoplay: true, loop: true, muted: true, playsinline: true, alt: "Canvas Video" %>
             <% end %>
         </div>
-        <div class="track-info" id="artist-info">
-            <p id="artist-name"><%= spotify_data[:artist_name] %> - <%= spotify_data[:album_name] %></p>
-            <p id="track-name"><%= spotify_data[:track_name] %></p>
-        </div>
+      <div class="track-info" id="artist-info" style="color: <%= color_for_background(spotify_data[:background_color]) %>;">
+        <p id="artist-name"><%= spotify_data[:artist_name] %> - <%= spotify_data[:album_name] %></p>
+        <p id="track-name"><%= spotify_data[:track_name] %></p>
+      </div>
     </div>
     <%= javascript_include_tag 'spotify_canvas' %>
+    <%= stylesheet_link_tag 'spotify_canvas', media: 'all', 'data-turbolinks-track': 'reload' %>
 </div>
