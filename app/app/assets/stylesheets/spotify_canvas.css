@@ -2,6 +2,16 @@
     object-fit: contain;
 }
 
+#background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    transition: background-color 0.5s ease;
+}
+
 .spotify-icon, .track-info {
     position: absolute;
     z-index: 2;
@@ -33,7 +43,7 @@
     margin-bottom: 0;
 }
 
-#artist-info, #spotify_canvas {
+#spotify_canvas > *, #artist-info {
     transition: opacity 0.5s ease;
     opacity: 1;
 }

@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     let lastTrackId = null;
+    let lastBackgroundColor = null;
+
+    // Create and append the background overlay if it doesn't already exist
+    let backgroundOverlay = document.getElementById('background-overlay');
+    if (!backgroundOverlay) {
+        backgroundOverlay = document.createElement('div');
+        backgroundOverlay.id = 'background-overlay';
+        document.body.appendChild(backgroundOverlay);
+    }
 
     const fadeElement = (element, fadeIn, callback) => {
         // Initial setup for fade-out
@@ -54,6 +63,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const artistInfo = document.getElementById('artist-info');
         fadeElement(artistInfo, true);
         fadeElement(spotifyCanvas, true);
+
+// Assuming you have already fetched the new track information and stored it in `data`
+        const backgroundOverlay = document.getElementById('background-overlay');
+
+        if (backgroundOverlay && data.background_color) {
+            backgroundOverlay.style.backgroundColor = data.background_color;
+        }
     };
 
     const updateTrackInfo = () => {

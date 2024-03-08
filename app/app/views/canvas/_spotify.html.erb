@@ -1,5 +1,5 @@
-<div style="background-color: <%= spotify_data[:background_color] %>; height: 100vh; display: flex; justify-content: center; align-items: center;">
-    <div id="spotify_canvas_container">
+<div id="background-overlay" style="background-color: <%= spotify_data[:background_color] %>;"></div>
+<div id="spotify_canvas_container">
         <div class="spotify-icon">
             <%= render 'layouts/spotify_icon', svg_color: color_for_background(spotify_data[:background_color]) %>
         </div>
