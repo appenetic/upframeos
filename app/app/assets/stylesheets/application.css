@@ -38,7 +38,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    font-family: 'Helvetica', serif;
+    font-family: 'Helvetica'
 }
 
 body, html {
