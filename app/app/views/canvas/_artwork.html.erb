@@ -1,8 +1,8 @@
 <div id="artwork_canvas" data-reload-after-ms="<%= artwork_data[:reload_after_ms] %>"
      data-script-id="artwork-canvas-script" data-script="<%= asset_path('artwork_canvas.js') %>">
   <% if artwork_data[:artwork_image_url].present? %>
-    <%= image_tag artwork_data[:artwork_image_url] %>
+    <%= image_tag artwork_data[:artwork_image_url], class: "artwork-image" %>
   <% elsif artwork_data[:artwork_video_url].present? %>
-    <%= video_tag artwork_data[:artwork_video_url], class: "fullscreen-video", type: "video/mp4", autoplay: true, loop: true, muted: true, playsinline: true %>
+    <%= video_tag artwork_data[:artwork_video_url], class: "artwork-video", type: "video/mp4", autoplay: true, loop: true, muted: true, playsinline: true %>
   <% end %>
 </div>
