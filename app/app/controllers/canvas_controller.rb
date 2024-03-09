@@ -77,13 +77,10 @@ class CanvasController < ApplicationController
       data[:artwork_image_url] = url_for(artwork.image) if artwork.image.present?
       data[:artwork_video_url] = url_for(artwork.video) if artwork.video.present?
 
-      # Check if duration is present, otherwise use a default value or handle accordingly
-      duration = artwork.duration || 60 * 1000 # Default duration to 0 or some other appropriate value
+      duration = artwork.duration || 60 * 1000
       data[:reload_after_ms] = duration * 1000
     else
-      # Handle the case where no artwork is found. You might want to log this or provide default data
-      Rails.logger.warn "No artwork found. Using default data."
-      # Populate data with default values or leave it empty based on your application's needs
+      Rails.logger.warn 'No artwork found. Using default data.'
     end
 
     data

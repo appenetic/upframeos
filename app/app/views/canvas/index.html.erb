@@ -2,100 +2,11 @@
 <html>
 <head>
   <title>Canvas</title>
+  <%= javascript_include_tag 'canvas' %>
+  <%= javascript_include_tag 'script_manager' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-<div id="content-wrapper">
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    // Define the ScriptManager
-    const ScriptManager = {
-        loadScript: function(scriptId, scriptPath) {
-            this.unloadScript(scriptId); // Ensure any existing script with the same ID is unloaded
-            if (!document.getElementById(scriptId)) {
-                const script = document.createElement('script');
-                script.id = scriptId;
-                script.src = scriptPath;
-                script.onload = () => console.log(`${scriptId} loaded.`);
-                document.head.appendChild(script);
-            }
-        },
-        unloadScript: function(scriptId) {
-            const scriptElement = document.getElementById(scriptId);
-            if (scriptElement) {
-                if (typeof window.myScriptUnload === 'function') {
-                    window.myScriptUnload(); // Call the cleanup function before removing the script
-                }
-                document.head.removeChild(scriptElement);
-                console.log(`${scriptId} unloaded.`);
-            }
-        }
-    };
-
-    const spotifyScriptPath = '<%= asset_path("spotify_canvas.js") %>';
-    const artworkScriptPath = '<%= asset_path("artwork_canvas.js") %>';
-
-    $(document).ready(function() {
-        const contentState = {
-            lastContent: '',
-            lastPlayingStatus: null,
-            isWaiting: false
-        };
-
-        function checkAndUpdateContent() {
-            if (contentState.isWaiting) return;
-            contentState.isWaiting = true;
-
-            $.ajax({
-                url: '/playing_status',
-                success: function(data) {
-                    if (data.playing !== contentState.lastPlayingStatus) {
-                        contentState.lastPlayingStatus = data.playing;
-                        updateContent();
-                    } else {
-                        contentState.isWaiting = false;
-                    }
-                },
-                error: function() {
-                    console.error('Error fetching playing status');
-                    contentState.isWaiting = false;
-                }
-            });
-        }
-
-        function updateContent() {
-            $.ajax({
-                url: '/content',
-                success: function(htmlContent) {
-                    if (htmlContent !== contentState.lastContent) {
-                        contentState.lastContent = htmlContent;
-                        const $newContent = $(`<div class='content'>${htmlContent}</div>`).hide().appendTo('#content-wrapper').fadeIn(1000);
-
-                        setTimeout(() => $('.content').not($newContent).remove(), 1000);
-
-                        if ($newContent.find('#spotify_canvas_container').length) {
-                            ScriptManager.unloadScript('artwork-canvas-script')
-                            ScriptManager.loadScript('spotify-canvas-script', spotifyScriptPath);
-                        }
-
-                        if ($newContent.find('#artwork_canvas').length) {
-                            ScriptManager.unloadScript('spotify-canvas-script')
-                            ScriptManager.loadScript('artwork-canvas-script', artworkScriptPath);
-                        }
-                    }
-                },
-                error: function() {
-                    console.error('Error fetching new content');
-                },
-                complete: function() {
-                    setTimeout(() => contentState.isWaiting = false, 5000);
-                }
-            });
-        }
-
-        // Modified to use ScriptManager for handling script unloading
-        setInterval(checkAndUpdateContent, 5000);
-    });
-</script>
+<div id="content-wrapper"></div>
 </body>
 </html>

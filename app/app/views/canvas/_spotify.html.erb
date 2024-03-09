@@ -1,20 +1,22 @@
-<div id="background-overlay" style="background-color: <%= spotify_data[:background_color] %>;"></div>
-<div id="spotify_canvas_container">
-        <div class="spotify-icon">
-            <%= render 'layouts/spotify_icon', svg_color: color_for_background(spotify_data[:background_color]) %>
-        </div>
-        <div id="spotify_canvas">
-            <% if spotify_data[:cover_image_url].present? && spotify_data[:canvas_url].nil? %>
-                <%= image_tag spotify_data[:cover_image_url], alt: "Cover Image", class: "cover-image" %>
-            <% elsif spotify_data[:canvas_url].present? %>
-                <%= video_tag spotify_data[:canvas_url], class: "fullscreen-video", type: "video/mp4", autoplay: true, loop: true, muted: true, playsinline: true, alt: "Canvas Video" %>
-            <% end %>
-        </div>
-      <div class="track-info" id="artist-info" style="color: <%= color_for_background(spotify_data[:background_color]) %>;">
-        <p id="artist-name"><%= spotify_data[:artist_name] %> - <%= spotify_data[:album_name] %></p>
-        <p id="track-name"><%= spotify_data[:track_name] %></p>
-      </div>
+<div data-script-id="spotify-canvas-script" data-script="<%= asset_path('spotify_canvas.js') %>">
+  <div id="background-overlay" style="background-color: <%= spotify_data[:background_color] %>;"></div>
+  <div id="spotify_canvas_container">
+    <div class="spotify-icon">
+      <%= render 'layouts/spotify_icon', svg_color: color_for_background(spotify_data[:background_color]) %>
     </div>
-    <%= javascript_include_tag 'spotify_canvas' %>
-    <%= stylesheet_link_tag 'spotify_canvas', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <div id="spotify_canvas">
+      <% if spotify_data[:cover_image_url].present? && spotify_data[:canvas_url].nil? %>
+        <%= image_tag spotify_data[:cover_image_url], alt: "Cover Image", class: "cover-image" %>
+      <% elsif spotify_data[:canvas_url].present? %>
+        <%= video_tag spotify_data[:canvas_url], class: "fullscreen-video", type: "video/mp4", autoplay: true, loop: true, muted: true, playsinline: true, alt: "Canvas Video" %>
+      <% end %>
+    </div>
+    <div class="track-info" id="artist-info" style="color: <%= color_for_background(spotify_data[:background_color]) %>;">
+      <p id="artist-name"><%= spotify_data[:artist_name] %> - <%= spotify_data[:album_name] %></p>
+      <p id="track-name"><%= spotify_data[:track_name] %></p>
+    </div>
+  </div>
+  <%= javascript_include_tag 'spotify_canvas' %>
+  <%= stylesheet_link_tag 'spotify_canvas', media: 'all', 'data-turbolinks-track': 'reload' %>
+</div>
 </div>
