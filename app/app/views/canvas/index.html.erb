@@ -6,71 +6,89 @@
 <body>
 <div id="content-wrapper">
 </div>
-<%= javascript_include_tag 'spotify_canvas' %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+    const spotifyScriptPath = '<%= asset_path("spotify_canvas.js") %>';
+    const artworkScriptPath = '<%= asset_path("artwork_canvas.js") %>';
+
     $(document).ready(function() {
-        let lastContent = '';
-        let lastPlayingStatus = null; // Track the last playing status
-        let isWaiting = false;
+        const contentState = {
+            lastContent: '',
+            lastPlayingStatus: null,
+            isWaiting: false
+        };
 
-        checkPlayingStatusAndUpdateContent(); // Initial check
+        function checkAndUpdateContent() {
+            if (contentState.isWaiting) return;
+            contentState.isWaiting = true;
 
-        setInterval(() => {
-            if (!isWaiting) {
-                checkPlayingStatusAndUpdateContent();
-            }
-        }, 5000); // Check every 5 seconds for status changes
-
-        function checkPlayingStatusAndUpdateContent() {
-            if (isWaiting) return;
-            isWaiting = true; // Prevent further requests until this check is complete
-
-            // First, check the playing status
             $.ajax({
                 url: '/playing_status',
                 success: function(data) {
-                    if (data.playing !== lastPlayingStatus) {
-                        // Playing status has changed, update lastPlayingStatus and content
-                        lastPlayingStatus = data.playing;
+                    if (data.playing !== contentState.lastPlayingStatus) {
+                        contentState.lastPlayingStatus = data.playing;
                         updateContent();
                     } else {
-                        // Playing status hasn't changed, no need to update content
-                        isWaiting = false; // Ready for the next check
+                        contentState.isWaiting = false;
                     }
                 },
                 error: function() {
-                    console.log('Error fetching playing status');
-                    isWaiting = false; // Ready for the next check
+                    console.error('Error fetching playing status');
+                    contentState.isWaiting = false;
                 }
             });
         }
 
         function updateContent() {
-            // Now, update the content as the playing status has changed
             $.ajax({
                 url: '/content',
                 success: function(htmlContent) {
-                    if (htmlContent !== lastContent) {
-                        let $newContent = $(`<div class='content'>${htmlContent}</div>`).hide().appendTo('#content-wrapper').fadeIn(1000);
+                    if (htmlContent !== contentState.lastContent) {
+                        contentState.lastContent = htmlContent;
+                        const $newContent = $(`<div class='content'>${htmlContent}</div>`).hide().appendTo('#content-wrapper').fadeIn(1000);
 
-                        setTimeout(() => {
-                            $('.content').not($newContent).remove();
-                        }, 1000);
+                        setTimeout(() => $('.content').not($newContent).remove(), 1000);
 
-                        lastContent = htmlContent;
+                        if ($newContent.find('#spotify_canvas_container').length) {
+                            loadScript('spotify-canvas-script', spotifyScriptPath);
+                        }
+
+                        if ($newContent.find('#artwork_canvas').length) {
+                            loadScript('artwork-canvas-script', artworkScriptPath);
+                        }
                     }
                 },
                 error: function() {
-                    console.log('Error fetching new content');
+                    console.error('Error fetching new content');
                 },
                 complete: function() {
-                    setTimeout(() => {
-                        isWaiting = false; // Ready for the next check
-                    }, 5000); // Reset the waiting flag after a delay to allow for re-checks
+                    setTimeout(() => contentState.isWaiting = false, 5000);
                 }
             });
         }
+
+        function loadScript(scriptId, scriptPath) {
+            unloadScript(scriptId === 'spotify-canvas-script' ? 'artwork-canvas-script' : 'spotify-canvas-script');
+
+            if (!document.getElementById(scriptId)) {
+                const script = document.createElement('script');
+                script.id = scriptId;
+                script.src = scriptPath;
+                script.onload = () => console.log(`${scriptId} loaded.`);
+                document.head.appendChild(script);
+            }
+        }
+
+        function unloadScript(scriptId) {
+            const script = document.getElementById(scriptId);
+            if (script) {
+                document.head.removeChild(script);
+                console.log(`${scriptId} unloaded.`);
+            }
+        }
+
+        checkAndUpdateContent(); // Initial check
+        setInterval(checkAndUpdateContent, 5000);
     });
 </script>
 </body>

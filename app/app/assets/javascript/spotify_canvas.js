@@ -1,4 +1,11 @@
-document.addEventListener('DOMContentLoaded', function() {
+if (document.readyState === "loading") {
+    document.addEventListener('DOMContentLoaded', initialize);
+} else {
+    // The DOMContentLoaded event has already fired, run the function directly
+    initialize();
+}
+
+function initialize() {
     let lastTrackId = null;
     let lastBackgroundColor = null;
 
@@ -29,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (fadeIn) {
                 element.style.opacity = '1';
             }
-        }, { once: true });
+        }, {once: true});
 
         // If fading in, immediately start after setting up the listener
         if (fadeIn) {
@@ -48,7 +55,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (data.canvas_url) {
             const video = document.createElement('video');
-            Object.assign(video, { src: data.canvas_url, autoplay: true, loop: true, muted: true, playsinline: true, alt: "Canvas Video" });
+            Object.assign(video, {
+                src: data.canvas_url,
+                autoplay: true,
+                loop: true,
+                muted: true,
+                playsinline: true,
+                alt: "Canvas Video"
+            });
             spotifyCanvas.appendChild(video);
         } else if (data.cover_image_url) {
             const img = document.createElement('img');
@@ -105,4 +119,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update track info every 5 seconds
     setInterval(updateTrackInfo, 5000);
-});
+}
