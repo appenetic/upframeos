@@ -10,18 +10,31 @@ class CanvasController < ApplicationController
 
   def current_track
     @player = initialize_player
-    if @player.present? && @player.respond_to?(:currently_playing) && @player.currently_playing
-      render json: {
-        artist_name: @player.currently_playing.artists.first.name,
-        album_name: @player.currently_playing.album.name,
-        track_name: @player.currently_playing.name,
-        cover_image_url: @player.currently_playing.album.images.first['url'],
-        canvas_url: SpotifyCanvasService.instance.fetch_canvas_url(@player.currently_playing.uri),
-        background_color: extract_main_color(@player.currently_playing.album.images.first['url']),
-        reload_after_ms: (@player.currently_playing.duration_ms - @player.progress) + 2000
-      }
-    else
-      render json: { error: 'No track currently playing' }, status: :not_found
+    retries = 0
+    begin
+      if @player.present? && @player.respond_to?(:currently_playing) && @player.currently_playing
+        render json: {
+          artist_name: @player.currently_playing.artists.first.name,
+          album_name: @player.currently_playing.album.name,
+          track_name: @player.currently_playing.name,
+          cover_image_url: @player.currently_playing.album.images.first['url'],
+          canvas_url: SpotifyCanvasService.instance.fetch_canvas_url(@player.currently_playing.uri),
+          background_color: extract_main_color(@player.currently_playing.album.images.first['url']),
+          reload_after_ms: (@player.currently_playing.duration_ms - @player.progress) + 2000
+        }
+      else
+        render json: { error: 'No track currently playing' }, status: :not_found
+      end
+    rescue => e
+      retries += 1
+      if retries < 3
+        sleep 2 ** retries
+        retry
+      else
+        # Log the error and respond with an error message
+        logger.error "Failed to connect after 3 retries: #{e.message}"
+        render json: { error: 'Failed to connect to the external service' }, status: :service_unavailable
+      end
     end
   end
 

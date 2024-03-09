@@ -51,26 +51,33 @@
             };
 
             const updateBackgroundColor = (color) => {
-                if (color && document.body.style.backgroundColor !== color) {
-                    document.body.style.backgroundColor = color;
+                const backgroundOverlay = document.getElementById('background-overlay');
+                if (color && backgroundOverlay && backgroundOverlay.style.backgroundColor !== color) {
+                    backgroundOverlay.style.backgroundColor = color;
                 }
             };
 
             const updateContentAndFadeIn = async (data) => {
                 const artistInfo = document.getElementById('artist-info');
                 const spotifyCanvas = document.getElementById('spotify_canvas');
-                await fadeElement(artistInfo, false);
-                await fadeElement(spotifyCanvas, false);
 
+                // Start fade-out animations simultaneously and wait for both to complete
+                await Promise.all([
+                    fadeElement(artistInfo, false),
+                    fadeElement(spotifyCanvas, false)
+                ]);
+
+                // Update content
                 document.getElementById('artist-name').textContent = `${data.artist_name} - ${data.album_name}`;
                 document.getElementById('track-name').textContent = data.track_name;
-
                 updateMediaElement(spotifyCanvas, data);
-
-                await fadeElement(artistInfo, true);
-                await fadeElement(spotifyCanvas, true);
-
                 updateBackgroundColor(data.background_color);
+
+                // Start fade-in animations simultaneously after content has been updated
+                await Promise.all([
+                    fadeElement(artistInfo, true),
+                    fadeElement(spotifyCanvas, true)
+                ]);
             };
 
             let lastTrackId = null;
