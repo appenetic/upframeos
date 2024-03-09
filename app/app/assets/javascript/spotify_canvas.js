@@ -1,122 +1,104 @@
-if (document.readyState === "loading") {
-    document.addEventListener('DOMContentLoaded', initialize);
-} else {
-    // The DOMContentLoaded event has already fired, run the function directly
-    initialize();
-}
+(function() {
+    let updateTrackInfoIntervalId = null;
 
-function initialize() {
-    let lastTrackId = null;
-    let lastBackgroundColor = null;
+    function initialize() {
+        const backgroundOverlay = ensureElement('background-overlay', 'div', document.body);
+        let lastTrackId = null;
 
-    // Create and append the background overlay if it doesn't already exist
-    let backgroundOverlay = document.getElementById('background-overlay');
-    if (!backgroundOverlay) {
-        backgroundOverlay = document.createElement('div');
-        backgroundOverlay.id = 'background-overlay';
-        document.body.appendChild(backgroundOverlay);
-    }
-
-    const fadeElement = (element, fadeIn, callback) => {
-        // Initial setup for fade-out
-        if (!fadeIn) {
-            element.style.opacity = '0';
-        }
-
-        // Wait for the transition to complete
-        element.addEventListener('transitionend', function handler() {
-            element.removeEventListener('transitionend', handler);
-
-            // Perform the callback function between fade-out and fade-in
-            if (typeof callback === 'function') {
-                callback();
-            }
-
-            // Setup for fade-in
-            if (fadeIn) {
-                element.style.opacity = '1';
-            }
-        }, {once: true});
-
-        // If fading in, immediately start after setting up the listener
-        if (fadeIn) {
-            // Use a slight delay to ensure the listener is active before changing opacity
-            setTimeout(() => element.style.opacity = '1', 10);
-        }
-    };
-
-    const updateContentAndFadeIn = (data) => {
-        // Update the DOM elements with the new data
-        document.getElementById('artist-name').textContent = `${data.artist_name} - ${data.album_name}`;
-        document.getElementById('track-name').textContent = data.track_name;
-
-        const spotifyCanvas = document.getElementById('spotify_canvas');
-        spotifyCanvas.innerHTML = ''; // Clear the current content
-
-        if (data.canvas_url) {
-            const video = document.createElement('video');
-            Object.assign(video, {
-                src: data.canvas_url,
-                autoplay: true,
-                loop: true,
-                muted: true,
-                playsinline: true,
-                alt: "Canvas Video"
+        const fadeElement = (element, fadeIn = true) => {
+            return new Promise(resolve => {
+                element.style.transition = 'opacity 0.5s';
+                element.style.opacity = fadeIn ? '1' : '0';
+                const transitionEnd = () => {
+                    element.removeEventListener('transitionend', transitionEnd);
+                    resolve();
+                };
+                element.addEventListener('transitionend', transitionEnd, {once: true});
             });
-            spotifyCanvas.appendChild(video);
-        } else if (data.cover_image_url) {
-            const img = document.createElement('img');
-            img.src = data.cover_image_url;
-            img.alt = "Cover Image";
-            spotifyCanvas.appendChild(img);
-        } else {
-            spotifyCanvas.textContent = 'No media available.';
-        }
+        };
 
-        // Fade in the updated info and canvas
-        const artistInfo = document.getElementById('artist-info');
-        fadeElement(artistInfo, true);
-        fadeElement(spotifyCanvas, true);
+        const updateContentAndFadeIn = async (data) => {
+            const artistInfo = document.getElementById('artist-info');
+            const spotifyCanvas = document.getElementById('spotify_canvas');
+            await fadeElement(artistInfo, false);
+            await fadeElement(spotifyCanvas, false);
 
-// Assuming you have already fetched the new track information and stored it in `data`
-        const backgroundOverlay = document.getElementById('background-overlay');
+            document.getElementById('artist-name').textContent = `${data.artist_name} - ${data.album_name}`;
+            document.getElementById('track-name').textContent = data.track_name;
 
-        if (backgroundOverlay && data.background_color) {
-            backgroundOverlay.style.backgroundColor = data.background_color;
-        }
-    };
+            updateMediaElement(spotifyCanvas, data);
 
-    const updateTrackInfo = () => {
-        fetch('/current_track')
-            .then(response => {
+            await fadeElement(artistInfo, true);
+            await fadeElement(spotifyCanvas, true);
+
+            updateBackgroundColor(data.background_color);
+        };
+
+        const updateMediaElement = (container, data) => {
+            container.innerHTML = '';
+            let element;
+            if (data.canvas_url) {
+                element = document.createElement('video');
+                Object.assign(element, {src: data.canvas_url, autoplay: true, loop: true, muted: true, playsinline: true});
+            } else if (data.cover_image_url) {
+                element = document.createElement('img');
+                Object.assign(element, {src: data.cover_image_url});
+            } else {
+                container.textContent = 'No media available.';
+                return;
+            }
+            element.alt = data.canvas_url ? "Canvas Video" : "Cover Image";
+            container.appendChild(element);
+        };
+
+        const updateBackgroundColor = (color) => {
+            if (color && document.body.style.backgroundColor !== color) {
+                document.body.style.backgroundColor = color;
+            }
+        };
+
+        async function updateTrackInfo() {
+            try {
+                const response = await fetch('/current_track');
                 if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(data => {
+                const data = await response.json();
                 const currentTrackId = `${data.artist_name}-${data.track_name}`;
 
-                if (currentTrackId === lastTrackId) {
-                    return; // Track has not changed, no need to update the page
+                if (currentTrackId !== lastTrackId) {
+                    lastTrackId = currentTrackId;
+                    await updateContentAndFadeIn(data);
                 }
-                lastTrackId = currentTrackId;
-
-                // Fade out current info and canvas before updating
-                const artistInfo = document.getElementById('artist-info');
-                const spotifyCanvas = document.getElementById('spotify_canvas');
-
-                fadeElement(artistInfo, false, () => updateContentAndFadeIn(data));
-                fadeElement(spotifyCanvas, false);
-
-                // Update background color if available, no fade effect required here
-                if (data.background_color) {
-                    document.body.style.backgroundColor = data.background_color;
-                }
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error fetching current track:', error);
-            });
-    };
+            }
+        }
 
-    // Update track info every 5 seconds
-    setInterval(updateTrackInfo, 5000);
-}
+        updateTrackInfoIntervalId = setInterval(updateTrackInfo, 5000);
+    }
+
+    function ensureElement(id, type, parent) {
+        let element = document.getElementById(id);
+        if (!element) {
+            element = document.createElement(type);
+            element.id = id;
+            parent.appendChild(element);
+        }
+        return element;
+    }
+
+    // Handle script initialization based on document readiness
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initialize);
+    } else {
+        initialize();
+    }
+
+    // Expose a method to clean up when the script is unloaded
+    window.myScriptUnload = function() {
+        if (updateTrackInfoIntervalId) {
+            clearInterval(updateTrackInfoIntervalId);
+            updateTrackInfoIntervalId = null;
+        }
+        // Additional cleanup actions can be added here
+    };
+})();

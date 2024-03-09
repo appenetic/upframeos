@@ -1,13 +1,11 @@
-window.onload = function(){
-    setTimeout(function() {
-        document.getElementById('logo').style.opacity = 0;
-    }, 5000);
-};
+document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', initialize)
+    : initialize();
 
-document.addEventListener('DOMContentLoaded', function() {
+function initialize() {
     let video = document.getElementById('background-video');
-    video.onloadeddata = function() {
+    video.onloadeddata = function () {
         let logo = document.getElementById('logo');
         logo.style.display = 'flex';
     };
-});
+}

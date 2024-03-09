@@ -1,40 +1,45 @@
-if (document.readyState === "loading") {
-    document.addEventListener('DOMContentLoaded', initialize);
-} else {
-    initialize();
-}
+(function(global) {
+    const ScriptModule = {
+        initialize: function() {
+            const reloadAfterDuration = (duration) => {
+                setTimeout(() => this.fadeOutAndReload(), duration);
+            };
 
-function initialize() {
-    // Define a function to reload the page after a specified duration
-    function reloadAfterDuration(duration) {
-        setTimeout(function() {
-            fadeOutAndReload();
-        }, duration);
-    }
+            const fadeOutAndReload = () => {
+                const contentWrapper = document.getElementById('content-wrapper');
+                if (contentWrapper) {
+                    contentWrapper.style.transition = 'opacity 1s ease-out';
+                    contentWrapper.style.opacity = '0';
 
-    // Function to fade out the content and then reload the page
-    function fadeOutAndReload() {
-        // Assuming there's a main content wrapper you can fade out
-        var contentWrapper = document.getElementById('content-wrapper');
-        if (contentWrapper) {
-            // Fade out the content
-            contentWrapper.style.transition = 'opacity 1s ease-out';
-            contentWrapper.style.opacity = 0;
+                    new Promise((resolve) => setTimeout(resolve, 1000))
+                        .then(() => window.location.reload());
+                } else {
+                    window.location.reload();
+                }
+            };
 
-            // Set a timeout to match the fade duration, then reload
-            setTimeout(function() {
-                location.reload();
-            }, 1000); // Match this duration to your fade effect duration
-        } else {
-            // If no contentWrapper found, just reload
-            location.reload();
+            const artworkCanvas = document.getElementById('artwork_canvas');
+            const reloadAfterMs = artworkCanvas ? parseInt(artworkCanvas.dataset.reloadAfterMs, 10) : 5000;
+
+            reloadAfterDuration(reloadAfterMs);
+        },
+        fadeOutAndReload: function() {
+            const contentWrapper = document.getElementById('content-wrapper');
+            if (contentWrapper) {
+                contentWrapper.style.transition = 'opacity 1s ease-out';
+                contentWrapper.style.opacity = '0';
+
+                new Promise((resolve) => setTimeout(resolve, 1000))
+                    .then(() => window.location.reload());
+            } else {
+                window.location.reload();
+            }
         }
-    }
+    };
 
-    // Get the reload duration from the data attribute
-    var artworkCanvas = document.getElementById('artwork_canvas');
-    var reloadAfterMs = artworkCanvas ? artworkCanvas.dataset.reloadAfterMs : 5000; // Fallback duration
+    // Expose the module to the global scope
+    global.ScriptModule = ScriptModule;
 
-    // Call the function with the reload duration
-    reloadAfterDuration(reloadAfterMs);
-}
+    // Immediate initialization removed to allow ScriptManager to control the process
+
+}(window));
