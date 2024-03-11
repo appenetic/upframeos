@@ -104,9 +104,18 @@ class CanvasController < ApplicationController
   end
 
   def extract_main_color(image_url)
+    # Attempt to fetch the cached color for the given image_url
+    cached_color = Rails.cache.fetch(image_url, expires_in: 20.minutes)
+    return cached_color if cached_color.present?
+
+    # If the color is not cached, proceed to extract it from the image
     image = MiniMagick::Image.open(image_url)
     result = image.run_command('convert', image.path, '-resize', '1x1', 'txt:-')
-    result.match(/#\h{6}/)[0]
+    color = result.match(/#\h{6}/)[0]
+
+    # Cache the extracted color before returning it
+    Rails.cache.write(image_url, color, expires_in: 20.minutes)
+    color
   rescue StandardError => e
     Rails.logger.error "Failed to extract main color: #{e.message}"
     nil
