@@ -10,7 +10,7 @@ threads min_threads_count, max_threads_count
 if ENV["RAILS_ENV"] == "production"
   # Limit the number of workers to a lower number suitable for a Raspberry Pi's resources.
   # 2 is a sensible default for a Raspberry Pi but consider adjusting based on your specific model and available resources.
-  default_worker_count = 4
+  default_worker_count = 1
   workers ENV.fetch("WEB_CONCURRENCY") { default_worker_count }
 end
 
