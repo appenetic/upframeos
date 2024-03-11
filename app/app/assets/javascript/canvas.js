@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
     let lastPlayingStatus = null;
-    let isContentRequestInProgress = false;
-    let isPlayingStatusRequestInProgress = false;
+    let isRequestInProgress = false;
 
     async function fetchPlayingStatus() {
-        if (isPlayingStatusRequestInProgress) {
+        if (isRequestInProgress) {
             return null;
         }
 
-        isPlayingStatusRequestInProgress = true;
+        isRequestInProgress = true;
 
         try {
             const response = await fetch('/playing_status');
@@ -19,12 +18,12 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Error fetching playing status:', error);
             return null;
         } finally {
-            isPlayingStatusRequestInProgress = false;
+            isRequestInProgress = false;
         }
     }
 
     async function fetchAndReplaceContent() {
-        if (isContentRequestInProgress) {
+        if (isRequestInProgress) {
             return;
         }
 
@@ -32,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (currentPlayingStatus !== lastPlayingStatus) {
             lastPlayingStatus = currentPlayingStatus;
-            isContentRequestInProgress = true;
+            isRequestInProgress = true;
 
             try {
                 const response = await fetch('/content');
@@ -74,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } catch (error) {
                 console.error('Error fetching new content:', error);
             } finally {
-                isContentRequestInProgress = false;
+                isRequestInProgress = false;
             }
         }
     }
