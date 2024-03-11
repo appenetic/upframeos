@@ -1,7 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
     let lastPlayingStatus = null;
+    let isContentRequestInProgress = false;
+    let isPlayingStatusRequestInProgress = false;
 
     async function fetchPlayingStatus() {
+        if (isPlayingStatusRequestInProgress) {
+            return null;
+        }
+
+        isPlayingStatusRequestInProgress = true;
+
         try {
             const response = await fetch('/playing_status');
             if (!response.ok) throw new Error('Network response was not ok');
@@ -10,14 +18,22 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
             console.error('Error fetching playing status:', error);
             return null;
+        } finally {
+            isPlayingStatusRequestInProgress = false;
         }
     }
 
     async function fetchAndReplaceContent() {
+        if (isContentRequestInProgress) {
+            return;
+        }
+
         const currentPlayingStatus = await fetchPlayingStatus();
 
         if (currentPlayingStatus !== lastPlayingStatus) {
             lastPlayingStatus = currentPlayingStatus;
+            isContentRequestInProgress = true;
+
             try {
                 const response = await fetch('/content');
                 if (!response.ok) throw new Error('Network response was not ok');
@@ -57,6 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             } catch (error) {
                 console.error('Error fetching new content:', error);
+            } finally {
+                isContentRequestInProgress = false;
             }
         }
     }

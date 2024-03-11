@@ -1,6 +1,7 @@
 (function(global) {
     const SpotifyScriptModule = {
         updateTrackInfoIntervalId: null,
+        isRequestInProgress: false,
 
         initialize: function() {
             console.log('✅ Spotify module loaded');
@@ -83,6 +84,9 @@
             let lastTrackId = null;
 
             const updateTrackInfo = async () => {
+                if (this.isRequestInProgress) return;
+
+                this.isRequestInProgress = true;
                 try {
                     const response = await fetch('/current_track');
                     if (!response.ok) throw new Error('Network response was not ok');
@@ -95,6 +99,8 @@
                     }
                 } catch (error) {
 
+                } finally {
+                    this.isRequestInProgress = false;
                 }
             };
 
