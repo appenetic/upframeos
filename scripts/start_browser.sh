@@ -29,5 +29,5 @@ if check_rails_ready; then
     unclutter &
 
     # Start the browser
-    chromium --noerrdialogs --kiosk --check-for-update-interval=31536000 --no-sandbox --disable-gpu-compositing --ignore-gpu-blacklist http://localhost/startup
+    chromium --noerrdialogs --kiosk --check-for-update-interval=31536000 --no-sandbox --ignore-gpu-blacklist http://localhost/startup
 fi
