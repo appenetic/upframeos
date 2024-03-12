@@ -5,9 +5,7 @@ require_relative '../services/spotify_canvas_service'
 class CanvasController < ApplicationController
   before_action :set_user
   before_action :initialize_player
-  before_action :playback_active?
   before_action :playback_active?, except: [:playing_status]
-
 
   def current_track
     retries = 0
