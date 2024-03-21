@@ -98,6 +98,9 @@
 
                     if (data.track_uri !== lastTrackUri) {
                         lastTrackUri = data.track_uri;
+
+                        console.log(`⏭️Track changed to: ${data.artist_name} - ${data.track_name}`)
+
                         await updateContentAndFadeIn(data);
                     }
                 } catch (error) {
@@ -107,7 +110,7 @@
                 }
             };
 
-            this.updateTrackInfoIntervalId = setInterval(updateTrackInfo, 2000);
+            this.updateTrackInfoIntervalId = setInterval(updateTrackInfo, 5000);
         },
 
         unload: function() {
