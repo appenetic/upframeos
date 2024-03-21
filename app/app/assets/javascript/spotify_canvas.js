@@ -81,7 +81,7 @@
                 ]);
             };
 
-            let lastTrackId = null;
+            let lastTrackUri = null;
 
             const updateTrackInfo = async () => {
                 if (this.isRequestInProgress) return;
@@ -91,10 +91,13 @@
                     const response = await fetch('/current_track');
                     if (!response.ok) throw new Error('Network response was not ok');
                     const data = await response.json();
-                    const currentTrackId = `${data.artist_name}-${data.track_name}`;
 
-                    if (currentTrackId !== lastTrackId) {
-                        lastTrackId = currentTrackId;
+                    if (lastTrackUri == null) {
+                        lastTrackUri = data.track_uri
+                    }
+
+                    if (data.track_uri !== lastTrackUri) {
+                        lastTrackUri = data.track_uri;
                         await updateContentAndFadeIn(data);
                     }
                 } catch (error) {
@@ -104,7 +107,7 @@
                 }
             };
 
-            this.updateTrackInfoIntervalId = setInterval(updateTrackInfo, 5000);
+            this.updateTrackInfoIntervalId = setInterval(updateTrackInfo, 2000);
         },
 
         unload: function() {

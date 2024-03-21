@@ -21,6 +21,7 @@ class CanvasController < ApplicationController
     begin
       if @player.present? && @player.respond_to?(:currently_playing) && @player.currently_playing
         response_body = {
+          track_uri: track_uri,
           artist_name: @player.currently_playing.artists.first.name,
           album_name: @player.currently_playing.album.name,
           track_name: @player.currently_playing.name,
@@ -133,7 +134,10 @@ class CanvasController < ApplicationController
   end
 
   def set_user
-    @user = SpotifyUser.first
+    @user = Rails.cache.fetch('spotify_user', expires_in: 1.hour) do
+      SpotifyUser.first
+    end
+
     handle_no_user if @user.blank?
   end
 
