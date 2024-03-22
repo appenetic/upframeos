@@ -154,6 +154,6 @@ class CanvasController < ApplicationController
   end
 
   def handle_no_user
-    redirect_to controller: :spotify, action: :new
+    redirect_to controller: :startup, action: :index
   end
 end
