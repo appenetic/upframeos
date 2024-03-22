@@ -109,6 +109,17 @@ configureBrowserAutostartService() {
   systemctl enable start_browser
 }
 
+initialiseUpFrameService() {
+  installBundles() {
+    sudo -u upframe bash -c '
+      source /home/upframe/.rvm/scripts/rvm || { echo "Failed to source RVM"; exit 1; }
+      cd /home/upframe/upframeos/app || { echo "Failed to change directory"; exit 1; }
+      RAILS_ENV=production bundle exec rake db:setup &&
+      bundle exec rake assets:precompile
+    '
+  }
+}
+
 cleanup() {
   touch ~/.hushlogin
   echo "" > /etc/wpa_supplicant/wpa_supplicant.conf
@@ -124,6 +135,7 @@ installBundles
 configureLighttpd
 configureUpFrameService
 configureBrowserAutostartService
+initialiseUpFrameService
 
 cleanup
 reboot
