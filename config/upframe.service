@@ -10,10 +10,6 @@ Environment="PATH=/home/upframe/.rvm/bin:/usr/local/bin:/usr/bin:/bin"
 WorkingDirectory=/home/upframe/upframeos/app
 
 ExecStartPre=/bin/bash -lc 'rm -rf /home/upframe/upframeos/app/tmp/pids/server.pid'
-ExecStartPre=/bin/bash -lc 'source /home/upframe/.rvm/scripts/rvm && rvm use ruby-3.2.2@default && bundle install'
-ExecStartPre=/bin/bash -lc 'source /home/upframe/.rvm/scripts/rvm && rvm use ruby-3.2.2@default && bundle exec rake db:create'
-ExecStartPre=/bin/bash -lc 'source /home/upframe/.rvm/scripts/rvm && rvm use ruby-3.2.2@default && bundle exec rake db:migrate'
-ExecStartPre=/bin/bash -lc 'source /home/upframe/.rvm/scripts/rvm && rvm use ruby-3.2.2@default && bundle exec rake assets:precompile'
 ExecStart=/bin/bash -lc 'source /home/upframe/.rvm/scripts/rvm && rvm use ruby-3.2.2@default && exec bundle exec rails s -p 3000 -e production'
 Restart=always
 RestartSec=5
