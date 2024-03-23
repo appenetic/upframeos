@@ -6,6 +6,10 @@ WIFI_INTERFACE="wlan0"
 # Function to start hotspot
 start_hotspot() {
     echo "Starting hotspot..."
+    sudo systemctl enable dhcpcd
+    sudo systemctl enable dnsmasq
+    sudo systemctl enable hostapd
+
     sudo systemctl start hostapd
     sudo systemctl start dnsmasq
     sudo systemctl start dhcpcd
@@ -18,6 +22,10 @@ stop_hotspot() {
     sudo systemctl stop hostapd
     sudo systemctl stop dnsmasq
     sudo systemctl stop dhcpcd
+    
+    sudo systemctl disable dhcpcd
+    sudo systemctl disable dnsmasq
+    sudo systemctl disable hostapd
     echo "Hotspot stopped."
 }
 

@@ -143,6 +143,7 @@ configureLighttpd
 configureUpFrameService
 configureBrowserAutostartService
 initialiseUpFrameService
+configureSetupWifiService
 
 cleanup
 reboot
