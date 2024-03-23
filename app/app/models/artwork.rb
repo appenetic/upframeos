@@ -13,12 +13,10 @@ class Artwork < ApplicationRecord
     end
 
     def url
-        if video.present?
-            return video.url
-        end
-
-        if image.present?
-            return image.url
+        if video.attached?
+            Rails.application.routes.url_helpers.rails_blob_url(video, only_path: true)
+        elsif image.attached?
+            Rails.application.routes.url_helpers.rails_blob_url(image, only_path: true)
         end
     end
 end
