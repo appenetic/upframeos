@@ -22,10 +22,23 @@ stop_hotspot() {
     sudo systemctl stop hostapd
     sudo systemctl stop dnsmasq
     sudo systemctl stop dhcpcd
-    
-    sudo systemctl disable dhcpcd
-    sudo systemctl disable dnsmasq
-    sudo systemctl disable hostapd
+
+    # Check if services are enabled before disabling
+    DHCPCD_STATUS=$(systemctl is-enabled dhcpcd)
+    if [ "$DHCPCD_STATUS" = "enabled" ]; then
+        sudo systemctl disable dhcpcd
+    fi
+
+    DNSMASQ_STATUS=$(systemctl is-enabled dnsmasq)
+    if [ "$DNSMASQ_STATUS" = "enabled" ]; then
+        sudo systemctl disable dnsmasq
+    fi
+
+    HOSTAPD_STATUS=$(systemctl is-enabled hostapd)
+    if [ "$HOSTAPD_STATUS" = "enabled" ]; then
+        sudo systemctl disable hostapd
+    fi
+
     echo "Hotspot stopped."
 }
 
