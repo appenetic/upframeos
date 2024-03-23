@@ -117,14 +117,16 @@ configureSetupWifiService() {
 }
 
 initialiseUpFrameService() {
-  installBundles() {
     sudo -u upframe bash -c '
       source /home/upframe/.rvm/scripts/rvm || { echo "Failed to source RVM"; exit 1; }
       cd /home/upframe/upframeos/app || { echo "Failed to change directory"; exit 1; }
       RAILS_ENV=production bundle exec rake db:setup &&
       bundle exec rake assets:precompile
     '
-  }
+}
+
+configureHostname() {
+  hostnamectl set-hostname upframe
 }
 
 cleanup() {
@@ -133,6 +135,7 @@ cleanup() {
   rm -rf /root/upframeos
 }
 
+configureHostname
 createUpFrameUser
 installPackages
 checkoutUpFrameOSSource
