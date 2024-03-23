@@ -109,6 +109,13 @@ configureBrowserAutostartService() {
   systemctl enable start_browser
 }
 
+configureSetupWifiService() {
+  SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+  cp "${SCRIPT_DIR}/../config/setup_wifi.service" /etc/systemd/system/setup_wifi.service
+  systemctl daemon-reload
+  systemctl enable setup_wifi
+}
+
 initialiseUpFrameService() {
   installBundles() {
     sudo -u upframe bash -c '
