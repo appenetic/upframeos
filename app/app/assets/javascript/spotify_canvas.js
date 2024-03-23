@@ -110,7 +110,7 @@
                 }
             };
 
-            this.updateTrackInfoIntervalId = setInterval(updateTrackInfo, 1000);
+            this.updateTrackInfoIntervalId = setInterval(updateTrackInfo, 5000);
         },
 
         unload: function() {

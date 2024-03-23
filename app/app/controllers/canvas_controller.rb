@@ -14,7 +14,7 @@ class CanvasController < ApplicationController
     # Check cache first
     cached_data = Rails.cache.read(track_uri)
     if track_uri && cached_data && Time.now - cached_data[:timestamp] < 1800
-      render json: cached_data[:response]
+      head :not_modified
       return
     end
 

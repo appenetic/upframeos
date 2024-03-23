@@ -51,6 +51,9 @@
             <fieldset class="border p-4 rounded-md">
               <legend class="font-bold text-lg px-2">Spotify</legend>
               <div class="field mb-4">
+                <%= link_to 'Authenticate', '/auth/spotify', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+              </div>
+              <div class="field mb-4">
                 <%= form.label :canvas_feature_enabled, 'Canvas Feature Enabled', scope: :spotify, class: "block text-gray-700 text-sm font-bold mb-2" %>
                 <%= form.check_box 'settings[spotify][canvas_feature_enabled]', { checked: Settings.canvas_feature_enabled, class: "leading-tight" }, "true", "false" %>
               </div>
