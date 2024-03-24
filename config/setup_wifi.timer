@@ -1,0 +1,10 @@
+[Unit]
+Description=Delay start of the WiFi Hotspot setup service
+
+[Timer]
+# Wait for 1 minute after boot before starting the service
+OnBootSec=1min
+Unit=setup_wifi.service
+
+[Install]
+WantedBy=timers.target

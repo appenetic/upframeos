@@ -112,8 +112,10 @@ configureBrowserAutostartService() {
 configureSetupWifiService() {
   SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
   cp "${SCRIPT_DIR}/../config/setup_wifi.service" /etc/systemd/system/setup_wifi.service
+  cp "${SCRIPT_DIR}/../config/setup_wifi.timer" /etc/systemd/system/setup_wifi.timer
   systemctl daemon-reload
   systemctl enable setup_wifi
+  systemctl enable setup_wifi.timer
 }
 
 initialiseUpFrameService() {
