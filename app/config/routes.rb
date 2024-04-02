@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/auth/spotify/callback', to: 'spotify#authenticate'
   get '/', to: 'canvas#index'
   get '/startup', to: 'startup#index'
+  get '/artwork_data', to: 'canvas#artwork_data'
   get '/current_track', to: 'canvas#current_track'
   get '/playing_status', to: 'canvas#playing_status'
   get '/content', to: 'canvas#content'

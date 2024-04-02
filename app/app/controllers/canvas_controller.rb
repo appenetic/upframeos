@@ -55,9 +55,7 @@ class CanvasController < ApplicationController
                      render_to_string(partial: 'spotify',
                                       locals: { spotify_data: spotify_data })
                    else
-                     render_to_string(partial: 'artwork',
-                                      locals: { artwork_data: artwork_data }
-                     )
+                     render_to_string(partial: 'artwork')
                    end
 
     render html: html_content.html_safe
@@ -69,6 +67,27 @@ class CanvasController < ApplicationController
     else
       render json: { playing: false }
     end
+  end
+
+  def artwork_data
+    artwork = Artwork.order('RANDOM()').first
+
+    data = {}
+
+    # Ensure artwork object is present
+    if artwork.present?
+      data[:artwork_image_url] = url_for(artwork.image) if artwork.image.present?
+      data[:artwork_video_url] = url_for(artwork.video) if artwork.video.present?
+
+      duration = artwork.duration || 60 * 1000
+      data[:reload_after_ms] = duration * 1000
+
+      render json: data
+    else
+      Rails.logger.warn 'No artwork found. Using default data.'
+    end
+
+    data
   end
 
   private
@@ -87,25 +106,6 @@ class CanvasController < ApplicationController
     # Only fetch the canvas URL if Settings.canvas_feature is true
     if Settings.canvas_feature_enabled
       data[:canvas_url] = SpotifyCanvasService.instance.fetch_canvas_url(currently_playing.uri)
-    end
-
-    data
-  end
-
-  def artwork_data
-    artwork = Artwork.order('RANDOM()').first
-
-    data = {}
-
-    # Ensure artwork object is present
-    if artwork.present?
-      data[:artwork_image_url] = url_for(artwork.image) if artwork.image.present?
-      data[:artwork_video_url] = url_for(artwork.video) if artwork.video.present?
-
-      duration = artwork.duration || 60 * 1000
-      data[:reload_after_ms] = duration * 1000
-    else
-      Rails.logger.warn 'No artwork found. Using default data.'
     end
 
     data
