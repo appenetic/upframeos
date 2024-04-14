@@ -137,8 +137,6 @@ class CanvasController < ApplicationController
     @user = Rails.cache.fetch('spotify_user', expires_in: 1.hour) do
       SpotifyUser.first
     end
-
-    handle_no_user if @user.blank?
   end
 
 
