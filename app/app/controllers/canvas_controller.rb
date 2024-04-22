@@ -131,7 +131,7 @@ class CanvasController < ApplicationController
   end
 
   def set_user
-    SpotifyUser.first
+    @user = SpotifyUser.first
   end
 
   def initialize_player
