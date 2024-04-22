@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # URL to check for Rails app readiness
-CHECK_URL="http://localhost:3000"
+CHECK_URL="http://upframe.lan"
 
 # Function to check if the Rails app is ready
 check_rails_ready() {
@@ -18,16 +18,6 @@ check_rails_ready() {
 
 # Wait for Rails app to become ready
 if check_rails_ready; then
-    # Prepare the display environment
-    xset -dpms # disable DPMS (Energy Star) features.
-    xset s off # disable screen saver
-    xset s noblank # don't blank the video device
-
-    # Start window manager and set display properties
-    matchbox-window-manager -use_titlebar no &
-    xrandr --output HDMI-1 --rotate $(cat /home/upframe/upframeos/config/orientation.cfg) &
-    unclutter &
-
-    # Start the browser
-    chromium --noerrdialogs --kiosk --check-for-update-interval=31536000 --no-sandbox --ignore-gpu-blacklist http://localhost/startup
+     echo "Starting chromium..."
+    chromium --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland --test-type --ignore-gpu-blacklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers "http://upframe.lan/startup"
 fi
