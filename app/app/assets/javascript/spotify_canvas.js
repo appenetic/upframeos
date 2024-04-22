@@ -33,6 +33,8 @@
                 let element;
                 if (data.canvas_url) {
                     element = document.createElement('video');
+                    element.className = 'fullscreen-video'
+
                     Object.assign(element, {
                         src: data.canvas_url,
                         autoplay: true,

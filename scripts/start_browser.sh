@@ -1,7 +1,8 @@
 #!/bin/bash
+exec &> /home/upframe/upframeos/logs/start_browser.log
 
 # URL to check for Rails app readiness
-CHECK_URL="http://upframe.lan"
+CHECK_URL="http://localhost"
 
 # Function to check if the Rails app is ready
 check_rails_ready() {
@@ -19,5 +20,5 @@ check_rails_ready() {
 # Wait for Rails app to become ready
 if check_rails_ready; then
      echo "Starting chromium..."
-    chromium --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland --test-type --ignore-gpu-blacklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers "http://upframe.lan/startup"
+    chromium --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland --test-type --ignore-gpu-blacklist --enable-gpu-rasterization --kiosk --enable-native-gpu-memory-buffers "http://localhost/startup"
 fi
