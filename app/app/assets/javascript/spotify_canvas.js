@@ -42,6 +42,8 @@
                     });
                 } else if (data.cover_image_url) {
                     element = document.createElement('img');
+                    element.className = 'cover-image'
+
                     Object.assign(element, { src: data.cover_image_url });
                 } else {
                     container.textContent = 'No media available.';

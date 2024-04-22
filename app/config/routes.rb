@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  mount Avo::Engine, at: Avo.configuration.root_path
-
+  ActiveAdmin.routes(self)
   root to: 'canvas#index'
 
   resources :settings
@@ -18,11 +17,4 @@ Rails.application.routes.draw do
   get '/current_track', to: 'canvas#current_track'
   get '/playing_status', to: 'canvas#playing_status'
   get '/content', to: 'canvas#content'
-end
-
-if defined? ::Avo
-  Avo::Engine.routes.draw do
-    get "settings", to: "tools#settings", as: :settings
-    put 'settings', to: 'tools#update_settings'
-  end
 end

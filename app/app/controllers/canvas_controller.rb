@@ -79,9 +79,6 @@ class CanvasController < ApplicationController
       data[:artwork_image_url] = url_for(artwork.image) if artwork.image.present?
       data[:artwork_video_url] = url_for(artwork.video) if artwork.video.present?
 
-      duration = artwork.duration || 60 * 1000
-      data[:reload_after_ms] = duration * 1000
-
       render json: data
     else
       Rails.logger.warn 'No artwork found. Using default data.'

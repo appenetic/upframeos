@@ -1,5 +1,11 @@
 .cover-image {
-    object-fit: contain;
+    object-fit: cover;
+    width: 100vw;   /* Full width of the viewport */
+    height: 100vh;  /* Full height of the viewport */
+    position: fixed; /* Keeps the image in place during scrolling */
+    top: 0;
+    left: 0;
+    z-index: -1;    /* Keeps the image behind other content */
 }
 
 #background-overlay {

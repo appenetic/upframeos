@@ -1,14 +1,15 @@
+
 class Artwork < ApplicationRecord
     has_one_attached :video
     has_one_attached :image
 
     def title
         if video.present?
-            return video.filename
+            video.filename
         end
 
         if image.present?
-            return image.filename
+            image.filename
         end
     end
 

@@ -12,11 +12,20 @@
  *
  *= require_tree .
  *= require_self
+ *= require settings_form
  */
+
+#title_bar, .title_bar {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    font-weight: bold !important;
+    font-size: 20px !important;
+}
 
 body, html {
     height: 100%;
     margin: 0;
+    font-family: Arial !important;
 }
 
 .fullscreen-video {

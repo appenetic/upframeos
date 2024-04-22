@@ -65,4 +65,5 @@ group :test do
   gem "selenium-webdriver"
 end
 gem "sassc-rails"
-gem "avo", ">= 3.2"
+gem 'activeadmin'
+gem 'arctic_admin', git: 'https://github.com/cprodhomme/arctic_admin'

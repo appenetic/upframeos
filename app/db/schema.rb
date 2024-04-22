@@ -40,7 +40,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_155526) do
   end
 
   create_table "artworks", force: :cascade do |t|
-    t.integer "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
