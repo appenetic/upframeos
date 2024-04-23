@@ -131,7 +131,9 @@ class CanvasController < ApplicationController
   end
 
   def set_user
-    @user = SpotifyUser.first
+    @user = Rails.cache.fetch('spotify_user', expires_in: 1.hour) do
+      SpotifyUser.first
+    end
   end
 
   def initialize_player
