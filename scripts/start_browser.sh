@@ -20,5 +20,13 @@ check_rails_ready() {
 # Wait for Rails app to become ready
 if check_rails_ready; then
      echo "Starting chromium..."
-    chromium --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland --test-type --ignore-gpu-blacklist --enable-gpu-rasterization --kiosk --enable-native-gpu-memory-buffers "http://localhost/startup"
+     chromium \
+	     --enable-features=UseOzonePlatform \
+	     --ozone-platform=wayland \
+	     --ignore-gpu-blocklist \
+	     --enable-gpu-rasterization \
+	     --enable-zero-copy \
+	     --disable-gpu-driver-bug-workarounds \
+	     --use-gl=egl \
+	     --kiosk "http://localhost/startup"
 fi
