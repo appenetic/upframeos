@@ -50,20 +50,36 @@ ActiveAdmin.register_page "Developer" do
     end
 
     def update_chromium_config(display_fps)
-      config_file_path = Rails.root.join('/home/upframe/upframeos/config/', 'chromium.conf')
+      config_file_path = Rails.root.join('/home/upframe/upframeos/config', 'chromium.conf')
       config = File.read(config_file_path)
 
-      has_fps_counter = config.include?("--show-fps-counter")
+      # Regex to detect the presence of the --show-fps-counter parameter
+      fps_counter_regex = /--show-fps-counter/
+
+      # Check if --show-fps-counter is currently included in the config
+      has_fps_counter = config.match?(fps_counter_regex)
+      needs_update = false
 
       if display_fps && !has_fps_counter
-        # Add `--show-fps-counter` if it's not present and `display_fps_meter` is true
-        config << " --show-fps-counter"
+        # Add --show-fps-counter before --kiosk
+        config.sub!(/--kiosk/, '--show-fps-counter --kiosk')
+        needs_update = true
       elsif !display_fps && has_fps_counter
-        # Remove `--show-fps-counter` if it's present and `display_fps_meter` is false
-        config = config.gsub(" --show-fps-counter", "")
+        # Remove --show-fps-counter
+        config.gsub!(fps_counter_regex, '')
+        needs_update = true
       end
 
-      File.write(config_file_path, config)
+      if needs_update
+        # Clean up any double spaces that might have been created, ensure clean formatting
+        config.gsub!(/\s+/, ' ')
+        # Write the updated config back to the file
+        File.write(config_file_path, config)
+        # Execute system command to restart Weston
+        system('sudo systemctl restart weston')
+      end
     end
+
+
   end
 end
