@@ -1,5 +1,5 @@
 class UpframeUpdateService
-  UPFRAMEOS_DIR = "/home/upframe/upframeos/"
+  UPFRAMEOS_DIR = "/home/upframe/upframeos/app"
   LOG_FILE = "/home/upframe/update.log"
 
   def self.update
