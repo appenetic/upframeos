@@ -1,23 +1,23 @@
 require_relative '../services/chromium_configuration_service'
 
 ActiveAdmin.register_page "Developer" do
-  menu priority: 3, label: "Developer", if: proc { Settings.developer_mode_enabled }
+  menu priority: 3, label: "Developer", if: proc { DeveloperSettings.developer_mode_enabled }
 
   content title: 'Developer' do
     settings = OpenStruct.new(
-      developer_mode_enabled: Settings.developer_mode_enabled,
-      display_fps_meter: Settings.display_fps_meter
+      developer_mode_enabled: DeveloperSettings.developer_mode_enabled,
+      display_fps_meter: DeveloperSettings.display_fps_meter
     )
 
     render partial: 'layouts/admin/developer_form', locals: { settings_form: settings }
   end
 
   page_action :update_developer, method: :post do
-    @errors = ActiveModel::Errors.new(Settings.new)
+    @errors = ActiveModel::Errors.new(DeveloperSettings.new)
 
     permitted_params.each do |key, value|
       begin
-        Settings.send("#{key}=", value)
+        DeveloperSettings.send("#{key}=", value)
         toggle_display_fps_counter(value) if key == 'display_fps_meter'
       rescue => e
         @errors.add(:base, "Failed to update setting '#{key}': #{e.message}")
