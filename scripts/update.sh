@@ -4,12 +4,6 @@
 UPFRAMEOS_DIR="/home/upframe/upframeos/app"
 LOG_FILE="/home/upframe/update.log"
 
-# Ensure the script has root privileges for restarting services
-if [[ $EUID -ne 0 ]]; then
-  echo "This script requires root privileges. Please run with sudo."
-  exit 1
-fi
-
 # Change directory to the Upframe app directory
 cd "$UPFRAMEOS_DIR" || {
   echo "Error: Could not change directory to '$UPFRAMEOS_DIR'."
