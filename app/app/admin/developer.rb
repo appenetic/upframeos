@@ -53,7 +53,7 @@ ActiveAdmin.register_page "Developer" do
 
     def toggle_display_fps_counter(display_fps_counter)
       params_to_update = { '--show-fps-counter' => display_fps_counter }
-      ChromiumConfigService.update_config(params_to_update)
+      ChromiumConfigurationService.update_config(params_to_update)
     end
   end
 end

@@ -1,4 +1,4 @@
-class ChromiumConfigService
+class ChromiumConfigurationService
   CONFIG_FILE_PATH = Rails.root.join('/home/upframe/upframeos/config', 'chromium.conf')
 
   # Updates the configuration with given parameters
