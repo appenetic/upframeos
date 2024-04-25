@@ -1,3 +1,5 @@
+require_relative '../services/chromium_configuration_service'
+
 ActiveAdmin.register_page "Developer" do
   menu priority: 3, label: "Developer", if: proc { Settings.developer_mode_enabled }
 
@@ -16,7 +18,7 @@ ActiveAdmin.register_page "Developer" do
     permitted_params.each do |key, value|
       begin
         Settings.send("#{key}=", value)
-        update_chromium_config(value) if key == 'display_fps_meter'
+        toggle_display_fps_counter(value) if key == 'display_fps_meter'
       rescue => e
         @errors.add(:base, "Failed to update setting '#{key}': #{e.message}")
       end
@@ -49,37 +51,9 @@ ActiveAdmin.register_page "Developer" do
       { cpu_temperature: cpu_temperature }
     end
 
-    def update_chromium_config(display_fps)
-      config_file_path = Rails.root.join('/home/upframe/upframeos/config', 'chromium.conf')
-      config = File.read(config_file_path)
-
-      # Regex to detect the presence of the --show-fps-counter parameter
-      fps_counter_regex = /--show-fps-counter/
-
-      # Check if --show-fps-counter is currently included in the config
-      has_fps_counter = config.match?(fps_counter_regex)
-      needs_update = false
-
-      if display_fps && !has_fps_counter
-        # Add --show-fps-counter before --kiosk
-        config.sub!(/--kiosk/, '--show-fps-counter --kiosk')
-        needs_update = true
-      elsif !display_fps && has_fps_counter
-        # Remove --show-fps-counter
-        config.gsub!(fps_counter_regex, '')
-        needs_update = true
-      end
-
-      if needs_update
-        # Clean up any double spaces that might have been created, ensure clean formatting
-        config.gsub!(/\s+/, ' ')
-        # Write the updated config back to the file
-        File.write(config_file_path, config)
-        # Execute system command to restart Weston
-        system('sudo systemctl restart weston')
-      end
+    def toggle_display_fps_counter(display_fps_counter)
+      params_to_update = { '--show-fps-counter' => display_fps_counter }
+      ChromiumConfigService.update_config(params_to_update)
     end
-
-
   end
 end
