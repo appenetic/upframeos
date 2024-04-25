@@ -1,0 +1,25 @@
+<%= stylesheet_link_tag 'settings_form', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= form_with url: admin_developer_update_developer_path, method: :post, local: true, id: "developer-form" do |form| %>
+  <%= form.fields_for :settings, settings_form do |ff| %>
+    <fieldset class="fieldset">
+      <legend class="legend">General</legend>
+      <ol class="form-list">
+        <li class="form-item">
+          <%= ff.check_box :developer_mode_enabled, { class: "form-checkbox", checked_value: "true", unchecked_value: "false" } %>
+          <%= ff.label :developer_mode_enabled, 'Developer Mode Feature', class: "form-label-with-control-to-the-left" %>
+        </li>
+      </ol>
+    </fieldset>
+    <fieldset class="fieldset">
+      <legend class="legend">Information</legend>
+      <ol class="form-list">
+        <li class="form-item">
+          <%= label_tag :cpu_temperature, "CPU Temperature: #{@system_info[:cpu_temperature]} °C", class: "form-label-with-control-to-the-left" %>
+        </li>
+      </ol>
+    </fieldset>
+  <div class="submit-button-container">
+    <%= form.submit "Save Settings", class: "submit-button" %>
+  </div>
+  <% end %>
+<% end %>
