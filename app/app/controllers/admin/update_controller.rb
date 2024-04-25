@@ -1,10 +1,12 @@
 module Admin
   class UpdateController < ApplicationController
-    # GET /admin/update
     def update
       begin
-        UpframeUpdateService.update
-        flash[:notice] = 'Upframe update started successfully.'
+        if UpframeUpdateService.update
+          flash[:notice] = 'Upframe update started successfully.'
+        else
+          flash[:notice] = 'Upframe is already up to date; no restart needed.'
+        end
         redirect_to admin_developer_path
       rescue StandardError => e
         flash[:alert] = "Failed to update Upframe: #{e.message}"
