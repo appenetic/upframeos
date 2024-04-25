@@ -4,10 +4,10 @@ module Admin
     def update
       begin
         UpframeUpdateService.update
-        flash[:notice] = 'Deployment process started successfully.'
+        flash[:notice] = 'Upframe update started successfully.'
         redirect_to admin_developer_path
       rescue StandardError => e
-        flash[:alert] = "Failed to start deployment: #{e.message}"
+        flash[:alert] = "Failed to update Upframe: #{e.message}"
         redirect_to admin_developer_path
       end
     end
