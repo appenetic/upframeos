@@ -42,7 +42,7 @@ ActiveAdmin.register_page "Developer" do
 
     def system_information
       cpu_temp_output = `cat /sys/devices/virtual/thermal/thermal_zone0/temp`
-      cpu_temperature = cpu_temp_output.to_i / 100.0
+      cpu_temperature = cpu_temp_output.to_i / 1000.0
 
       { cpu_temperature: cpu_temperature }
     end
