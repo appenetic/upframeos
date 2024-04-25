@@ -7,8 +7,7 @@ ActiveAdmin.register_page "Settings" do
       wifi_country: Settings.wifi_country,
       wifi_ssid: Settings.wifi_ssid,
       wifi_password: Settings.wifi_password,
-      canvas_feature_enabled: Settings.canvas_feature_enabled,
-      developer_mode_enabled: Settings.developer_mode_enabled
+      canvas_feature_enabled: Settings.canvas_feature_enabled
     )
     render partial: 'layouts/admin/settings_form', locals: { settings_form: settings }
   end
