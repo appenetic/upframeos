@@ -1,4 +1,5 @@
 class DeveloperSettings < RailsSettings::Base
+  self.table_name = 'developer_settings'
   cache_prefix { "v1" }
 
   field :developer_mode_enabled

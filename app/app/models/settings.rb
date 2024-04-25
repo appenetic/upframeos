@@ -8,11 +8,6 @@ class Settings < RailsSettings::Base
     field :wifi_password
   end
 
-  scope :developer do
-    field :developer_mode_enabled
-    field :display_fps_meter
-  end
-
   scope :spotify do
     field :canvas_feature_enabled, type: :boolean, default: true
   end
