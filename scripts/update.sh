@@ -15,15 +15,18 @@ cd "$UPFRAMEOS_DIR" || {
   exit 1
 }
 
-# Perform Git pull with detailed logging (including standard output and error)
-if git pull &>> "$LOG_FILE"; then
-  log_message "Git pull successful."
+# Perform Git pull and check for changes
+GIT_PULL_OUTPUT=$(git pull)
+echo "$GIT_PULL_OUTPUT" &>> "$LOG_FILE"
+if [[ "$GIT_PULL_OUTPUT" == *"Already up to date."* ]]; then
+  log_message "No changes detected in Git repository. Exiting script."
+  echo "No changes detected in Git repository. Exiting script."
+  exit 0
 else
-  log_message "Error: Git pull failed."
-  exit 1
+  log_message "Git pull detected changes."
 fi
 
-# Run database migrations in production environment with logging
+# Since changes are detected, run database migrations in production environment with logging
 if RAILS_ENV=production rake db:migrate &>> "$LOG_FILE"; then
   log_message "Database migrations completed successfully."
 else
