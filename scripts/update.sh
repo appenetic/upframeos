@@ -42,13 +42,5 @@ else
   exit 1
 fi
 
-# Restart Upframe service with logging (consider using systemctl is-active to check status beforehand)
-if sudo systemctl restart weston upframe &>> "$LOG_FILE"; then
-  log_message "Services restarted successfully."
-else
-  log_message "Error: Failed to restart services."
-  exit 1
-fi
-
 log_message "Upframe update script completed."
 echo "Upframe update script completed. Check the log file '$LOG_FILE' for details."
