@@ -14,7 +14,7 @@ class UpframeUpdateService
       system("RAILS_ENV=production rake assets:precompile >> #{LOG_FILE} 2>&1")
 
       # Restart Upframe service and log output
-      system("sudo systemctl restart upframe weston >> #{LOG_FILE} 2>&1")
+      system("sudo systemctl restart upframe weston")
     end
   end
 end
