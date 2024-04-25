@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   resources :settings
 
+  namespace :admin do
+    get 'update', to: 'update#update'
+  end
+
   get "up" => "rails/health#show", as: :rails_health_check
   get 'spotify/new', to: 'spotify#new', as: :new_spotify
   get '/auth/spotify/callback', to: 'spotify#authenticate'
