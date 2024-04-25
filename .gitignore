@@ -73,3 +73,7 @@ app/log/
 app/public/assets/
 app/storage/
 tmp
+
+
+# Upframe application specific ignores
+/config/chromium.conf
