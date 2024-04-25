@@ -4,9 +4,14 @@ class UpframeUpdateService
 
   def self.update
     system("#{SCRIPT_DIR}/update.sh >> #{LOG_FILE} 2>&1")
-    if $?.exitstatus == 2
+    case $?.exitstatus
+    when 0
+      :no_updates
+    when 2
       system("sudo systemctl restart weston upframe &>> #{LOG_FILE}")
+      :updates_applied
+    else
+      :failed
     end
-    $?.success?
   end
 end
