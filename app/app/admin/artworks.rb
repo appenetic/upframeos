@@ -1,4 +1,5 @@
 ActiveAdmin.register Artwork do
+  menu priority: 1, label: "Artworks"
   permit_params :image, :video
 
   form do |f|

@@ -10,6 +10,7 @@ class Settings < RailsSettings::Base
 
   scope :developer do
     field :developer_mode_enabled
+    field :display_fps_meter
   end
 
   scope :spotify do

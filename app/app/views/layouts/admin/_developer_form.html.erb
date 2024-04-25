@@ -5,8 +5,14 @@
       <legend class="legend">General</legend>
       <ol class="form-list">
         <li class="form-item">
-          <%= ff.check_box :developer_mode_enabled, { class: "form-checkbox", checked_value: "true", unchecked_value: "false" } %>
-          <%= ff.label :developer_mode_enabled, 'Developer Mode Feature', class: "form-label-with-control-to-the-left" %>
+          <div class="form-item-with-control-to-the-left">
+            <%= ff.check_box :developer_mode_enabled, { class: "form-checkbox", checked_value: "true", unchecked_value: "false" } %>
+            <%= ff.label :developer_mode_enabled, 'Enable Developer Mode', class: "form-label-with-control-to-the-left" %>
+          </div>
+          <div class="form-item-with-control-to-the-left">
+            <%= ff.check_box :display_fps_meter, { class: "form-checkbox", checked_value: "true", unchecked_value: "false" } %>
+            <%= ff.label :display_fps_meter, 'Display FPS Statistics', class: "form-label-with-control-to-the-left" %>
+          </div>
         </li>
       </ol>
     </fieldset>

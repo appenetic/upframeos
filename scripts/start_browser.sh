@@ -3,6 +3,7 @@ exec &> /home/upframe/upframeos/logs/start_browser.log
 
 # URL to check for Rails app readiness
 CHECK_URL="http://localhost"
+CONFIG_FILE="/home/upframe/upframeos/config/chromium.conf"
 
 # Function to check if the Rails app is ready
 check_rails_ready() {
@@ -12,24 +13,21 @@ check_rails_ready() {
             return 0
         else
             echo "Rails app is not ready yet. Retrying..."
-            sleep 5 # Wait for 5 seconds before retrying
+            sleep 2 # Wait for 5 seconds before retrying
         fi
     done
 }
 
+# Load Chromium options from configuration file
+if [ -f "$CONFIG_FILE" ]; then
+    source $CONFIG_FILE
+else
+    echo "Configuration file not found: $CONFIG_FILE"
+    exit 1
+fi
+
 # Wait for Rails app to become ready
 if check_rails_ready; then
-     echo "Starting chromium..."
-     chromium \
-	     --enable-features=UseOzonePlatform \
-	     --ozone-platform=wayland \
-	     --use-gl=egl \
-	     --enable-features=VaapiVideoDecoder \
-	     --disable-features=UseChromeOSDirectVideoDecoder \
-	     --ignore-gpu-blocklist \
-	     --enable-gpu-rasterization \
-	     --enable-zero-copy \
-       --canvas-oop-rasterization \
-	     --show-fps-counter \
-	     --kiosk "http://localhost/startup"
+    echo "Starting chromium..."
+    chromium $CHROMIUM_OPTIONS "http://localhost/startup"
 fi

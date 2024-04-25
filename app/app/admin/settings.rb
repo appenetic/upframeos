@@ -1,5 +1,5 @@
 ActiveAdmin.register_page "Settings" do
-  menu priority: 10, label: "Settings"
+  menu priority: 2, label: "Settings"
 
   content title: 'Settings' do
     settings = OpenStruct.new(
