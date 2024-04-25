@@ -23,10 +23,13 @@ if check_rails_ready; then
      chromium \
 	     --enable-features=UseOzonePlatform \
 	     --ozone-platform=wayland \
+	     --use-gl=egl \
+	     --enable-features=VaapiVideoDecoder \
+	     --disable-features=UseChromeOSDirectVideoDecoder \
 	     --ignore-gpu-blocklist \
 	     --enable-gpu-rasterization \
 	     --enable-zero-copy \
-	     --disable-gpu-driver-bug-workarounds \
-	     --use-gl=egl \
+       --canvas-oop-rasterization \
+	     --show-fps-counter \
 	     --kiosk "http://localhost/startup"
 fi
