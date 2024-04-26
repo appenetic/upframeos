@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_25_195351) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_26_095428) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_195351) do
   create_table "artworks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "fill_mode"
   end
 
   create_table "developer_settings", force: :cascade do |t|

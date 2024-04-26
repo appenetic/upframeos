@@ -76,8 +76,9 @@ class CanvasController < ApplicationController
 
     # Ensure artwork object is present
     if artwork.present?
-      data[:artwork_image_url] = url_for(artwork.image) if artwork.image.present?
-      data[:artwork_video_url] = url_for(artwork.video) if artwork.video.present?
+      data[:asset_url] = artwork.url
+      data[:is_video] = artwork.is_video?
+      data[:fill_mode] = artwork.fill_mode
 
       render json: data
     else

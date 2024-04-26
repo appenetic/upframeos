@@ -1,23 +1,26 @@
+# frozen_string_literal: true
 
 class Artwork < ApplicationRecord
-    has_one_attached :video
-    has_one_attached :image
+  has_one_attached :asset
+  enum fill_mode: { fill_screen: 0, fit_screen: 1 }
 
-    def title
-        if video.present?
-            video.filename
-        end
+  def url
+    Rails.application.routes.url_helpers.rails_blob_url(asset, only_path: true)
+  end
 
-        if image.present?
-            image.filename
-        end
-    end
+  # @return [FalseClass, TrueClass]
+  def is_video?
+    return false unless asset.attached?
 
-    def url
-        if video.attached?
-            Rails.application.routes.url_helpers.rails_blob_url(video, only_path: true)
-        elsif image.attached?
-            Rails.application.routes.url_helpers.rails_blob_url(image, only_path: true)
-        end
-    end
+    content_type = asset.blob.content_type
+    content_type.start_with?('video/')
+  end
+
+  # @return [FalseClass, TrueClass]
+  def is_image?
+    return false unless asset.attached?
+
+    content_type = asset.blob.content_type
+    content_type.start_with?('image/')
+  end
 end
