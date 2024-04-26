@@ -30,6 +30,9 @@
         <li class="form-item">
           <%= label_tag :cpu_temperature, "CPU Temperature: #{@system_info[:cpu_temperature]} °C", class: "form-label-with-control-to-the-left" %>
         </li>
+        <li class="form-item">
+          <%= label_tag :uptime, "Uptime: #{@system_info[:uptime]}", class: "form-label-with-control-to-the-left" %>
+        </li>
       </ol>
     </fieldset>
   <div class="submit-button-container">

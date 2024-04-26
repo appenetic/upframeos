@@ -48,7 +48,10 @@ ActiveAdmin.register_page "Developer" do
       cpu_temp_output = `cat /sys/devices/virtual/thermal/thermal_zone0/temp`
       cpu_temperature = cpu_temp_output.to_i / 1000.0
 
-      { cpu_temperature: cpu_temperature }
+      uptime_output = `uptime`
+      uptime = uptime_output.split(',')[0].split('up ')[1].strip
+
+      { cpu_temperature: cpu_temperature, uptime: uptime }
     end
 
     def toggle_display_fps_counter(display_fps_counter)
