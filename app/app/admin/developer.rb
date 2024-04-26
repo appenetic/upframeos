@@ -1,7 +1,7 @@
 require_relative '../services/chromium_configuration_service'
 
 ActiveAdmin.register_page "Developer" do
-  menu priority: 4, label: "Developer", if: proc { DeveloperSettings.developer_mode_enabled }
+  menu priority: 4, label: "Developer", if: proc { DeveloperSettings.find_by(var: :developer_mode_enabled).value }
 
   content title: 'Developer' do
     settings = OpenStruct.new(
