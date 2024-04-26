@@ -28,7 +28,10 @@
         scheduleContentUpdate: function() {
             if (!this.isLoaded) return;
 
-            const reloadAfterMs = document.getElementById('artwork_canvas') ? parseInt(document.getElementById('artwork_canvas').dataset.reloadAfterMs, 10) : 5000;
+            const reloadAfterMs = 300000
+            console.log(`Updating content after: ${reloadAfterMs}`)
+            console.log(`Update in progress: ${this.updateInProgress}`)
+
             if (!this.updateInProgress) {
                 this.updateContentTimeoutId = setTimeout(() => this.updateContent(), reloadAfterMs);
             }
@@ -48,8 +51,6 @@
                 if (!response.ok) throw new Error('Network response was not ok');
                 const jsonResponse = await response.json(); // Parse the JSON response
 
-                console.log(`Got content: ${JSON.stringify(jsonResponse)}`);
-
                 // Directly use jsonResponse to check for updates and handle video URL
                 const assetUrl = jsonResponse.asset_url;
                 const isVideo = jsonResponse.is_video || false;
@@ -64,10 +65,10 @@
             } catch (error) {
                 console.error('Error fetching new content:', error);
             } finally {
+                console.log("Executing finally block")
                 this.updateInProgress = false;
-                if (!initial) {
-                    this.scheduleContentUpdate();
-                }
+                console.log("Schedulung content update")
+                this.scheduleContentUpdate();
             }
         },
 
