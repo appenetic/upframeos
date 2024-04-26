@@ -32,4 +32,8 @@ class ChromiumConfigurationService
       system('sudo systemctl restart weston')
     end
   end
+
+  def self.restart_chromium
+    system('sudo systemctl restart weston')
+  end
 end
