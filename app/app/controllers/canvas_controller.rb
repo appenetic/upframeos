@@ -132,8 +132,6 @@ class CanvasController < ApplicationController
   end
 
   def set_user
-    pp "Having the following cached user data: #{Rails.cache.fetch('spotify_user', expires_in: 1.hour)}"
-
     @user = Rails.cache.fetch('spotify_user', expires_in: 1.hour) do
       SpotifyUser.first
     end
