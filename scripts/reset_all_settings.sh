@@ -40,7 +40,7 @@ else
   exit 1
 fi
 
-if rm -rf /etc/wpa_supplicant/wpa_supplicant.conf &>> "$LOG_FILE"; then
+if sudo rm -rf /etc/wpa_supplicant/wpa_supplicant.conf; then
   log_message "WiFi configuration successfully deleted."
 else
   log_message "Error: Wifi configuration delete failed."
