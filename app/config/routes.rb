@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'update', to: 'update#update'
+    get 'reset', to: 'reset#reset'
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

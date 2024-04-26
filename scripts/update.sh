@@ -1,7 +1,7 @@
 #!/bin/bash
 
 UPFRAMEOS_DIR="/home/upframe/upframeos/app"
-LOG_FILE="/home/upframe/update.log"
+LOG_FILE="/home/upframe/log.log"
 
 log_message() {
   echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> "$LOG_FILE"
