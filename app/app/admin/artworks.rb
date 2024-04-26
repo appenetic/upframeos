@@ -1,5 +1,5 @@
 ActiveAdmin.register Artwork do
-  menu priority: 1, label: "Artworks"
+  menu priority: 1, label: "Single Artworks"
   permit_params :asset, :fill_mode
 
   form do |f|

@@ -31,7 +31,7 @@
     <fieldset class="fieldset">
       <legend class="legend">Spotify®</legend>
       <div class="form-item-with-control-to-the-left">
-        <%= ff.check_box :canvas_feature_enabled, class: "form-checkbox" %>
+        <%= ff.check_box :canvas_feature_enabled, { class: "form-checkbox", checked_value: true, unchecked_value: false } %>
         <%= ff.label :canvas_feature_enabled, 'Canvas Feature Enabled', class: "form-label-with-control-to-the-left" %>
       </div>
       <br/>

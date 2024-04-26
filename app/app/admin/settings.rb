@@ -1,42 +1,36 @@
 ActiveAdmin.register_page "Settings" do
-  menu priority: 2, label: "Settings"
+  menu priority: 3, label: "Settings"
 
   content title: 'Settings' do
     settings = OpenStruct.new(
-      orientation: Settings.orientation,
-      wifi_country: Settings.wifi_country,
-      wifi_ssid: Settings.wifi_ssid,
-      wifi_password: Settings.wifi_password,
-      canvas_feature_enabled: Settings.canvas_feature_enabled
+      orientation: Settings.find_by(var: :orientation).value,
+      wifi_country: Settings.find_by(var: :wifi_country).value,
+      wifi_ssid: Settings.find_by(var: :wifi_ssid).value,
+      wifi_password: Settings.find_by(var: :wifi_password).value,
+      canvas_feature_enabled: Settings.find_by(var: :canvas_feature_enabled).value
     )
     render partial: 'layouts/admin/settings_form', locals: { settings_form: settings }
   end
 
   page_action :update_settings, method: :post do
-    @errors = ActiveModel::Errors.new(Settings.new)
+    Settings.orientation = permitted_params[:orientation]
+    Settings.wifi_country = permitted_params[:wifi_country]
+    Settings.wifi_ssid = permitted_params[:wifi_ssid]
+    Settings.wifi_password = permitted_params[:wifi_password]
+    Settings.canvas_feature_enabled = ActiveRecord::Type::Boolean.new.cast(permitted_params[:canvas_feature_enabled].to_i)
 
-    pp permitted_params
-
-    permitted_params.each do |key, value|
-      next if value.blank?
-      begin
-        Settings.send("#{key}=", value.strip)
-      rescue => e
-        @errors.add(:base, "Failed to update setting '#{key}': #{e.message}")
-      end
-    end
-
-    if @errors.any?
-      flash[:error] = @errors.full_messages.join(", ")
-      redirect_to admin_settings_path
-    else
-      redirect_to admin_settings_path, notice: "Settings were successfully updated."
-    end
+    redirect_to admin_settings_path, notice: "Settings were successfully updated."
   end
 
   controller do
     def permitted_params
-      params.require('[settings]').permit(:orientation, :wifi_country, :wifi_ssid, :wifi_password, :canvas_feature_enabled)
+      params.require('[settings]').permit(
+        :orientation,
+        :wifi_country,
+        :wifi_ssid,
+        :wifi_password,
+        :canvas_feature_enabled
+      )
     end
 
     def update_orientation

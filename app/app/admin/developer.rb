@@ -1,35 +1,22 @@
 require_relative '../services/chromium_configuration_service'
 
 ActiveAdmin.register_page "Developer" do
-  menu priority: 3, label: "Developer", if: proc { DeveloperSettings.developer_mode_enabled }
+  menu priority: 4, label: "Developer", if: proc { DeveloperSettings.developer_mode_enabled }
 
   content title: 'Developer' do
     settings = OpenStruct.new(
-      developer_mode_enabled: DeveloperSettings.developer_mode_enabled,
-      display_fps_meter: DeveloperSettings.display_fps_meter
+      developer_mode_enabled: DeveloperSettings.find_by(var: :developer_mode_enabled).value,
+      display_fps_meter: DeveloperSettings.find_by(var: :display_fps_meter).value
     )
-
+    
     render partial: 'layouts/admin/developer_form', locals: { settings_form: settings }
   end
 
   page_action :update_developer, method: :post do
-    @errors = ActiveModel::Errors.new(DeveloperSettings.new)
+    DeveloperSettings.developer_mode_enabled = ActiveRecord::Type::Boolean.new.cast(permitted_params[:developer_mode_enabled].to_i)
+    DeveloperSettings.display_fps_meter = ActiveRecord::Type::Boolean.new.cast(permitted_params[:display_fps_meter].to_i)
 
-    permitted_params.each do |key, value|
-      begin
-        DeveloperSettings.send("#{key}=", value)
-        toggle_display_fps_counter(value) if key == 'display_fps_meter'
-      rescue => e
-        @errors.add(:base, "Failed to update setting '#{key}': #{e.message}")
-      end
-    end
-
-    if @errors.any?
-      flash[:error] = @errors.full_messages.join(", ")
-      redirect_to admin_developer_path
-    else
-      redirect_to admin_developer_path, notice: "Settings were successfully updated."
-    end
+    redirect_to admin_developer_path, notice: "Settings were successfully updated."
   end
 
   controller do
@@ -39,9 +26,10 @@ ActiveAdmin.register_page "Developer" do
     end
 
     def permitted_params
-      params.require('[settings]').permit(:developer_mode_enabled, :display_fps_meter).transform_values do |value|
-        ActiveRecord::Type::Boolean.new.cast(value)
-      end
+      params.require('[settings]').permit(
+        :developer_mode_enabled,
+        :display_fps_meter
+      )
     end
 
     def system_information
