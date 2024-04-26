@@ -2,7 +2,7 @@ ActiveAdmin.register_page "Settings" do
   menu priority: 3, label: "Settings"
 
   content title: 'Settings' do
-    settings = load_settings
+    settings = controller.load_settings
     render partial: 'layouts/admin/settings_form', locals: { settings_form: settings }
   end
 
@@ -28,7 +28,7 @@ ActiveAdmin.register_page "Settings" do
     if browser_restart_required?(original_settings, updated_settings)
       restart_chromium
     end
-    
+
     redirect_to admin_settings_path, notice: "Settings were successfully updated."
   end
 
