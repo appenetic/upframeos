@@ -8,13 +8,11 @@ ActiveAdmin.register_page "Settings" do
 
   page_action :update_settings, method: :post do
     original_settings = load_settings
-
     Settings.orientation = permitted_params[:orientation]
     Settings.wifi_country = permitted_params[:wifi_country]
     Settings.wifi_ssid = permitted_params[:wifi_ssid]
     Settings.wifi_password = permitted_params[:wifi_password]
     Settings.canvas_feature_enabled = ActiveRecord::Type::Boolean.new.cast(permitted_params[:canvas_feature_enabled].to_i)
-
     updated_settings = load_settings
 
     if wifi_configuration_changed?(original_settings, updated_settings)
