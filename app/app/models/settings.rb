@@ -23,9 +23,9 @@ class Settings < RailsSettings::Base
   end
 
   def self.wpa_supplicant_content
-    country = Settings.wifi_country
-    ssid = Settings.wifi_ssid
-    psk = Settings.wifi_password
+    country = Settings.find_by(var: :wifi_country).value
+    ssid = Settings.find_by(var: :wifi_ssid).value
+    psk = Settings.find_by(var: :wifi_password).value
   
     <<-WPA_CONFIG
   country=#{country}
