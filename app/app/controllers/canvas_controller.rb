@@ -102,7 +102,7 @@ class CanvasController < ApplicationController
     }
 
     # Only fetch the canvas URL if Settings.canvas_feature is true
-    if Settings.find_by(var: :canvas_feature_enabled).value
+    if Settings.find_by(var: :canvas_feature_enabled).value == true
       data[:canvas_url] = SpotifyCanvasService.instance.fetch_canvas_url(currently_playing.uri)
     end
 
