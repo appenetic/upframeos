@@ -80,5 +80,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     fetchAndReplaceContent();
-    setInterval(fetchAndReplaceContent, 2000);
+    setInterval(fetchAndReplaceContent, 10000);
 });
