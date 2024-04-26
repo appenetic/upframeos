@@ -28,6 +28,13 @@ else
   exit 1
 fi
 
+if RAILS_ENV=production rake db:seed &>> "$LOG_FILE"; then
+  log_message "Database seeding completed successfully."
+else
+  log_message "Error: Database seeding failed."
+  exit 1
+fi
+
 if RAILS_ENV=production rake assets:precompile &>> "$LOG_FILE"; then
   log_message "Assets precompilation successful."
 else

@@ -1,9 +1,22 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# Settings with default values
+default_settings = {
+  orientation: "portrait",
+  wifi_country: "de",
+  wifi_ssid: "",
+  wifi_password: "",
+  canvas_feature_enabled: true
+}
+
+default_settings.each do |key, value|
+  Settings.find_or_create_by(var: key.to_s) { |s| s.value = value }
+end
+
+# Developer settings
+developer_settings = {
+  developer_mode_enabled: false,
+  display_fps_meter: false
+}
+
+developer_settings.each do |key, value|
+  DeveloperSettings.find_or_create_by(var: key.to_s) { |s| s.value = value }
+end

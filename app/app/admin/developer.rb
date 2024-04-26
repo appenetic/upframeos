@@ -8,7 +8,7 @@ ActiveAdmin.register_page "Developer" do
       developer_mode_enabled: DeveloperSettings.find_by(var: :developer_mode_enabled).value,
       display_fps_meter: DeveloperSettings.find_by(var: :display_fps_meter).value
     )
-    
+
     render partial: 'layouts/admin/developer_form', locals: { settings_form: settings }
   end
 
