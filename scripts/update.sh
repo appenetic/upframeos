@@ -21,6 +21,13 @@ else
   log_message "Git pull detected changes."
 fi
 
+if bundle install &>> "$LOG_FILE"; then
+  log_message "Bundles successfully installed."
+else
+  log_message "Error: Failed to install bundles."
+  exit 1
+fi
+
 if RAILS_ENV=production rake db:migrate &>> "$LOG_FILE"; then
   log_message "Database migrations completed successfully."
 else
