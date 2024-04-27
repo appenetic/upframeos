@@ -66,4 +66,4 @@ group :test do
 end
 gem "sassc-rails"
 gem 'activeadmin'
-gem 'arctic_admin', git: 'https://github.com/cprodhomme/arctic_admin'
+gem 'arctic_admin', git: 'https://github.com/appenetic/upframe_active_admin_theme'

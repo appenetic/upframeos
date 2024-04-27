@@ -24,7 +24,7 @@
         </li>
         <li class="form-item">
           <br/>
-          <%= link_to 'Reset all settings', '/admin/reset', class: "reset-all-settings-button" %>
+          <%= link_to 'Reset all settings', '/admin/reset', class: "reset-all-settings-button", onclick: "return confirm('Are you sure you want to reset all settings?');" %>
         </li>
       </ol>
     </fieldset>
