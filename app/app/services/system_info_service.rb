@@ -25,7 +25,7 @@ class SystemInfoService
 
   # Fetches the CPU clock speed
   def fetch_cpu_clock_speed
-    cpu_clock_output = `lscpu -e=CPU,MHZ | awk 'NR==3 {print $2}'`
+    cpu_clock_output = `lscpu -e=CPU,MHZ | awk 'NR==3 {print $2 / 1}'`
     cpu_clock_output.strip
   end
 
