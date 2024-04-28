@@ -32,6 +32,9 @@
       <legend class="legend">Information</legend>
       <ol class="form-list">
         <li class="form-item">
+          <%= label_tag :v4_ip_address, "IP-Address: #{@system_info[:v4_ip_address]}", class: "form-label-with-control-to-the-left" %>
+        </li>
+        <li class="form-item">
           <%= label_tag :cpu_temperature, "CPU Temperature: #{@system_info[:cpu_temperature]} °C", class: "form-label-with-control-to-the-left" %>
         </li>
         <li class="form-item">
