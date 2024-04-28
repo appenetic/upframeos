@@ -49,7 +49,9 @@ ActiveAdmin.register_page "Developer" do
       uptime_output = `uptime`
       uptime = uptime_output.split(',')[0].split('up ')[1].strip
 
-      { cpu_temperature: cpu_temperature, uptime: uptime }
+      cpu_clock = `lscpu -e=CPU,MHZ | awk 'NR==3 {print $2 / 1}'`
+
+      { cpu_temperature: cpu_temperature, cpu_clock: cpu_clock, uptime: uptime }
     end
 
     def toggle_display_fps_counter(display_fps_counter)
