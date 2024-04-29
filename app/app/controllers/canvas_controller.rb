@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../services/spotify_canvas_service'
+include ApplicationHelper
 
 class CanvasController < ApplicationController
   before_action :set_user
@@ -29,7 +30,7 @@ class CanvasController < ApplicationController
           cover_image_url: @player.currently_playing.album.images.first['url'],
           canvas_url: SpotifyCanvasService.instance.fetch_canvas_url(track_uri),
           background_color: background_color,
-          text_color: ApplicationHelper.color_for_background(background_color),
+          text_color: color_for_background(background_color),
           reload_after_ms: (@player.currently_playing.duration_ms - @player.progress) + 2000
         }
 
