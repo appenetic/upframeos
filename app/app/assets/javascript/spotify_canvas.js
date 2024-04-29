@@ -77,12 +77,12 @@
                 document.getElementById('track-name').textContent = data.track_name;
                 updateMediaElement(spotifyCanvas, data);
                 updateBackgroundColor(data.background_color);
-
+                
                 artistInfo.style.color = data.text_color;
-                const spotifyIcon = document.querySelector('.spotify-icon');
-                if (spotifyIcon) {
-                    spotifyIcon.style.fill = data.text_color;
-                }
+                const spotifyIconPaths = document.querySelectorAll('.spotify-icon path');
+                spotifyIconPaths.forEach(path => {
+                    path.setAttribute('fill', data.text_color); // Setting fill directly on each path element
+                });
 
                 // Start fade-in animations simultaneously after content has been updated
                 await Promise.all([
