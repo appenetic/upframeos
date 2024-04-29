@@ -8,7 +8,7 @@ class StartupController < ApplicationController
       # Redirect to the root route if there's internet connectivity
       redirect_to root_url
     else
-      url = 'http://upframe.lan/admin/settings/'
+      url = 'http://192.168.1.1/admin/settings/'
 
       qr_code_service = QRCodeService.new
       @qr_svg = qr_code_service.generate(url)
