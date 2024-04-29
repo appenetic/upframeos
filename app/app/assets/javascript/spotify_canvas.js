@@ -78,6 +78,12 @@
                 updateMediaElement(spotifyCanvas, data);
                 updateBackgroundColor(data.background_color);
 
+                artistInfo.style.color = data.text_color;
+                const spotifyIcon = document.querySelector('.spotify-icon');
+                if (spotifyIcon) {
+                    spotifyIcon.style.fill = data.text_color;
+                }
+
                 // Start fade-in animations simultaneously after content has been updated
                 await Promise.all([
                     fadeElement(artistInfo, true),

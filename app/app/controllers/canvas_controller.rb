@@ -20,6 +20,7 @@ class CanvasController < ApplicationController
 
     begin
       if @player.present? && @player.respond_to?(:currently_playing) && @player.currently_playing
+        background_color = extract_main_color(@player.currently_playing.album.images.first['url'])
         response_body = {
           track_uri: track_uri,
           artist_name: @player.currently_playing.artists.first.name,
@@ -27,7 +28,8 @@ class CanvasController < ApplicationController
           track_name: @player.currently_playing.name,
           cover_image_url: @player.currently_playing.album.images.first['url'],
           canvas_url: SpotifyCanvasService.instance.fetch_canvas_url(track_uri),
-          background_color: extract_main_color(@player.currently_playing.album.images.first['url']),
+          background_color: background_color,
+          text_color: ApplicationHelper.color_for_background(background_color),
           reload_after_ms: (@player.currently_playing.duration_ms - @player.progress) + 2000
         }
 
