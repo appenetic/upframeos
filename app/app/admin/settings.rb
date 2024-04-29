@@ -15,17 +15,9 @@ ActiveAdmin.register_page "Settings" do
     Settings.canvas_feature_enabled = ActiveRecord::Type::Boolean.new.cast(permitted_params[:canvas_feature_enabled].to_i)
     updated_settings = load_settings
 
-    if wifi_configuration_changed?(original_settings, updated_settings)
-      update_wifi_config
-    end
-
-    if orientation_changed?(original_settings, updated_settings)
-      update_orientation
-    end
-
-    if browser_restart_required?(original_settings, updated_settings)
-      restart_chromium
-    end
+    update_wifi_config if wifi_configuration_changed?(original_settings, updated_settings)
+    update_orientation if orientation_changed?(original_settings, updated_settings)
+    restart_chromium if browser_restart_required?(original_settings, updated_settings)
 
     redirect_to admin_settings_path, notice: "Settings were successfully updated."
   end
@@ -52,17 +44,18 @@ ActiveAdmin.register_page "Settings" do
     end
 
     def wifi_configuration_changed?(original_settings, new_settings)
-      return original_settings.wifi_country != new_settings.wifi_country ||
+      original_settings.wifi_country != new_settings.wifi_country ||
         original_settings.wifi_ssid != new_settings.wifi_ssid ||
         original_settings.wifi_password != new_settings.wifi_password
     end
 
     def orientation_changed?(original_settings, new_settings)
-      return original_settings.orientation != new_settings.orientation
+      original_settings.orientation != new_settings.orientation
     end
 
     def browser_restart_required?(original_settings, new_settings)
-      return original_settings.canvas_feature_enabled != new_settings.canvas_feature_enabled
+      original_settings.canvas_feature_enabled != new_settings.canvas_feature_enabled ||
+        original_settings.orientation != new_settings.orientation
     end
 
     def update_orientation
