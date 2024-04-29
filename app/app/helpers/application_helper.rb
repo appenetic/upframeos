@@ -1,7 +1,7 @@
 # app/helpers/application_helper.rb
 
 module ApplicationHelper
-    def color_for_background(background_color, threshold: 0.9)
+    def color_for_background(background_color, threshold: 0.7)
       # Convert hex to RGB
       if background_color.start_with?('#')
         r, g, b = background_color[1..2].hex, background_color[3..4].hex, background_color[5..6].hex
