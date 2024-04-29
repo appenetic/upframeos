@@ -1,6 +1,6 @@
 .cover-image {
-    width: 85vw;
-    height: 85vh;
+    width: 85vh; /* or 85vw, depending on which is smaller on your viewport */
+    height: 85vh; /* ensures the aspect ratio remains 1:1, making it square */
     position: fixed;
     top: 50%;
     left: 50%;
@@ -28,8 +28,8 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 50px;
-    height: 50px;
+    width: 42px;
+    height: 42px;
     z-index: 2;
 }
 
@@ -40,12 +40,12 @@
 
 #artist-name {
     font-weight: bold;
-    font-size: 20pt;
+    font-size: 18pt;
     margin-bottom: 0;
 }
 
 #track-name {
-    font-size: 20pt;
+    font-size: 18pt;
     margin-top: 0;
     margin-bottom: 0;
 }
