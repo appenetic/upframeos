@@ -10,15 +10,15 @@ class Settings < RailsSettings::Base
   def self.unix_orientation
     case orientation
     when 'portrait'
-      'rotate-90'
+      '90'  # rotated 90 degrees clockwise
     when 'portrait_inverted'
-      'rotate-270'
+      '270' # rotated 270 degrees clockwise
     when 'landscape'
-      'rotate-0'
+      'normal' # no rotation
     when 'landscape_inverted'
-      'rotate-180'
+      '180' # rotated 180 degrees
     else
-      'rotate-0'
+      'normal' # default to no rotation
     end
   end
 
