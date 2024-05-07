@@ -29,8 +29,8 @@
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 80px;
-    height: 80px;
+    width: 55px;
+    height: 55px;
     z-index: 2;
 }
 
@@ -41,12 +41,12 @@
 
 #artist-name {
     font-weight: bold;
-    font-size: 20pt;
+    font-size: 24pt;
     margin-bottom: 0;
 }
 
 #track-name {
-    font-size: 20pt;
+    font-size: 24pt;
     margin-top: 0;
     margin-bottom: 0;
 }
