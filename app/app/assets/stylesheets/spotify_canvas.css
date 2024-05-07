@@ -1,6 +1,6 @@
 .cover-image {
-    width: 70vh;
-    height: 70vh;
+    width: 75vh;
+    height: 75vh;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -35,8 +35,8 @@
 }
 
 .track-info {
-    bottom: 20px;
-    left: 20px;
+    bottom: 30px;
+    left: 30px;
 }
 
 #artist-name {
