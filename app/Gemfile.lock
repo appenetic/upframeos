@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/appenetic/upframe_active_admin_theme
-  revision: da541ed0f4e59eb4ed70f6ca2e54406b45450ff1
+  revision: 8616c20588242a8051d2522427f1bd88c59aa28c
   specs:
-    arctic_admin (4.3.4)
+    arctic_admin (4.3.9)
       activeadmin (>= 1.1.0, < 4.0)
       font-awesome-sass (~> 6.0)
 
@@ -58,8 +58,9 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    activeadmin (3.2.0)
+    activeadmin (3.2.1)
       arbre (~> 1.2, >= 1.2.1)
+      csv
       formtastic (>= 3.1)
       formtastic_i18n (>= 0.4)
       inherited_resources (~> 1.7)
@@ -116,6 +117,7 @@ GEM
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
+    csv (3.3.0)
     date (3.3.4)
     debug (1.9.1)
       irb (~> 1.10)
@@ -160,8 +162,8 @@ GEM
       railties (>= 6.0)
       responders (>= 2)
     io-console (0.7.2)
-    irb (1.12.0)
-      rdoc
+    irb (1.13.0)
+      rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
@@ -299,7 +301,7 @@ GEM
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
     regexp_parser (2.9.0)
-    reline (0.5.3)
+    reline (0.5.5)
       io-console (~> 0.5)
     responders (3.1.1)
       actionpack (>= 5.2)
