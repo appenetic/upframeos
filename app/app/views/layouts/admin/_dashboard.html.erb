@@ -1,0 +1,75 @@
+<!-- _dashboard.html.erb -->
+<%= stylesheet_link_tag 'dashboard', media: 'all', 'data-turbolinks-track': 'reload' %>
+<div class="grid-container">
+  <!-- Display Digital Art -->
+  <div class="grid-item">
+    <div class="image-container">
+      <%= image_tag('dashboard/digital_art.gif', alt: "Display Digital Art") %>
+      <h3 class="title-base white">Display<br>Digital<br>Art</h3>
+      <p class="subtitle">A single piece of art is<br>displayed on a loop</p>
+      <button>Choose Artwork</button>
+    </div>
+  </div>
+
+  <!-- Curated Art Streams -->
+  <div class="grid-item">
+    <div class="image-container">
+      <%= image_tag('dashboard/art_streams.jpg', alt: "Curated Art Streams") %>
+      <h3 class="title-base white">Curated<br>Art<br>Streams</h3>
+      <p class="subtitle">Choose artworks and playlists for an art stream yourself or<br>opt for Upframe's curated one's</p>
+      <button>Choose Art Stream</button>
+    </div>
+  </div>
+
+  <!-- Spotify Cover Art -->
+  <div class="grid-item">
+    <div class="image-container">
+      <%= image_tag('dashboard/spotify.jpg', alt: "Spotify Cover Art") %>
+      <h3 class="title-base white">Spotify®<br>cover<br>Art</h3>
+      <p class="subtitle">Link your Spotify account<br>to showcase album cover art<br>and dynamic canvases</p>
+      <button>Display Cover Art</button>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div class="grid-item">
+    <div class="image-container">
+      <%= image_tag('dashboard/settings.png', alt: "Settings") %>
+      <h3 class="title-base black">Settings</h3>
+      <button>Adjust Settings</button>
+    </div>
+  </div>
+
+  <!-- Power -->
+  <div class="grid-item">
+    <div class="image-container">
+      <h3 class="title-base black">POWER</h3>
+    </div>
+  </div>
+
+  <!-- HON.Art Stream -->
+  <div class="grid-item">
+    <div class="image-container">
+      <%= image_tag('dashboard/hon_art_stream.gif', alt: "HON.ART STREAM") %>
+      <h3 class="title-base white">LIMITED HON.ART STREAM</h3>
+      <p class="subtitle">House of Nifty (HON) is a private collection, showcasing carefully curated tokenised digital masterpieces.</p>
+      <button>Display Art Stream</button>
+    </div>
+  </div>
+
+  <!-- Feedback -->
+  <div class="grid-item">
+    <div class="image-container">
+      <h3 class="title-base black">FEEDBACK</h3>
+      <p class="subtitle">Our development team is always eager for fresh ideas to enhance the Upframe experience, making it a product that evolves with its users.</p>
+      <button>Submit Feedback</button>
+    </div>
+  </div>
+
+  <!-- SMTS -->
+  <div class="grid-item">
+    <div class="image-container">
+      <%= image_tag('dashboard/smts.gif', alt: "SMTS Logo") %>
+    </div>
+  </div>
+</div>

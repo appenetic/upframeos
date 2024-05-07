@@ -11,3 +11,7 @@
 $primary-color: #000000;
 @import "active_admin/mixins";
 @import "arctic_admin/base";
+
+* {
+  font-family: 'Arial', sans-serif !important; // Ensures Arial is used everywhere
+}
