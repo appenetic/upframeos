@@ -85,3 +85,29 @@
     font-size: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
+
+#header {
+    display:none !important;
+}
+
+#site_title {
+    display:none !important;
+}
+
+#title_bar {
+    display:none !important;
+}
+
+#utility_nav {
+    display:none !important;
+}
+
+body.active_admin.logged_in {
+    padding-top: 0 !important;
+    padding-left: 0 !important;
+}
+
+body.active_admin.logged_in #active_admin_content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
