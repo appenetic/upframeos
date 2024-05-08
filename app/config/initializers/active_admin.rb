@@ -5,7 +5,10 @@ ActiveAdmin.setup do |config|
   # for each of the active admin pages.
   #
   config.site_title = "Upframe"
-  meta_tags_options = { viewport: 'width=device-width, initial-scale=1' }
+  meta_tags_options = {
+    viewport: 'width=device-width, initial-scale=1',
+    'apple-mobile-web-app-capable' => 'yes'  # Add this line
+  }
   config.meta_tags = meta_tags_options
   config.meta_tags_for_logged_out_pages = meta_tags_options
 
