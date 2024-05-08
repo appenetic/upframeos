@@ -2,7 +2,7 @@
 <%= stylesheet_link_tag 'dashboard', media: 'all', 'data-turbolinks-track': 'reload' %>
 <div class="grid-container">
   <!-- Display Digital Art -->
-  <div class="grid-item">
+  <div class="dynamic-height-grid-item" style="height: 500px">
     <div class="image-container">
       <%= image_tag('dashboard/digital_art.gif', alt: "Display Digital Art") %>
       <h3 class="title-base white">Display<br>Digital<br>Art</h3>
@@ -14,7 +14,7 @@
   </div>
 
   <!-- Curated Art Streams -->
-  <div class="grid-item">
+  <div class="dynamic-height-grid-item" style="height: 500px">
     <div class="image-container">
       <%= image_tag('dashboard/art_streams.jpg', alt: "Curated Art Streams") %>
       <h3 class="title-base white">Curated<br>Art<br>Streams</h3>
@@ -26,7 +26,7 @@
   </div>
 
   <!-- Spotify Cover Art -->
-  <div class="grid-item">
+  <div class="dynamic-height-grid-item" style="height: 500px">
     <div class="image-container">
       <%= image_tag('dashboard/spotify.gif', alt: "Spotify Cover Art") %>
       <h3 class="title-base white">Spotify®<br>cover<br>Art</h3>
@@ -38,46 +38,41 @@
   </div>
 
   <!-- Settings -->
-  <div class="grid-item">
+  <div class="dynamic-height-grid-item" style="height: 400px">
     <div class="image-container">
       <%= image_tag('dashboard/settings.png', alt: "Settings") %>
       <h3 class="title-base black">Settings</h3>
       <a href="/admin/developer">
-        <button>Adjust Settings</button>
+        <button>General Settings</button>
       </a>
     </div>
   </div>
 
   <!-- Power -->
-  <div class="grid-item">
-    <div class="image-container">
-      <h3 class="title-base black">POWER</h3>
-    </div>
+  <div class="dynamic-height-grid-item">
+    <h3 class="title-base black">POWER</h3>
   </div>
 
   <!-- HON.Art Stream -->
-  <div class="grid-item">
+  <div class="dynamic-height-grid-item" style="height: 323px">
     <div class="image-container">
       <%= image_tag('dashboard/hon_art_stream.gif', alt: "HON.ART STREAM") %>
-      <h3 class="title-base white">LIMITED HON.ART STREAM</h3>
+      <h3 class="title-base white">LIMITED<br/><i>HON.ART</i><br/>STREAM</h3>
       <p class="subtitle">House of Nifty (HON) is a private collection, showcasing carefully curated tokenised digital masterpieces.</p>
       <button>Display Art Stream</button>
     </div>
   </div>
 
   <!-- Feedback -->
-  <div class="grid-item">
-    <div class="image-container">
+  <div class="dynamic-height-grid-item">
       <h3 class="title-base black">FEEDBACK</h3>
       <p class="subtitle">Our development team is always eager for fresh ideas to enhance the Upframe experience, making it a product that evolves with its users.</p>
       <button>Submit Feedback</button>
-    </div>
   </div>
 
   <!-- SMTS -->
-  <div class="grid-item">
-    <div class="image-container">
+  <div class="dynamic-height-grid-item">
+    <div class="image-container" style="height: 400px;">
       <%= image_tag('dashboard/smts.gif', alt: "SMTS Logo") %>
-    </div>
   </div>
 </div>
