@@ -6,6 +6,8 @@ class Settings < RailsSettings::Base
   field :wifi_ssid
   field :wifi_password
   field :canvas_feature_enabled, type: :boolean
+  field :yam_feature_enabled, type: :boolean
+  field :yam_url
 
   def self.unix_orientation
     case orientation

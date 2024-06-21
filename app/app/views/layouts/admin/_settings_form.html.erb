@@ -34,6 +34,12 @@
         <%= ff.check_box :canvas_feature_enabled, { class: "form-checkbox", checked_value: true, unchecked_value: false } %>
         <%= ff.label :canvas_feature_enabled, 'Canvas Feature Enabled', class: "form-label-with-control-to-the-left" %>
       </div>
+
+      <div class="form-item-with-control-to-the-left">
+        <%= ff.check_box :yam_feature_enabled, { class: "form-checkbox", checked_value: true, unchecked_value: false } %>
+        <%= ff.label :yam_feature_enabled, 'Yam Feature Enabled', class: "form-label-with-control-to-the-left" %>
+      </div>
+      <%= ff.text_field :yam_url, value: ff.object.yam_url, class: "form-input" %>
       <br/>
       <div class="form-item-with-control-to-the-left">
         <%= link_to 'Connect to Spotify®', '/auth/spotify', class: "spotify-authenticate-button" %>

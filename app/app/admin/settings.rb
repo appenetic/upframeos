@@ -13,6 +13,8 @@ ActiveAdmin.register_page "Settings" do
     Settings.wifi_ssid = permitted_params[:wifi_ssid]
     Settings.wifi_password = permitted_params[:wifi_password]
     Settings.canvas_feature_enabled = ActiveRecord::Type::Boolean.new.cast(permitted_params[:canvas_feature_enabled].to_i)
+    Settings.yam_feature_enabled = ActiveRecord::Type::Boolean.new.cast(permitted_params[:yam_feature_enabled].to_i)
+    Settings.yam_url = permitted_params[:yam_url]
     updated_settings = load_settings
 
     update_wifi_config if wifi_configuration_changed?(original_settings, updated_settings)
@@ -29,7 +31,9 @@ ActiveAdmin.register_page "Settings" do
         :wifi_country,
         :wifi_ssid,
         :wifi_password,
-        :canvas_feature_enabled
+        :canvas_feature_enabled,
+        :yam_feature_enabled,
+        :yam_url
       )
     end
 
@@ -39,7 +43,9 @@ ActiveAdmin.register_page "Settings" do
         wifi_country: Settings.find_by(var: :wifi_country).value,
         wifi_ssid: Settings.find_by(var: :wifi_ssid).value,
         wifi_password: Settings.find_by(var: :wifi_password).value,
-        canvas_feature_enabled: Settings.find_by(var: :canvas_feature_enabled).value
+        canvas_feature_enabled: Settings.find_by(var: :canvas_feature_enabled).value,
+        yam_feature_enabled: Settings.find_by(var: :yam_feature_enabled).value,
+        yam_url: Settings.find_by(var: :yam_url).value
       )
     end
 
@@ -55,7 +61,8 @@ ActiveAdmin.register_page "Settings" do
 
     def browser_restart_required?(original_settings, new_settings)
       original_settings.canvas_feature_enabled != new_settings.canvas_feature_enabled ||
-        original_settings.orientation != new_settings.orientation
+        original_settings.orientation != new_settings.orientation ||
+        original_settings.spotify_yam_feature_enabled != new_settings.spotify_yam_feature_enabled
     end
 
     def update_orientation

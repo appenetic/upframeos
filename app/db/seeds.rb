@@ -4,7 +4,9 @@ default_settings = {
   wifi_country: "de",
   wifi_ssid: "",
   wifi_password: "",
-  canvas_feature_enabled: true
+  canvas_feature_enabled: true,
+  yam_feature_enabled: true,
+  yam_url: ""
 }
 
 default_settings.each do |key, value|

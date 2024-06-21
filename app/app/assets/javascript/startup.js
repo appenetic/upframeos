@@ -9,8 +9,14 @@ function initialize() {
         logo.style.display = 'flex';
     };
 
-    // Set a timeout to redirect after 60 seconds (60000 milliseconds)
+    // Read the feature flag from the data attribute of the body element
+    const featureEnabled = document.body.getAttribute('data-spotify-yam-feature') === 'true';
+
+    console.error(featureEnabled)
+
+    // Set a timeout to redirect based on the feature flag
     setTimeout(function() {
-        window.location.href = '/'; // Replace '/desired-url' with the actual path you want to redirect to
+        // Redirect to '/spotify/yam' if feature is enabled, otherwise to '/'
+        window.location.href = featureEnabled ? '/spotify/yam' : '/';
     }, 60000); // 60000 milliseconds equals 1 minute
 }

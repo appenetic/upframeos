@@ -6,3 +6,4 @@
 //= link spotify_canvas.js
 //= link startup.js
 //= link script_manager.js
+//= link spotify_yam.js

@@ -13,7 +13,7 @@ class StartupController < ApplicationController
     url = "http://#{system_info[:v4_ip_address]}/admin/settings/"
 
     qr_code_service = QRCodeService.new
-    @qr_svg = qr_code_service.generate(url)
+    @qr_svg = qr_code_service.generate(url, 2)
 
     is_connected = internet_connection?
 
