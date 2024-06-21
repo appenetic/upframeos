@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'update', to: 'update#update'
+    get 'reload', to: 'reload#reload'
     get 'reset', to: 'reset#reset'
   end
 

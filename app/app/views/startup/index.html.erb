@@ -5,7 +5,6 @@
   <%= stylesheet_link_tag 'startup', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'startup', 'data-turbolinks-track': 'reload' %>
   <%= csrf_meta_tags %>
-  <meta http-equiv="refresh" content="30">
 </head>
 <body>
 <div class="video-container">
@@ -17,8 +16,8 @@
 <div class="qr-container">
   <div class="qr-code"><%= raw @qr_svg %></div>
   <div class="text-container">
-    <p class="title">DEVICE OFFLINE</p>
-    <p class="message">Scan QR code to setup Wifi connection for your Upframe</p>
+    <p class="title"><%= @notice_title %></p>
+    <p class="message"><%= @notice_message %></p>
   </div>
 </div>
 </body>
