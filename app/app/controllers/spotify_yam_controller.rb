@@ -5,6 +5,6 @@ class SpotifyYamController < ApplicationController
   def index
     qr_code_service = QRCodeService.new
     yam_url = Settings.find_by(var: :yam_url).value
-    @qr_svg = qr_code_service.generate(yam_url, 6.5)
+    @qr_svg = qr_code_service.generate(yam_url, 6)
   end
 end
