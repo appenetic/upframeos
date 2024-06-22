@@ -62,7 +62,8 @@ ActiveAdmin.register_page "Settings" do
     def browser_restart_required?(original_settings, new_settings)
       original_settings.canvas_feature_enabled != new_settings.canvas_feature_enabled ||
         original_settings.orientation != new_settings.orientation ||
-        original_settings.spotify_yam_feature_enabled != new_settings.spotify_yam_feature_enabled
+        original_settings.yam_feature_enabled != new_settings.yam_feature_enabled ||
+        original_settings.yam_url != new_settings.yam_url
     end
 
     def update_orientation
