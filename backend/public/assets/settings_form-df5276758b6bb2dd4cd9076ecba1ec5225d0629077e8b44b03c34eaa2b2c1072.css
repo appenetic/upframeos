@@ -1,0 +1,41 @@
+.legend {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.form-list {
+    list-style: none;
+    padding: 0;
+}
+
+.form-item {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    gap: 10px; /* Add space between items */
+}
+
+.form-label {
+    margin-bottom: 0; /* Remove any default bottom margin */
+}
+
+.form-checkbox {
+    margin-right: 5px; /* Space between checkbox and label text */
+}
+
+.form-actions {
+    padding-top: 30px;
+}
+
+.form-input,
+.form-select,
+.form-checkbox {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-button {
+    padding: 15px 32px !important;        /* Padding inside the button */
+    border-radius: 4px !important;        /* Rounded corners */
+}

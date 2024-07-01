@@ -1,0 +1,31 @@
+.legend {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.form-list {
+    list-style: none;
+    padding: 0;
+}
+
+.form-item {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-actions {
+    padding-top: 30px;
+}
+
+.form-input,
+.form-select,
+.form-checkbox {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

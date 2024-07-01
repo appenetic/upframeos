@@ -1,0 +1,75 @@
+/* dashboard.css */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Single column layout on smaller screens */
+    }
+}
+
+.grid-item {
+    position: relative;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; /* Ensures content is stacked vertically */
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    flex-grow: 1; /* Allows the container to expand to fill available space */
+    overflow: hidden;
+}
+
+.image-container img {
+    position: absolute;
+    bottom: 0; /* Anchors the image to the bottom */
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+/* Base styling for titles */
+.grid-item .title-base {
+    position: relative; /* Changed from absolute to relative */
+    margin: 20px; /* Add margin around the text */
+    font-size: 45px;
+    line-height: 1.1;
+    font-weight: bold;
+    text-align: left;
+    text-transform: uppercase;
+    color: white; /* Ensure contrast against potential backgrounds */
+}
+
+/* Subtitle styling */
+.grid-item .subtitle {
+    margin: 0 20px 20px; /* Maintains consistent spacing with the bottom */
+    font-size: 18px;
+    line-height: normal;
+    text-align: left;
+    color: white; /* Adjusted for visibility */
+}
+
+.grid-item button {
+    position: absolute;
+    bottom: 5%; /* Ensures button is at the bottom */
+    left: 20px; /* Maintains consistency */
+    background-color: #AAAAAA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}

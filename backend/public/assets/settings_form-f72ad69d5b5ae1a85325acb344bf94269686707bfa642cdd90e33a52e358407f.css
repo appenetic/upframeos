@@ -1,0 +1,59 @@
+.legend {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.form-list {
+    list-style: none;
+    padding: 0;
+}
+
+.form-item {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-label-with-control-to-the-left {
+    margin-bottom: 0;
+}
+
+.form-checkbox {
+    margin-right: 5px;
+}
+
+.form-item-with-control-to-the-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-actions {
+    padding-top: 30px;
+}
+
+.form-input,
+.form-select,
+.form-checkbox {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-button {
+    padding: 10px 20px !important;
+    border-radius: 20px !important;
+    font-weight: bold !important;
+}
+
+.spotify-authenticate-button {
+    background-color: #18D45E !important;;
+    padding: 10px 20px !important;
+    border-radius: 20px !important;
+    color: white !important;
+}

@@ -1,0 +1,99 @@
+/* dashboard.css */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.grid-item {
+    position: relative;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    height: 500px;
+    flex-direction: column;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    object-fit: cover;
+}
+
+.grid-item .title-base, .grid-item .subtitle {
+    position: relative;
+    margin: 10px 20px;
+}
+
+.grid-item .title-base {
+    font-size: 45px;
+    line-height: 1.1;
+    font-weight: bold;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.grid-item .subtitle {
+    font-size: 18px;
+    line-height: normal;
+    text-align: left;
+    padding-top: 10px;
+}
+
+/* Specific color variations for titles */
+.grid-item .white, .grid-item .subtitle { /* Ensures subtitle is always white */
+    color: white;
+}
+
+.grid-item .black { /* Black variant of the title */
+    color: black;
+}
+
+.grid-item button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: #AAAAAA;
+    color: white;
+    z-index: 10;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+#site_title {
+    display:none !important;
+}
+
+#title_bar {
+    display:none !important;
+}
+
+#utility_nav {
+    display:none !important;
+}

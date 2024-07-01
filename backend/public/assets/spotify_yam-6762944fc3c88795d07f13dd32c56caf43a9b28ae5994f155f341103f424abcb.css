@@ -1,0 +1,94 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.prompt {
+    position: fixed;  /* Makes sure the prompt is positioned relative to the viewport */
+    top: 50%;         /* Centers vertically */
+    left: 50%;        /* Centers horizontally */
+    transform: translate(-50%, -50%); /* Adjusts the exact centering of the element */
+    text-align: center;   /* Centers the text */
+    color: white;         /* Sets the text color to white */
+    font-size: 10em;      /* Sets the font size to 24 pixels */
+    z-index: 10;          /* Ensures the prompt is above the video */
+}
+
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+#logo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    transition: opacity 2s ease-in-out;
+    display: none;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    max-width: 300px;
+    max-height: 170px;
+}
+
+#logo img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.qr-container {
+    position: fixed;
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.qr-container {
+    animation: fadeIn 2s ease-in forwards;
+    opacity: 0;
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.title, .message {
+    margin: 0;
+    padding: 0;
+}
+.title {
+    font-weight: bold;
+    font-size: 1em;
+    padding-bottom: 10px;
+}
+.message {
+    font-size: 0.8em;
+    width: 165px;
+}

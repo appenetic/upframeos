@@ -1,0 +1,45 @@
+.legend {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.form-list {
+    list-style: none;
+    padding: 0;
+}
+
+.form-item {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-actions {
+    padding-top: 30px;
+}
+
+.form-input,
+.form-select,
+.form-checkbox {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-button {
+    background-color: #4CAF50 !important; /* Green background */
+    color: white;              /* White text */
+    border: none;              /* No border */
+    padding: 15px 32px !important;        /* Padding inside the button */
+    text-align: center;        /* Centered text */
+    text-decoration: none;     /* No underline */
+    display: inline-block;     /* Block level element */
+    font-size: 16px;           /* Text size */
+    margin: 4px 2px;           /* Margins around the button */
+    cursor: pointer;           /* Pointer cursor on hover */
+    border-radius: 4px;        /* Rounded corners */
+}

@@ -1,0 +1,68 @@
+/* dashboard.css */
+
+/* Grid container settings */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 items per row on wider screens */
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+/* Responsive grid on smaller screens */
+@media (max-width: 1200px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 items per row on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* 1 item per row on small screens */
+    }
+}
+
+.grid-item {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden; /* Ensures content fits within the borders */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-bottom: 20px; /* Space between grid items */
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+}
+
+.image-container img {
+    width: 100%;
+    display: block;
+}
+
+.grid-item h3, .grid-item p {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.grid-item p {
+    padding: 0 10px; /* Padding on the sides, adjust as needed */
+    overflow: hidden; /* Prevents text from overflowing */
+    text-overflow: ellipsis; /* Adds ellipsis when text overflows */
+    white-space: nowrap; /* Ensures text stays in a single line */
+    width: 100%; /* Matches width to parent (image-container or grid-item) */
+}
+
+.grid-item button {
+    background-color: #0056b3; /* Primary color for buttons */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-transform: uppercase; /* Makes the button text uppercase */
+    font-weight: bold;
+    display: block; /* Ensures the button is a block element */
+    width: calc(100% - 20px); /* Ensures padding does not affect width */
+    text-align: center; /* Centers text inside the button */
+}

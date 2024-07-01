@@ -1,0 +1,18 @@
+.legend {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.form-list {
+    list-style: none;
+    padding: 0;
+}
+
+.form-item {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+}

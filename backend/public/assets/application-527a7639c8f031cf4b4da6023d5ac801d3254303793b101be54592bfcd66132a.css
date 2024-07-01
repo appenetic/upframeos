@@ -1,0 +1,220 @@
+.artwork-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    z-index: 1;
+    background: black;
+}
+.cover-image {
+    object-fit: contain;
+}
+
+#background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    transition: background-color 0.5s ease;
+}
+
+.spotify-icon, .track-info {
+    position: absolute;
+    z-index: 2;
+}
+
+.spotify-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    z-index: 2;
+}
+
+.track-info {
+    bottom: 10px;
+    left: 10px;
+}
+
+#artist-name {
+    font-weight: bold;
+    font-size: 20pt;
+    margin-bottom: 0;
+}
+
+#track-name {
+    font-size: 20pt;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#spotify_canvas > *, #artist-info {
+    transition: opacity 0.5s ease;
+    opacity: 1;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.visible {
+    opacity: 1;
+}
+
+#spotify_canvas_container {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+#logo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    transition: opacity 2s ease-in-out;
+    display: none;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    max-width: 300px;
+    max-height: 170px;
+}
+
+#logo img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.qr-container {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.qr-container {
+    animation: fadeIn 2s ease-in forwards;
+    opacity: 0;
+}
+
+.qr-code {
+    margin-right: 10px;
+    height: 65px;
+    width: 65px;
+}
+.text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.title, .message {
+    margin: 0;
+    padding: 0;
+}
+.title {
+    font-weight: bold;
+    font-size: 1em;
+    padding-bottom: 10px;
+}
+.message {
+    font-size: 0.8em;
+    width: 165px;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.fullscreen-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: fill;
+    z-index: 1;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'Helvetica'
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+video::-internal-media-controls-overlay-cast-button {
+    display: none;
+}

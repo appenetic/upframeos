@@ -1,0 +1,63 @@
+/* dashboard.css */
+
+/* Grid container settings */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 items per row on wider screens */
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+/* Responsive grid on smaller screens */
+@media (max-width: 1200px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 items per row on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* 1 item per row on small screens */
+    }
+}
+
+/* Grid item settings */
+.grid-item {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden; /* Ensures content fits within the borders */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+    transition: transform 0.3s ease-in-out; /* Smooth transformation on hover */
+}
+
+/* Image styling */
+.grid-item img {
+    width: 100%; /* ensures image covers the width of the grid item */
+    height: auto; /* maintains aspect ratio */
+    object-fit: cover; /* ensures the image covers the designated area well */
+}
+
+.grid-item h3 {
+    margin-bottom: 10px; /* Adjust spacing between title and image */
+    text-align: center; /* Center the title */
+}
+
+.grid-item p {
+    text-align: center;
+    margin: 10px 0; /* Adjust spacing for visual balance */
+}
+
+/* Button styling */
+.grid-item button {
+    background-color: #AAAAAA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    display: block; /* ensures the button is a block element */
+    width: calc(100% - 20px); /* ensures padding does not affect width */
+    text-align: center; /* centers text inside the button */
+}

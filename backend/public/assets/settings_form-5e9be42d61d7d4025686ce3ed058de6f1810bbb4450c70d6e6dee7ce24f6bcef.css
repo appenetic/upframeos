@@ -1,0 +1,93 @@
+.fieldset {
+    position: relative;
+    border: 1px solid #E6E6E6; /* Light grey border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+    margin-bottom: 20px; /* Spacing between each section */
+    background-color: #fff; /* White background for the fieldset */
+}
+
+.legend {
+    width: 100%; /* Ensure the legend spans the full width */
+    position: absolute; /* Take the legend out of document flow */
+    top: -1px; /* Adjust this value to move the legend up to the border of the fieldset */
+    left: 0;
+    margin-bottom: 20px; /* Space between the legend and the rest of the form */
+
+    /* Create a long underline using a pseudo-element */
+    &:after {
+        content: '';
+        position: absolute;
+        left: 20px; /* Align with the padding of the fieldset */
+        bottom: -10px; /* Adjust this value to place the line below the text */
+        height: 2px; /* Thickness of the underline */
+        background: #000; /* Color of the underline */
+        width: calc(100% - 40px); /* Adjust the width according to the padding of the fieldset */
+        border-radius: 2px; /* Optional: rounded corners for the underline */
+    }
+}
+
+/* Because the legend is now absolutely positioned,
+   add a padding-top to the fieldset to prevent content overlap */
+.fieldset {
+    padding-top: 40px; /* Adjust this value based on the height of your legend */
+}
+
+
+.form-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.form-item {
+    margin-bottom: 15px; /* Space between form items */
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-label-with-control-to-the-left {
+    margin-bottom: 0;
+}
+
+.form-checkbox {
+    margin-right: 5px;
+}
+
+.form-item-with-control-to-the-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-input,
+.form-select,
+.form-checkbox {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-button-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0;
+}
+
+.submit-button {
+    padding: 10px 20px !important;
+    border-radius: 20px !important;
+    font-weight: bold !important;
+    width: auto !important;
+}
+
+.spotify-authenticate-button {
+    background-color: #18D45E !important;;
+    padding: 10px 20px !important;
+    border-radius: 20px !important;
+    color: white !important;
+}

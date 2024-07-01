@@ -1,0 +1,74 @@
+.cover-image {
+    width: 72vh;
+    height: 72vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: -1;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+#background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    transition: background-color 0.5s ease;
+}
+
+.spotify-icon, .track-info {
+    position: absolute;
+    z-index: 2;
+}
+
+.spotify-icon {
+    position: absolute;
+    top: 23px;
+    right: 23px;
+    width: 50px;
+    height: 50px;
+    z-index: 2;
+}
+
+.track-info {
+    bottom: 25px;
+    left: 25px;
+}
+
+#artist-name {
+    font-weight: bold;
+    font-size: 22pt;
+    margin-bottom: 0;
+}
+
+#track-name {
+    font-size: 22pt;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#spotify_canvas > *, #artist-info {
+    transition: opacity 0.5s ease;
+    opacity: 1;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.visible {
+    opacity: 1;
+}
+
+#spotify_canvas_container {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

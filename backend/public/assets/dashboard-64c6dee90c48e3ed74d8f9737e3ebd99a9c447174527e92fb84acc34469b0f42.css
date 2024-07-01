@@ -1,0 +1,85 @@
+/* dashboard.css */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Single column layout on smaller screens */
+    }
+}
+
+.grid-item {
+    position: relative;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex; /* Use Flexbox to manage layout */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Space between the top and bottom elements */
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    align-self: flex-end; /* Anchor image to the bottom */
+}
+
+/* Base styling for titles and subtitle */
+.grid-item .title-base, .grid-item .subtitle {
+    margin-left: 5%; /* Left padding */
+    margin-right: 5%; /* Right padding */
+}
+
+.grid-item .title-base {
+    font-size: 45px;
+    line-height: 1.1;
+    font-weight: bold;
+    text-align: left;
+    text-transform: uppercase;
+    margin-bottom: 10px; /* Ensures 10px gap between title and subtitle */
+}
+
+/* Specific color variations */
+.grid-item .white {
+    color: white;
+}
+
+.grid-item .black {
+    color: black;
+}
+
+.grid-item .subtitle {
+    font-size: 18px;
+    line-height: normal;
+    text-align: left;
+    color: white; /* Adjust color as needed */
+}
+
+.grid-item button {
+    position: absolute;
+    bottom: 5%;
+    left: 20px;
+    background-color: #AAAAAA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}

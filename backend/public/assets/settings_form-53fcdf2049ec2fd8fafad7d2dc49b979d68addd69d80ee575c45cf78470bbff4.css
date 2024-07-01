@@ -1,0 +1,74 @@
+.fieldset {
+    border: 1px solid #E6E6E6; /* Light grey border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 0; /* Spacing inside the fieldset */
+    margin-bottom: 0px !important; /* Spacing between each section */
+    background-color: #fff; /* White background for the fieldset */
+}
+
+.legend {
+    font-size: 1.2em; /* Adjust the size as needed */
+    font-weight: bold; /* Make the text bold */
+    color: #000; /* Set the text color; adjust as needed */
+    margin-bottom: 0 !important; /* Additional space to separate from the rest of the form */
+    border-bottom: none !important; /* Add a subtle bottom border to the legend */
+    width: auto; /* Ensure the legend does not stretch */
+}
+
+.form-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.form-item {
+    margin-bottom: 15px; /* Space between form items */
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-label-with-control-to-the-left {
+    margin-bottom: 0;
+}
+
+.form-checkbox {
+    margin-right: 5px;
+}
+
+.form-item-with-control-to-the-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-input,
+.form-select,
+.form-checkbox {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-button-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0;
+}
+
+.submit-button {
+    padding: 10px 20px !important;
+    border-radius: 20px !important;
+    font-weight: bold !important;
+    width: auto !important;
+}
+
+.spotify-authenticate-button {
+    background-color: #18D45E !important;;
+    padding: 10px 20px !important;
+    border-radius: 20px !important;
+    color: white !important;
+}

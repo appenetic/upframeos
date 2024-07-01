@@ -1,0 +1,60 @@
+/* dashboard.css */
+
+.grid-item {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden; /* Ensures content fits within the borders */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-bottom: 20px; /* Space between grid items */
+    position: relative; /* Essential for positioning the overlay correctly */
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden; /* Ensures no spill outside this container */
+}
+
+.image-container img {
+    width: 100%;
+    display: block;
+}
+
+.grid-item .overlay {
+    position: absolute;
+    top: 0; /* Position at the top of the image container */
+    left: 0; /* Align left edge with container */
+    width: 100%; /* Overlay covers full width of the image container */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for text */
+    color: white; /* Text color */
+    text-align: center; /* Center the text horizontally */
+    padding: 10px 0; /* Padding for readability */
+}
+
+.grid-item h3, .grid-item p {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.grid-item p {
+    padding: 0 10px; /* Padding on the sides, adjust as needed */
+    overflow: hidden; /* Prevents text from overflowing */
+    text-overflow: ellipsis; /* Adds ellipsis when text overflows */
+    white-space: nowrap; /* Ensures text stays in a single line */
+    width: 100%; /* Matches width to parent (image-container or grid-item) */
+}
+
+.grid-item button {
+    background-color: #0056b3; /* Primary color for buttons */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-transform: uppercase; /* Makes the button text uppercase */
+    font-weight: bold;
+    display: block; /* Ensures the button is a block element */
+    width: calc(100% - 20px); /* Ensures padding does not affect width */
+    text-align: center; /* Centers text inside the button */
+}

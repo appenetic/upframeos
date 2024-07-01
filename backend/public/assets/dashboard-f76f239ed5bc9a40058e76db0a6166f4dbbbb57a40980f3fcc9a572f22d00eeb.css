@@ -1,0 +1,156 @@
+/* dashboard.css */
+
+.grid-container {
+    align-items: start;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: min-content; /* Adjusts each row's height to the minimum content height */
+    grid-gap: 20px;
+    max-width: 1200px; /* Total width of four columns plus grid-gap */
+    margin: auto; /* Centers the grid within the page */
+}
+
+@media (max-width: 1200px) {
+    .grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.grid-item {
+    position: relative;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dynamic-height-grid-item {
+    position: relative;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center content */
+    align-items: start; /* Horizontally center content */
+    height: auto; /* Adjusts height based on content */
+}
+
+.dynamic-height-grid-item h3 {
+    margin-bottom: 0;
+}
+
+.dynamic-height-grid-item button {
+    margin-top: auto;
+    background-color: #AAAAAA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+}
+
+.grid-item .title-base, .grid-item .subtitle {
+    position: relative;
+    margin: 10px 20px;
+}
+
+.grid-item .title-base {
+    font-size: 45px;
+    line-height: 1.1;
+    font-weight: bold;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.grid-item .subtitle {
+    font-size: 18px;
+    line-height: normal;
+    text-align: left;
+    padding-top: 10px;
+}
+
+/* Specific color variations for titles */
+.grid-item .white, .grid-item .subtitle { /* Ensures subtitle is always white */
+    color: white;
+}
+
+.grid-item .black { /* Black variant of the title */
+    color: black;
+}
+
+.grid-item button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: #AAAAAA;
+    color: white;
+    z-index: 100;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+#header {
+    display:none !important;
+}
+
+#site_title {
+    display:none !important;
+}
+
+#title_bar {
+    display:none !important;
+}
+
+#utility_nav {
+    display:none !important;
+}
+
+body.active_admin.logged_in {
+    padding-top: 0 !important;
+    padding-left: 0 !important;
+}
+
+body.active_admin.logged_in #active_admin_content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+#main_content {
+    background-color: #F9F7FA !important;
+}
