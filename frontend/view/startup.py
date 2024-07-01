@@ -1,54 +1,32 @@
 import tkinter as tk
-from PIL import Image, ImageTk
-import cv2
-import os
+from widget.image_widget import ImageWidget
+from lib.api_client import APIClient
+import threading
 
 class StartUpView(tk.Frame):
-    def __init__(self, parent):
-        super().__init__(parent)
-        self.canvas = tk.Canvas(self, bg='black', width=800, height=600)
-        self.canvas.pack(fill=tk.BOTH, expand=True)
-        self.button = tk.Button(self, text="Continue", command=self.on_button_click)
-        self.button.pack(pady=20)
+    def __init__(self, parent, api_client, on_startup_completed_callback, check_interval=5000):
+        super().__init__(parent, bd=0, highlightthickness=0)
+        self.parent = parent
+        self.api_client = api_client
+        self.on_startup_completed_callback = on_startup_completed_callback
+        self.check_interval = check_interval  # in milliseconds
+        
+        image_widget = ImageWidget(self, 'assets/upframe.png', bg='black')
+        image_widget.pack(fill=tk.BOTH, expand=True)
+        
+        self.after(self.check_interval, self.periodic_check)
 
-    def on_button_click(self):
-        print("Button was clicked!")
+    def periodic_check(self):
+        # Move the API call to a thread to avoid freezing the UI
+        thread = threading.Thread(target=self.check_status)
+        thread.daemon = True
+        thread.start()
 
-    def render(self):
-        # Image path
-        image_path = 'assets/artwork.jpg'
-
-        # Check if the image file exists
-        if not os.path.exists(image_path):
-            print(f"Error: Image file {image_path} does not exist")
-            return
-
-        # Read the image
-        print(f"Reading image from {image_path}")
-        image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
-        if image is None:
-            print(f"Error: Could not load image {image_path}")
-            return
-
-        print("Image loaded successfully")
-
-        # Convert image from BGR to RGB
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        print("Image converted from BGR to RGB")
-
-        # Convert image to PIL format
-        image = Image.fromarray(image)
-        print("Image converted to PIL format")
-
-        # Create PhotoImage from PIL image
-        self.photo_image = ImageTk.PhotoImage(image)
-        print("PhotoImage created successfully")
-
-        # Display the image on the canvas, centered
-        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.photo_image)
-        self.canvas.image = self.photo_image  # Keep a reference to avoid garbage collection
-        print("Image displayed on canvas")
-
-        # Force update the canvas
-        self.canvas.update()
-        self.update_idletasks()
+    def check_status(self):
+        is_online = self.api_client.get_boot_status()
+        if is_online:
+            # Invoke the callback in the main thread
+            self.parent.after(0, self.on_startup_completed_callback)
+        else:
+            # Reschedule the next check in the main thread
+            self.parent.after(self.check_interval, self.periodic_check)
